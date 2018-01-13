@@ -1,5 +1,5 @@
 const passport = require('passport')
-const JWT = require('JWT')
+const JWT = require('jsonwebtoken')
 const PassportJWT = require('passport-jwt')
 const User = require('../models/User')
 
@@ -10,9 +10,9 @@ const jwtExpiresIn = process.env.JWT_EXPIRES_IN
 passport.use(User.createStrategy())
 
 const signUp = (req, res, next) => {
-  const User = new User({
+  const user = new User({
     email: req.body.email,
-    firsName: req.body.firsName,
+    firstName: req.body.firstName,
     lastName: req.body.lastName
   })
 
@@ -68,7 +68,7 @@ passport.use(
 
 module.exports = {
   initialize: passport.initialize(),
-  register,
+  signUp,
   signIn: passport.authenticate('local', { session: false }),
   requireJWT: passport.authenticate('jwt', { session: false }),
   signJWTForUser
