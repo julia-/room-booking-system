@@ -6,17 +6,17 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const config = require('./config')
-// const authMiddleware = require('./middleware/auth')
+const authMiddleware = require('./middleware/auth')
 
 const server = express()
 
 // Middleware
 server.use(bodyParser.json())
 server.use(cors())
-// server.use(authMiddleware.initialize)
+server.use(authMiddleware.initialize)
 
 // Routes
-// server.use([require('./routes/index')])
+server.use(require('./routes/auth'))
 
 // Error handling
 server.use((error, req, res, next) => {
