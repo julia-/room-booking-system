@@ -2,8 +2,8 @@ const mongoose = require('./init')
 const Schema = mongoose.Schema
 
 const roomSchema = new Schema({
-  name: { type: [String], index: true },
-  floor: String,
+  name: { type: String, index: true, required: true },
+  floor: { type: String, required: true },
   capacity: Number,
   assets: {
     macLab: { type: Boolean, default: false },
@@ -20,8 +20,8 @@ const roomSchema = new Schema({
       bookingStart: Date,
       bookingEnd: Date,
       recurring: { type: Boolean, default: false },
-      businessUnit: String,
-      purpose: String
+      businessUnit: { type: String, required: true },
+      purpose: { type: String, required: true }
     }
   ]
 })
