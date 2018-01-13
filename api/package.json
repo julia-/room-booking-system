@@ -28,6 +28,7 @@
     "prettier": "^1.10.2"
   },
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "drop": "node models/drop.js"
   }
 }
