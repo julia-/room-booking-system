@@ -26,15 +26,19 @@ router.post('/rooms', requireJWT, (req, res) => {
 
 router.put('/rooms/:id', requireJWT, (req, res) => {
   const { id } = req.params
-  Room.findByIdAndUpdate(id, {
-    $addToSet: {
-      bookings: {
-        user: req.user,
-        businessUnit: req.body.businessUnit,
-        purpose: req.body.purpose
+  Room.findByIdAndUpdate(
+    id, 
+    {
+      $addToSet: {
+        bookings: {
+          user: req.user,
+          // Spread operator for remaining attributes
+          ...req.body
+        }
       }
-    }
-  })
+    },
+    { new: true }
+  )
     .then(room => {
       res.status(201).json({ room: room.bookings })
     })
