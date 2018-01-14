@@ -13,27 +13,25 @@ class App extends Component {
   // Pass supplied email & password to the signIn function, returns the users token
   onSignIn = ({email, password}) => {
     signIn({ email, password })
-      .then((data) => {
-        console.log('signed in', data)
-        const token = data.token
-        // Set the authorisation header for axios requests
-        setToken(token)
-        // Load room data with token now set
-        listRooms()
-        .then((rooms) => {
-          console.log('loaded rooms:', rooms)
-        })
-        .catch((error) => {
-          console.error('Error loading room data', error)
-        })
+      .then((decodedToken) => {
+        console.log('signed in', decodedToken)
+        this.setState({ decodedToken })
       })
   }
 
   render() {
+    const { decodedToken } = this.state
+
     return (
       <div className="App">
         <h1>Red Hill Room System</h1>
-        <SignInForm onSignIn={ this.onSignIn } />
+        {
+          !!decodedToken ? (
+            <h3>Signed in User: {decodedToken.email}</h3>
+          ) : (
+            <SignInForm onSignIn={ this.onSignIn } />
+          )
+        }
       </div>
     );
   }
@@ -43,7 +41,7 @@ class App extends Component {
     // Load room data from database
     listRooms()
       .then((rooms) => {
-        console.log(rooms)
+        console.log('Room data:', rooms)
       })
       .catch((error) => {
         console.error('Error loading room data', error)
