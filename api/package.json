@@ -30,6 +30,7 @@
   },
   "scripts": {
     "dev": "nodemon server.js",
-    "drop": "node models/drop.js"
+    "drop": "node models/drop.js",
+    "seed": "node models/seed.js"
   }
 }
