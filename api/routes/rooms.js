@@ -33,7 +33,7 @@ const dateAEST = date => {
 
 // Function to calculate the duration of the hours between the start and end of the booking
 const durationHours = (bookingStart, bookingEnd) => {
-  // convert the UTC Date objects to AEST Moment.js objeccts
+  // convert the UTC Date objects to Moment.js objeccts
   let startDateLocal = dateAEST(bookingStart)
   let endDateLocal = dateAEST(bookingEnd)
   // calculate the duration of the difference between the two times
