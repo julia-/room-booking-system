@@ -29,7 +29,6 @@ function BookingForm({
 
       const businessUnit = formData.business.value
       const purpose = formData.purpose.value
-      {/* console.log({startDate, endDate, businessUnit, purpose, roomId}) */}
       onMakeBooking({startDate, endDate, businessUnit, purpose, roomId})
     }}
     >

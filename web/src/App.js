@@ -5,6 +5,7 @@ import BookingForm from './components/BookingForm'
 import { signIn, signOut } from './api/auth'
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
+import { makeBooking } from './api/booking'
 
 class App extends Component {
   state = {
@@ -35,8 +36,10 @@ class App extends Component {
     this.setState({ decodedToken: null })
   }
 
-  onMakeBooking = (data) => {
-    console.log('booking data:', data)
+  onMakeBooking = ({startDate, endDate, businessUnit, purpose, roomId}) => {
+    const bookingData = {startDate, endDate, businessUnit, purpose, roomId}
+    console.log('booking data:', bookingData)
+    makeBooking({startDate, endDate, businessUnit, purpose, roomId})
   }
 
   render() {
