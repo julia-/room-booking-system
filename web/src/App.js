@@ -3,11 +3,11 @@ import './App.css';
 import SignInForm from './components/SignInForm'
 import { signIn } from './api/auth'
 import { listRooms } from './api/rooms'
-import { setToken } from './api/init'
+import { getDecodedToken } from './api/token'
 
 class App extends Component {
   state = {
-    decodedToken: null
+    decodedToken: getDecodedToken() // retrieves the token from local storage if valid, else will be null
   }
 
   // Pass supplied email & password to the signIn function, returns the users token
@@ -24,7 +24,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>Red Hill Room System</h1>
+        <h1>Red Hill Room System!</h1>
         {
           !!decodedToken ? (
             <h3>Signed in User: {decodedToken.email}</h3>

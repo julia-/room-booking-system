@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { saveToken } from './token'
+import { saveToken, getValidToken, getDecodedToken } from './token'
 
 // Create an axios instance
 const api = axios.create({
@@ -17,5 +17,8 @@ export function setToken(token) {
     delete api.defaults.headers.common['Authorization']
   }
 }
+
+// Validates token, and removes it if it's invalid
+setToken(getValidToken())
 
 export default api
