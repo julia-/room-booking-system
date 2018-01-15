@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
 import SignInForm from './components/SignInForm'
+import BookingForm from './components/BookingForm'
 import { signIn, signOut } from './api/auth'
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
 
 class App extends Component {
   state = {
-    decodedToken: getDecodedToken() // retrieves the token from local storage if valid, else will be null
+    decodedToken: getDecodedToken(), // retrieves the token from local storage if valid, else will be null
+    roomData: null,
+    currentRoom: {
+      name: 'Room 1',
+      id: "5a5c0d782b191c21b1eebf52",
+      floor: '8',
+      capacity: 18,
+      assets: {
+        pcLab: true
+      }
+    },
   }
 
   // Pass supplied email & password to the signIn function, returns the users token
@@ -24,8 +35,12 @@ class App extends Component {
     this.setState({ decodedToken: null })
   }
 
+  onMakeBooking = (data) => {
+    console.log('booking data:', data)
+  }
+
   render() {
-    const { decodedToken } = this.state
+    const { decodedToken, currentRoom } = this.state
     const signedIn = !!decodedToken
 
     return (
@@ -36,6 +51,7 @@ class App extends Component {
             <div>
               <h3>Signed in User: {decodedToken.email}</h3>
               <button onClick={ this.onSignOut } >Log Out</button>
+              <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
             </div>
           ) : (
             <SignInForm onSignIn={ this.onSignIn } />
@@ -50,7 +66,8 @@ class App extends Component {
     // Load room data from database
     listRooms()
       .then((rooms) => {
-        console.log('Room data:', rooms)
+        this.setState({ roomData: rooms})
+        console.log('Room data on state:', this.state.roomData)
       })
       .catch((error) => {
         console.error('Error loading room data', error)
