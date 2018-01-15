@@ -23,20 +23,13 @@ const durationHours = (bookingStart, bookingEnd) => {
   return difference.hours() + difference.minutes() / 60
 }
 
-// Accepts the current date in 'YYYY/MM/DD' format and an array of bookings and returns an array with required details - the start time and length of each booking in hours and details regarding who made the booking
+// Accepts the current date in 'YYYY/MM/DD' format and all of a room's bookings and returns an array of each booking which matches that date
 export function dailyBookings(currentDate, roomBookings) {
   // Map each booking to an array
   Object.keys(roomBookings).map((booking) => {
     // Check if the booking is for the current date 
     if (dateAEST(booking.bookingStart).format('YYYY/MM/DD') === currentDate) {
-      return [
-        // The hour on which the booking starts, calculated from 8AM as time = 0
-        dateAEST(booking.bookingStart).format('H') - 8,
-        // The duration of the booking in decimal format
-        durationHours(booking.bookingStart, booking.bookingEnd),
-        // Booking reference
-        booking._bookingID
-      ]
+      return booking
     } else {
       return null
     }
