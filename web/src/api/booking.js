@@ -11,6 +11,13 @@ const bookStartDate = (dataArray) => {
   return startDate
 }
 
+const bookEndDate = (dataArray) => {
+  // Save as Date object in UTC
+  let endDate = moment(dataArray).toDate()
+  return endDate
+}
+
+
 
 
 
