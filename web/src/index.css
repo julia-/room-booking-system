@@ -16,7 +16,19 @@ input {
 form {
   padding: 20px;
   margin: 10px auto;
-  width: 600px;
+  width: 900px;
   border-radius: 15px;
   box-shadow: 0px 3px 15px rgba(4, 5, 10, 0.4);
   }
+
+.date-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.date-selector {
+  margin: 10px;
+  padding: 10px;
+  width: 300px;
+}
