@@ -1,6 +1,5 @@
 import moment from 'moment'
 import momentTimezone from 'moment-timezone'
-import axios from 'axios'
 import api from './init'
 
 // Function to receive booking data (AEST) and convert to JS Date object
@@ -12,7 +11,7 @@ const dateUTC = (dataArray) => {
 
 // Make a room booking
 export function makeBooking(data) {
-  return api.put(`/rooms/${data.id}`, {
+  return api.put(`/rooms/${data.roomId}`, {
     bookingStart: dateUTC(data.startDate),
     bookingEnd: dateUTC(data.endDate),
     businessUnit: data.businessUnit,
