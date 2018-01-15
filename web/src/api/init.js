@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { saveToken, getValidToken, getDecodedToken } from './token'
+import { rememberToken, getValidToken } from './token'
 
 // Create an axios instance
 const api = axios.create({
@@ -8,7 +8,7 @@ const api = axios.create({
 
 export function setToken(token) {
   // saves token to local storage
-  saveToken(token)
+  rememberToken(token)
   if (token) {
     // Setting the Authorisation header for all future GET requests 
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`

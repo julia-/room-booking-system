@@ -2,7 +2,7 @@
 import decodeJWT from 'jwt-decode'
 const key = 'userToken'
 
-export function saveToken(token) {
+export function rememberToken(token) {
   if (token) {
     // store the token
     localStorage.setItem(key, token)

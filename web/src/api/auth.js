@@ -11,3 +11,7 @@ export function signIn({ email, password }) {
       return getDecodedToken()
     })
 }
+
+export function signOut() {
+  setToken(null)
+}
