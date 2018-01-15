@@ -26,12 +26,13 @@ class App extends Component {
 
   render() {
     const { decodedToken } = this.state
+    const signedIn = !!decodedToken
 
     return (
       <div className="App">
         <h1>Red Hill Room System!</h1>
         {
-          !!decodedToken ? (
+          signedIn ? (
             <div>
               <h3>Signed in User: {decodedToken.email}</h3>
               <button onClick={ this.onSignOut } >Log Out</button>
