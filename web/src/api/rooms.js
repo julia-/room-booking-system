@@ -12,7 +12,14 @@ const dateAEST = (date) => {
   return momentTimezone(date).tz('Australia/Sydney')
 }
 
-// accepts the current date in 'YYYY/MM/DD' format and an array of bookings and returns an array with required details - the start time and length of each booking in hours and details regarding who made the booking
-export function dailyBookings(currentDate, roomBookings) {
-  // 
+// Function to calculate the duration of the hours between the start and end of the booking
+const durationHours = (bookingStart, bookingEnd) => {
+  // convert the UTC Date objects to AEST Moment.js objeccts
+  let startDateLocal = dateAEST(bookingStart)
+  let endDateLocal = dateAEST(bookingEnd)
+  // calculate the duration of the difference between the two times
+  let difference = moment.duration(endDateLocal.diff(startDateLocal))
+  // return the difference in decimal format
+  return difference.hours() + difference.minutes() / 60
 }
+
