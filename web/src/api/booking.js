@@ -10,3 +10,14 @@ const dateUTC = (dataArray) => {
   // Save as Date object in UTC
   return moment(dataArray).toDate()
 }
+
+// Make a room booking
+export function makeBooking(data) {
+  return api.put(`/rooms/${data.id}`, {
+    bookingStart: dateUTC(data.startDate),
+    bookingEnd: dateUTC(data.endDate),
+    businessUnit: data.businessUnit,
+    purpose: data.purpose
+  })
+    .then((res) => res.data)
+}
