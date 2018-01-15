@@ -11,6 +11,11 @@ const dateUTC = (dataArray) => {
   return moment(dataArray).toDate()
 }
 
+// Function to convert retrieved booking data (as a UTC JS Date object) to a Moment.js object in AEST
+const dateAEST = (date) => {
+  return momentTimezone(date).tz('Australia/Sydney')
+}
+
 // Make a room booking
 export function makeBooking(data) {
   return api.put(`/rooms/${data.id}`, {
