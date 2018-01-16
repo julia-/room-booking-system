@@ -78,7 +78,6 @@ class App extends Component {
             <div>
               <div className="user-info">
                 <h3>Signed in User: {decodedToken.email}</h3>
-                <h3>{currentRoom.name}</h3>
                 <button onClick={ this.onSignOut } >Log Out</button>
               </div>
               {/* <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} /> */}

@@ -14,8 +14,7 @@ function RoomSelector({
       <button onClick={ () => setRoom('Room 5')}>room 5</button>
       <div>
         {
-          !!roomData &&
-          Object.keys(roomData.bookings).map(key => <BookingElement key={key} bookingData={key}/>)
+          Object.keys(roomData.bookings).map(key => <BookingElement key={key} bookingData={roomData.bookings[key]}/>)
         }
       </div>
     </div>

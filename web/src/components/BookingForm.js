@@ -25,7 +25,9 @@ function BookingForm({
     dateArray = date.split(' ').map((item) => parseInt(item))
     return dateArray
  }
-
+  var spanStyle = {
+    color: "blue"
+  }
   return (
     
     <form
@@ -49,7 +51,7 @@ function BookingForm({
     }}
     >
     <h2>{roomData.name}</h2>
-    <h2>ID: {roomData._id}</h2>
+    <h2>Room ID: <span style={spanStyle} >{roomData._id}</span></h2>
     <div className="date-container">
       <div className="left-container">
         <Datetime 
@@ -67,7 +69,7 @@ function BookingForm({
       </div>
 
       <div className="right-container">
-        
+        <h3>Make a Booking</h3>
           <label>
             {'Start Time: '}
             <input type="time" name="startTime" min="00:00" max="23:00" />
