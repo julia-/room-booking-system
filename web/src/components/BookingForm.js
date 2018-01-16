@@ -41,51 +41,59 @@ function BookingForm({
 
       const businessUnit = formData.business.value
       const purpose = formData.purpose.value
-      {/* onMakeBooking({startDate, endDate, businessUnit, purpose, roomId}) */}
-      console.log({startDate, endDate, businessUnit, purpose, roomId})
+      onMakeBooking({startDate, endDate, businessUnit, purpose, roomId})
     }}
     >
     <h2>{roomData.name}</h2>
     <div className="date-container">
-      <Datetime 
-        dateFormat="YYYY-MM-DD" 
-        timeFormat={false} 
-        input={true}
-        utc={true} 
-        isValidDate={valid}
-        onChange={ (event) => handleDate(event._d)}        
-      />
-      <div className="date-selector">
+      <div className="left-container">
+        <Datetime 
+          dateFormat="YYYY-MM-DD" 
+          timeFormat={false} 
+          input={false}
+          utc={true} 
+          isValidDate={valid}
+          onChange={ (event) => handleDate(event._d)}        
+        />
+      </div>
+
+      <div className="middle-container">
+        <BookingFormTable />
+      </div>
+
+      <div className="right-container">
+        <div className="date-selector">
+          <label>
+            {'Start Hour: '}
+            <input type="number" name="startHour" />
+          </label>
+          <label>
+            {'Start Minute: '}
+            <input type="number" name="startMinute" />
+          </label>
+        </div>
+        <div className="date-selector">
+          <label>
+            {'End Hour: '}
+            <input type="number" name="endHour" />
+          </label>
+          <label>
+            {'End Minute: '}
+            <input type="number" name="endMinute" />
+          </label>
+        </div>
         <label>
-          {'Start Hour: '}
-          <input type="number" name="startHour" />
+          {'Business Unit: '}
+          <input type="text" name="business" />
         </label>
         <label>
-          {'Start Minute: '}
-          <input type="number" name="startMinute" />
+          {'Purpose: '}
+          <input type="text" name="purpose" />
         </label>
       </div>
-      <div className="date-selector">
-        <label>
-          {'End Hour: '}
-          <input type="number" name="endHour" />
-        </label>
-        <label>
-          {'End Minute: '}
-          <input type="number" name="endMinute" />
-        </label>
       </div>
-    </div>
-    <label>
-      {'Business Unit: '}
-      <input type="text" name="business" />
-    </label>
-    <label>
-      {'Purpose: '}
-      <input type="text" name="purpose" />
-    </label>
     <button>Submit</button>
-    <BookingFormTable />
+
   </form>
   )
 }
