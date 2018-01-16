@@ -6,6 +6,7 @@ import './react-datetime.css'
 import SignInForm from './components/SignInForm'
 import RoomsList from './components/RoomsList'
 import BookingForm from './components/BookingForm'
+import NavBar from './components/NavBar'
 import { signIn, signOut } from './api/auth'
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
@@ -71,16 +72,20 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>Booking Room System</h1>
+        <NavBar />
         {
           signedIn ? (
             <div>
-              <h3>Signed in User: {decodedToken.email}</h3>
-              <h3>{currentRoom.name}</h3>
-              <button onClick={ this.onSignOut } >Log Out</button>
+              <div className="user-info">
+                <h3>Signed in User: {decodedToken.email}</h3>
+                <h3>{currentRoom.name}</h3>
+                <button onClick={ this.onSignOut } >Log Out</button>
+              </div>
               {/* <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} /> */}
-              <RoomSelector setRoom={this.setRoom} roomData={currentRoom} />
-              <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
+              <div className="booking-container">
+                <RoomSelector setRoom={this.setRoom} roomData={currentRoom} />
+                <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
+              </div>
             </div>
           ) : (
             <SignInForm onSignIn={ this.onSignIn } />

@@ -5,7 +5,7 @@ function RoomSelector({
   roomData
 }) {
   return (
-    <div>
+    <div className="room-selector" >
       <h2>Select Room</h2>
       <button onClick={ () => setRoom('Room 1')}>room 1</button>
       <button onClick={ () => setRoom('Room 2')}>room 2</button>
