@@ -3,6 +3,7 @@ import BookingFormTable from './BookingFormTable'
 import Datetime  from 'react-datetime'
 import moment from 'moment'
 import momentTimezone from 'moment-timezone'
+import formatTime from '../helpers/bookingForm'
 
 function BookingForm({
   onMakeBooking,
@@ -14,19 +15,16 @@ function BookingForm({
     return current.day() !== 0
   }
 
+  // Array used for handleData function
   let dateArray = []
 
+  // Takes the momentJS date object and converts it to an Array
+  // eg. 2018-04-12 => [2018, 4, 12]
   const handleDate = (event) =>{
     const date = moment(event).format('Y M D')
     dateArray = date.split(' ').map((item) => parseInt(item))
     return dateArray
  }
-
-  const formatTime = (time) => {
-    let formatedTimeArray = []
-    formatedTimeArray = time.split(':').map((item) => parseInt(item))
-    return formatedTimeArray
-  }
 
   return (
     
