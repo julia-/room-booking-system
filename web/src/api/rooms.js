@@ -12,7 +12,12 @@ const dateAEST = (date) => {
   return momentTimezone(date).tz('Australia/Sydney')
 }
 
-// accepts the current date in 'YYYY/MM/DD' format and an array of bookings and returns an array with required details - the start time and length of each booking in hours and details regarding who made the booking
+// Accepts the search date in 'YYYY/MM/DD' format and all of a room's bookings and filters the array for bookings that match the search date
 export function dailyBookings(currentDate, roomBookings) {
-  // 
+  return roomBookings.filter(booking =>
+    // Check if the booking is for the current date 
+    dateAEST(booking.bookingStart).format('YYYY/MM/DD') === currentDate
+  )
 }
+
+

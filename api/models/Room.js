@@ -6,6 +6,8 @@ const bookingSchema = new Schema({
   user: { type: Schema.ObjectId, ref: 'User' },
   bookingStart: Date,
   bookingEnd: Date,
+  startHour: Number,
+  duration: Number,
   recurring: { type: Boolean, default: false },
   businessUnit: { type: String, required: true },
   purpose: { type: String, required: true }

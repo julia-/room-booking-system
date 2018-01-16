@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
-import './App.css';
-import './react-datetime.css';
+
+
+import React, { Component } from 'react'
+import './App.css'
+import './react-datetime.css'
 import SignInForm from './components/SignInForm'
+import RoomsList from './components/RoomsList'
 import BookingForm from './components/BookingForm'
 import { signIn, signOut } from './api/auth'
 import { listRooms } from './api/rooms'
@@ -25,12 +28,11 @@ class App extends Component {
   }
 
   // Pass supplied email & password to the signIn function, returns the users token
-  onSignIn = ({email, password}) => {
-    signIn({ email, password })
-      .then((decodedToken) => {
-        console.log('signed in', decodedToken)
-        this.setState({ decodedToken })
-      })
+  onSignIn = ({ email, password }) => {
+    signIn({ email, password }).then(decodedToken => {
+      console.log('signed in', decodedToken)
+      this.setState({ decodedToken })
+    })
   }
 
   onSignOut = () => {
@@ -46,7 +48,7 @@ class App extends Component {
   }
 
   render() {
-    const { decodedToken, currentRoom } = this.state
+    const { decodedToken, roomData, currentRoom } = this.state
     const signedIn = !!decodedToken
 
     return (
@@ -57,6 +59,7 @@ class App extends Component {
             <div>
               <h3>Signed in User: {decodedToken.email}</h3>
               <button onClick={ this.onSignOut } >Log Out</button>
+              <RoomsList rooms={roomData} />
               <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
             </div>
           ) : (
@@ -64,21 +67,23 @@ class App extends Component {
           )
         }
       </div>
-    );
+    )
   }
 
-  // When the App first renders
-  componentDidMount() {
-    // Load room data from database
+  load() {
     listRooms()
-      .then((rooms) => {
-        this.setState({ roomData: rooms})
+      .then(rooms => {
+        this.setState({ roomData: rooms })
         console.log('Room data on state:', this.state.roomData)
       })
-      .catch((error) => {
+      .catch(error => {
         console.error('Error loading room data', error)
       })
   }
+  // When the App first renders
+  componentDidMount() {
+    this.load()
+  }
 }
 
-export default App;
+export default App
