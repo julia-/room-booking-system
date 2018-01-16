@@ -69,16 +69,17 @@ class App extends Component {
   render() {
     const { decodedToken, roomData, currentRoom } = this.state
     const signedIn = !!decodedToken
+    const signOut = this.onSignOut
 
     return (
       <div className="App">
-        <NavBar />
+        <NavBar signOut={signOut} />
         {
           signedIn ? (
             <div>
               <div className="user-info">
                 <h3>Signed in User: {decodedToken.email}</h3>
-                <button onClick={ this.onSignOut } >Log Out</button>
+                <button onClick={ signOut } >Log Out</button>
               </div>
               {/* <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} /> */}
               <div className="booking-container">

@@ -91,7 +91,11 @@ nav {
   z-index: 999;
   background:#1E8BC3;
   color:#fff;
-  
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
 }
 
 #brand {

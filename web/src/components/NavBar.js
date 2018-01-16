@@ -1,7 +1,7 @@
 import React from 'react'
 
 function NavBar({
-
+  signOut
 }) {
   return (
     <nav className="nav">
@@ -10,7 +10,7 @@ function NavBar({
 
           <li id="brand">Room Booking System</li>
         <ul>
-          <li>Logout</li>
+          <li><a href="/" onClick={signOut}>Logout</a></li>
         </ul>
 
         <ul>
