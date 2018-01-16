@@ -11,7 +11,7 @@ const dateUTC = (dataArray) => {
 
 // Make a room booking
 export function makeBooking(data, existingBookings) {
-  console.log(data, existingBookings)
+  
   // Convert booking data to UTC Date objects
   let bookingStart = dateUTC(data.startDate)
   let bookingEnd = dateUTC(data.endDate)
@@ -25,18 +25,22 @@ export function makeBooking(data, existingBookings) {
 
   existingBookings.forEach(booking => {
 
+    // Convert existing booking Date objects into number values
     let existingBookingStart = new Date(booking.bookingStart).getTime()
     let existingBookingEnd = new Date(booking.bookingEnd).getTime()
 
-    if (newBookingStart > existingBookingStart && newBookingStart < existingBookingEnd || 
-        existingBookingStart > newBookingStart && existingBookingStart < newBookingEnd) {
+    // Check whether there is a clash between the new booking and the existing booking
+    if (newBookingStart >= existingBookingStart && newBookingStart < existingBookingEnd || 
+        existingBookingStart >= newBookingStart && existingBookingStart < newBookingEnd) {
+          // Switch the bookingClash variable if there is a clash
           return bookingClash = true
     }
   })
   
-  // Return an error message if there is a booking clash, otherwise make the booking
+  // Return an error message if there is a booking clash
   if (bookingClash) {
     throw "Your booking could not be saved. There is an existing booking during the times selected."
+  // If there is not a booking clash, save the new booking to the database
   } else {
     return api.put(`/rooms/${data.roomId}`, {
       bookingStart: bookingStart,
