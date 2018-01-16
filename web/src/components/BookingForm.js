@@ -1,4 +1,8 @@
 import React from 'react'
+import BookingFormTable from './BookingFormTable'
+import Datetime  from 'react-datetime'
+import moment from 'moment'
+import momentTimezone from 'moment-timezone'
 
 function BookingForm({
   onMakeBooking,
@@ -6,33 +10,51 @@ function BookingForm({
   roomData
 }) {
   
+  const valid = function( current ){
+    return current.day() !== 0
+  }
+
+  let dateArray = []
+
+  const handleDate = (event) =>{
+    const date = moment(event).format('Y M D')
+    dateArray = date.split(' ').map((item) => parseInt(item))
+    return dateArray
+ }
+
   return (
+    
     <form
     onSubmit={ (event) => {
       event.preventDefault()
       // Data from input
       const formData = event.target.elements
       const roomId = roomData.id
-      // Year, Month, Day data
-      const year = parseInt(formData.year.value, 10)
-      const month = parseInt(formData.month.value, 10)
-      const day = parseInt(formData.day.value, 10)
       // startDate data
       const startHour = parseInt(formData.startHour.value, 10)
       const startMinute = parseInt(formData.startMinute.value, 10)
-      const startDate = [year, month, day, startHour, startMinute]
+      const startDate = [...dateArray, startHour, startMinute]
       // endDate data
       const endHour = parseInt(formData.endHour.value, 10)
       const endMinute = parseInt(formData.endMinute.value, 10)
-      const endDate = [year, month, day, endHour, endMinute]
+      const endDate = [...dateArray, endHour, endMinute]
 
       const businessUnit = formData.business.value
       const purpose = formData.purpose.value
-      onMakeBooking({startDate, endDate, businessUnit, purpose, roomId})
+      {/* onMakeBooking({startDate, endDate, businessUnit, purpose, roomId}) */}
+      console.log({startDate, endDate, businessUnit, purpose, roomId})
     }}
     >
     <h2>{roomData.name}</h2>
     <div className="date-container">
+      <Datetime 
+        dateFormat="YYYY-MM-DD" 
+        timeFormat={false} 
+        input={true}
+        utc={true} 
+        isValidDate={valid}
+        onChange={ (event) => handleDate(event._d)}        
+      />
       <div className="date-selector">
         <label>
           {'Start Hour: '}
@@ -55,18 +77,6 @@ function BookingForm({
       </div>
     </div>
     <label>
-      {'Year: '}
-      <input type="number" name="year" />
-    </label>
-    <label>
-      {'Month: '}
-      <input type="number" name="month" />
-    </label>
-    <label>
-      {'Day: '}
-      <input type="number" name="day" />
-    </label>
-    <label>
       {'Business Unit: '}
       <input type="text" name="business" />
     </label>
@@ -75,6 +85,7 @@ function BookingForm({
       <input type="text" name="purpose" />
     </label>
     <button>Submit</button>
+    <BookingFormTable />
   </form>
   )
 }

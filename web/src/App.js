@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import './react-datetime.css';
 import SignInForm from './components/SignInForm'
 import BookingForm from './components/BookingForm'
 import { signIn, signOut } from './api/auth'
@@ -18,7 +19,8 @@ class App extends Component {
       capacity: 18,
       assets: {
         pcLab: true
-      }
+      },
+      bookings: []
     },
   }
 
@@ -38,8 +40,9 @@ class App extends Component {
 
   onMakeBooking = ({startDate, endDate, businessUnit, purpose, roomId}) => {
     const bookingData = {startDate, endDate, businessUnit, purpose, roomId}
+    const existingBookings = this.state.currentRoom.bookings
     console.log('booking data:', bookingData)
-    makeBooking({startDate, endDate, businessUnit, purpose, roomId})
+    makeBooking({startDate, endDate, businessUnit, purpose, roomId}, existingBookings)
   }
 
   render() {
