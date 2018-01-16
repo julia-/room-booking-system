@@ -14,7 +14,7 @@ function RoomSelector({
       <div>
         {
           !!roomData &&
-          Object.keys(roomData.bookings).map(key => <p key={key}>O</p>)
+          Object.keys(roomData.bookings).map(key => <p key={key}>{key}</p>)
         }
       </div>
     </div>

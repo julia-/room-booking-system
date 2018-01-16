@@ -66,21 +66,21 @@ function BookingForm({
         <div className="date-selector">
           <label>
             {'Start Hour: '}
-            <input type="number" name="startHour" />
+            <input type="number" name="startHour" min="0" max="23" />
           </label>
           <label>
             {'Start Minute: '}
-            <input type="number" name="startMinute" />
+            <input type="number" name="startMinute" step="10" min="0" max="50"/>
           </label>
         </div>
         <div className="date-selector">
           <label>
             {'End Hour: '}
-            <input type="number" name="endHour" />
+            <input type="number" name="endHour" min="0" max="23" />
           </label>
           <label>
             {'End Minute: '}
-            <input type="number" name="endMinute" />
+            <input type="number" name="endMinute" step="10" min="0" max="50"/>
           </label>
         </div>
         <label>
