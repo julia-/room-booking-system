@@ -50,8 +50,8 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
       $addToSet: {
         bookings: {
           user: req.user,
-          // The hour on which the booking starts, calculated from 8AM as time = 0
-          startHour: dateAEST(req.body.bookingStart).format('H') - 8,
+          // The hour on which the booking starts, calculated from 12:00AM as time = 0
+          startHour: dateAEST(req.body.bookingStart).format('H.mm'),
           // The duration of the booking in decimal format
           duration: durationHours(req.body.bookingStart, req.body.bookingEnd),
           // Spread operator for remaining attributes
