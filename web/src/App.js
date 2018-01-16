@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react'
 import './App.css'
 import './react-datetime.css'
@@ -32,13 +30,17 @@ class App extends Component {
     this.setState({ decodedToken: null })
   }
 
+  // Makes a booking by updating the database and the React state
   onMakeBooking = ({startDate, endDate, businessUnit, purpose, roomId}) => {
     const bookingData = {startDate, endDate, businessUnit, purpose, roomId}
     const existingBookings = this.state.currentRoom.bookings
     console.log('booking data:', bookingData)
+    // Check if there is a clash and, if not, save the new booking to the database
     makeBooking({startDate, endDate, businessUnit, purpose, roomId}, existingBookings)
       .then((updatedRoom) => {
+        // If the new booking is successfully saved to the database
         this.setState((previousState) => {
+          // Find the relevant room in React State and replace it with the new room data
           const updatedRoomData = previousState.roomData.map((room) => {
              if (room._id === updatedRoom._id) {
                return updatedRoom
