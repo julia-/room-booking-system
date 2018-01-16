@@ -16,16 +16,7 @@ class App extends Component {
   state = {
     decodedToken: getDecodedToken(), // retrieves the token from local storage if valid, else will be null
     roomData: null,
-    currentRoom: {
-      name: 'Room 1',
-      id: "5a5c0d782b191c21b1eebf52",
-      floor: '8',
-      capacity: 18,
-      assets: {
-        pcLab: true
-      },
-      bookings: []
-    },
+    currentRoom: {"_id":"5a5c0d782b191c21b1eebf4e","name":"Room 1","floor":"8","capacity":18,"bookings":[],"assets":{"whiteBoard":false,"opWalls":false,"tv":false,"projector":false,"pcLab":true,"macLab":false},"__v":0}
   }
 
   // Pass supplied email & password to the signIn function, returns the users token
@@ -46,6 +37,23 @@ class App extends Component {
     const existingBookings = this.state.currentRoom.bookings
     console.log('booking data:', bookingData)
     makeBooking({startDate, endDate, businessUnit, purpose, roomId}, existingBookings)
+      .then((updatedRoom) => {
+        this.setState((previousState) => {
+          const updatedRoomData = previousState.roomData.map((room) => {
+             if (room._id === updatedRoom._id) {
+               return updatedRoom
+            } else {
+               return room
+            }
+          })
+          return {
+            roomData: updatedRoomData
+          }
+        })
+     })
+     .catch((error) => {
+       console.log({ error: error })
+     })
   }
 
   onRoomSelect = () => {
@@ -71,7 +79,7 @@ class App extends Component {
               <h3>{currentRoom.name}</h3>
               <button onClick={ this.onSignOut } >Log Out</button>
               {/* <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} /> */}
-              <RoomSelector setRoom={this.setRoom} />
+              <RoomSelector setRoom={this.setRoom} roomData={currentRoom} />
               <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
             </div>
           ) : (

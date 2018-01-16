@@ -11,7 +11,7 @@ const dateUTC = (dataArray) => {
 
 // Make a room booking
 export function makeBooking(data, existingBookings) {
-
+  console.log(data, existingBookings)
   // Convert booking data to UTC Date objects
   let bookingStart = dateUTC(data.startDate)
   let bookingEnd = dateUTC(data.endDate)
@@ -25,8 +25,8 @@ export function makeBooking(data, existingBookings) {
 
   existingBookings.forEach(booking => {
 
-    let existingBookingStart = booking.bookingStart.getTime()
-    let existingBookingEnd = booking.bookingEnd.getTime()
+    let existingBookingStart = new Date(booking.bookingStart).getTime()
+    let existingBookingEnd = new Date(booking.bookingEnd).getTime()
 
     if (newBookingStart > existingBookingStart && newBookingStart < existingBookingEnd || 
         existingBookingStart > newBookingStart && existingBookingStart < newBookingEnd) {

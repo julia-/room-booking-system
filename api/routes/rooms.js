@@ -62,7 +62,7 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
     { new: true }
   )
     .then(room => {
-      res.status(201).json({ room: room.bookings })
+      res.status(201).json(room)
     })
     .catch(error => {
       console.log('User id', req.body.user)
