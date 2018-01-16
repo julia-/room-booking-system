@@ -1,4 +1,5 @@
 import React from 'react'
+import BookingElement from './BookingElement'
 
 function RoomSelector({
   setRoom,
@@ -14,7 +15,7 @@ function RoomSelector({
       <div>
         {
           !!roomData &&
-          Object.keys(roomData.bookings).map(key => <p key={key}>{key}</p>)
+          Object.keys(roomData.bookings).map(key => <BookingElement key={key} bookingData={key}/>)
         }
       </div>
     </div>

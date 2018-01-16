@@ -22,6 +22,12 @@ function BookingForm({
     return dateArray
  }
 
+  const formatTime = (time) => {
+    let formatedTimeArray = []
+    formatedTimeArray = time.split(':').map((item) => parseInt(item))
+    return formatedTimeArray
+  }
+
   return (
     
     <form
@@ -31,17 +37,17 @@ function BookingForm({
       const formData = event.target.elements
       const roomId = roomData._id
       // startDate data
-      const startHour = parseInt(formData.startHour.value, 10)
-      const startMinute = parseInt(formData.startMinute.value, 10)
-      const startDate = [...dateArray, startHour, startMinute]
+      const startTime = formatTime(formData.startTime.value)
+      const startDate = [...dateArray, ...startTime]
       // endDate data
-      const endHour = parseInt(formData.endHour.value, 10)
-      const endMinute = parseInt(formData.endMinute.value, 10)
-      const endDate = [...dateArray, endHour, endMinute]
+      const endTime = formatTime(formData.endTime.value)
+      const endDate = [...dateArray, ...endTime]
 
       const businessUnit = formData.business.value
       const purpose = formData.purpose.value
-      onMakeBooking({startDate, endDate, businessUnit, purpose, roomId})
+      const description = formData.description.value
+      console.log({startDate, endDate, businessUnit, purpose, roomId, description})
+      {/* onMakeBooking({startDate, endDate, businessUnit, purpose, roomId}) */}
     }}
     >
     <h2>{roomData.name}</h2>
@@ -63,33 +69,36 @@ function BookingForm({
       </div>
 
       <div className="right-container">
-        <div className="date-selector">
+        
           <label>
-            {'Start Hour: '}
-            <input type="number" name="startHour" min="0" max="23" />
+            {'Start Time: '}
+            <input type="time" name="startTime" min="00:00" max="23:00" />
           </label>
+        
           <label>
-            {'Start Minute: '}
-            <input type="number" name="startMinute" step="10" min="0" max="50"/>
+            {'End Time: '}
+            <input type="time" name="endTime" min="00:00" max="23:00" />
           </label>
-        </div>
-        <div className="date-selector">
-          <label>
-            {'End Hour: '}
-            <input type="number" name="endHour" min="0" max="23" />
-          </label>
-          <label>
-            {'End Minute: '}
-            <input type="number" name="endMinute" step="10" min="0" max="50"/>
-          </label>
-        </div>
+
         <label>
-          {'Business Unit: '}
-          <input type="text" name="business" />
+          {'Business Unit:'}
+          <select name="business"> 
+            <option value="Business Unit 1" selected>Business Unit 1</option> 
+            <option value="Business Unit 2">Business Unit 2</option> 
+            <option value="Business Unit 3">Business Unit 3</option> 
+            <option value="Business Unit 4">Business Unit 4</option> 
+            <option value="Business Unit 5">Business Unit 5</option> 
+          </select>
         </label>
+
         <label>
           {'Purpose: '}
           <input type="text" name="purpose" />
+        </label>
+
+        <label>
+          {'Description'}
+          <input type="textarea" name="description" />
         </label>
       </div>
       </div>

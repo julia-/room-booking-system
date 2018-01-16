@@ -6,9 +6,15 @@ body {
 
 label {
   display: block;
+  margin: 15px;
 }
 
 input {
+  display: block;
+  margin: 10px auto;
+}
+
+select {
   display: block;
   margin: 10px auto;
 }
