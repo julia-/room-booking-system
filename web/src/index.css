@@ -37,17 +37,19 @@ form {
 
 .right-container {
   /* display: flex; */
-  border: 1px solid red;
+  border: 1px solid lightgray;
+  border-radius: 15px;
   margin: 10px;
+  padding: 10px;
 }
 
 .left-container {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   margin: 10px;
 }
 
 .middle-container {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   margin: 10px;
 }
 

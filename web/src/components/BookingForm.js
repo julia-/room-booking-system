@@ -29,7 +29,7 @@ function BookingForm({
       event.preventDefault()
       // Data from input
       const formData = event.target.elements
-      const roomId = roomData.id
+      const roomId = roomData._id
       // startDate data
       const startHour = parseInt(formData.startHour.value, 10)
       const startMinute = parseInt(formData.startMinute.value, 10)
@@ -45,6 +45,7 @@ function BookingForm({
     }}
     >
     <h2>{roomData.name}</h2>
+    <h2>ID: {roomData._id}</h2>
     <div className="date-container">
       <div className="left-container">
         <Datetime 

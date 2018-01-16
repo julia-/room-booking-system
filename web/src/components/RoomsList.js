@@ -24,7 +24,7 @@ const RoomsList = props => (
     </thead>
     <tbody>
       {props.rooms &&
-        props.rooms.map(room => <RoomRow key={room._id} room={room} />)}
+        props.rooms.map(room => <RoomRow key={room._id} room={room} onSelectRoom={props.onSelectRoom} />)}
     </tbody>
   </table>
 )
