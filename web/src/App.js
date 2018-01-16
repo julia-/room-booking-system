@@ -10,6 +10,7 @@ import { signIn, signOut } from './api/auth'
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
 import { makeBooking } from './api/booking'
+import RoomSelector from './components/RoomSelector'
 
 class App extends Component {
   state = {
@@ -47,19 +48,30 @@ class App extends Component {
     makeBooking({startDate, endDate, businessUnit, purpose, roomId}, existingBookings)
   }
 
+  onRoomSelect = () => {
+    console.log('hi')
+  }
+
+  setRoom = (roomNumber) => {
+    const room = this.state.roomData.find(room => room.name === roomNumber)
+    this.setState({ currentRoom: room })
+  }
+
   render() {
     const { decodedToken, roomData, currentRoom } = this.state
     const signedIn = !!decodedToken
 
     return (
       <div className="App">
-        <h1>Red Hill Room System!</h1>
+        <h1>Booking Room System</h1>
         {
           signedIn ? (
             <div>
               <h3>Signed in User: {decodedToken.email}</h3>
+              <h3>{currentRoom.name}</h3>
               <button onClick={ this.onSignOut } >Log Out</button>
-              <RoomsList rooms={roomData} />
+              {/* <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} /> */}
+              <RoomSelector setRoom={this.setRoom} />
               <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
             </div>
           ) : (

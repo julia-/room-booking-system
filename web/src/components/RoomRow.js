@@ -3,7 +3,7 @@ import formatAssetName from '../helpers/rooms'
 
 const RoomRow = props => (
   <tr>
-    <td>{props.room.name}</td>
+    <td onClick={console.log('hi')}>{props.room.name}</td>
     <td>
       {Object.keys(props.room.assets).map(
         asset =>
