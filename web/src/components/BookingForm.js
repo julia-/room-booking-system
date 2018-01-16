@@ -1,4 +1,8 @@
 import React from 'react'
+import BookingFormTable from './BookingFormTable'
+import Datetime  from 'react-datetime'
+import moment from 'moment'
+import momentTimezone from 'moment-timezone'
 
 function BookingForm({
   onMakeBooking,
@@ -6,26 +10,34 @@ function BookingForm({
   roomData
 }) {
   
+  const valid = function( current ){
+    return current.day() !== 0
+  }
+
+  let dateArray = []
+
+  const handleDate = (event) =>{
+    const date = moment(event).format('Y M D')
+    dateArray = date.split(' ').map((item) => parseInt(item))
+    return dateArray
+ }
+
   return (
+    
     <form
     onSubmit={ (event) => {
       event.preventDefault()
+      // Data from input
       const formData = event.target.elements
       const roomId = roomData.id
       // startDate data
-      const startYear = parseInt(formData.startYear.value, 10)
-      const startMonth = parseInt(formData.startMonth.value, 10)
-      const startDay = parseInt(formData.startDay.value, 10)
       const startHour = parseInt(formData.startHour.value, 10)
       const startMinute = parseInt(formData.startMinute.value, 10)
-      const startDate = [startYear, startMonth, startDay, startHour, startMinute]
+      const startDate = [...dateArray, startHour, startMinute]
       // endDate data
-      const endYear = parseInt(formData.endYear.value, 10)
-      const endMonth = parseInt(formData.endMonth.value, 10)
-      const endDay = parseInt(formData.endDay.value, 10)
       const endHour = parseInt(formData.endHour.value, 10)
       const endMinute = parseInt(formData.endMinute.value, 10)
-      const endDate = [endYear, endMonth, endDay, endHour, endMinute]
+      const endDate = [...dateArray, endHour, endMinute]
 
       const businessUnit = formData.business.value
       const purpose = formData.purpose.value
@@ -34,62 +46,55 @@ function BookingForm({
     >
     <h2>{roomData.name}</h2>
     <div className="date-container">
-      <div className="date-selector">
-        <label>
-          {'Year: '}
-          <input type="number" name="startYear" />
-        </label>
-        <label>
-          {'Month: '}
-          <input type="number" name="startMonth" />
-        </label>
-        <label>
-          {'Day: '}
-          <input type="number" name="startDay" />
-        </label>
-        <label>
-          {'Hour: '}
-          <input type="number" name="startHour" />
-        </label>
-        <label>
-          {'Minute: '}
-          <input type="number" name="startMinute" />
-        </label>
+      <div className="left-container">
+        <Datetime 
+          dateFormat="YYYY-MM-DD" 
+          timeFormat={false} 
+          input={false}
+          utc={true} 
+          isValidDate={valid}
+          onChange={ (event) => handleDate(event._d)}        
+        />
       </div>
-      <div className="date-selector">
-        <label>
-          {'Year: '}
-          <input type="number" name="endYear" />
-        </label>
-        <label>
-          {'Month: '}
-          <input type="number" name="endMonth" />
-        </label>
-        <label>
-          {'Day: '}
-          <input type="number" name="endDay" />
-        </label>
-        <label>
-          {'Hour: '}
-          <input type="number" name="endHour" />
-        </label>
-        <label>
-          {'Minute: '}
-          <input type="number" name="endMinute" />
-        </label>
-      </div>
-    </div>
 
-      <label>
-        {'Business Unit: '}
-        <input type="text" name="business" />
-      </label>
-      <label>
-        {'Purpose: '}
-        <input type="text" name="purpose" />
-      </label>
-      <button>Submit</button>
-    </form>
+      <div className="middle-container">
+        <BookingFormTable />
+      </div>
+
+      <div className="right-container">
+        <div className="date-selector">
+          <label>
+            {'Start Hour: '}
+            <input type="number" name="startHour" />
+          </label>
+          <label>
+            {'Start Minute: '}
+            <input type="number" name="startMinute" />
+          </label>
+        </div>
+        <div className="date-selector">
+          <label>
+            {'End Hour: '}
+            <input type="number" name="endHour" />
+          </label>
+          <label>
+            {'End Minute: '}
+            <input type="number" name="endMinute" />
+          </label>
+        </div>
+        <label>
+          {'Business Unit: '}
+          <input type="text" name="business" />
+        </label>
+        <label>
+          {'Purpose: '}
+          <input type="text" name="purpose" />
+        </label>
+      </div>
+      </div>
+    <button>Submit</button>
+
+  </form>
   )
 }
 
