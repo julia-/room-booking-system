@@ -102,14 +102,15 @@ function BookingForm({
             <option value="Ad-hoc Event">Ad-hoc Event</option> 
           </select>
         </label>
-
-        <label>
-          {'Description'}
-          <input type="textarea" name="description" />
-        </label>
+        <div className="time-selector">
+          <label>
+            {'Description'}
+            <input type="textarea" name="description" />
+          </label>
+        </div>
+        <button className="custom-button filter-button">Submit</button>
       </div>
       </div>
-    <button>Submit</button>
 
   </form>
   )
