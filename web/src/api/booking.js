@@ -37,11 +37,8 @@ export function makeBooking(data, existingBookings) {
     }
   })
   
-  // Return an error message if there is a booking clash
-  if (bookingClash) {
-    throw "Your booking could not be saved. There is an existing booking during the times selected."
-  // If there is not a booking clash, save the new booking to the database
-  } else {
+  // Save the booking to the database and return the booking if there are no clashes
+  if (!bookingClash) {
     return api.put(`/rooms/${data.roomId}`, {
       bookingStart: bookingStart,
       bookingEnd: bookingEnd,

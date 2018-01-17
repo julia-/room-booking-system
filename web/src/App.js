@@ -34,28 +34,31 @@ class App extends Component {
   onMakeBooking = ({startDate, endDate, businessUnit, purpose, roomId}) => {
     const bookingData = {startDate, endDate, businessUnit, purpose, roomId}
     const existingBookings = this.state.currentRoom.bookings
-    console.log('booking data:', bookingData)
+    
     // Check if there is a clash and, if not, save the new booking to the database
-    makeBooking({startDate, endDate, businessUnit, purpose, roomId}, existingBookings)
-      .then((updatedRoom) => {
-        // If the new booking is successfully saved to the database
-        this.setState((previousState) => {
-          // Find the relevant room in React State and replace it with the new room data
-          const updatedRoomData = previousState.roomData.map((room) => {
-             if (room._id === updatedRoom._id) {
-               return updatedRoom
-            } else {
-               return room
+    try {
+      makeBooking({startDate, endDate, businessUnit, purpose, roomId}, existingBookings)
+        .then((updatedRoom) => {
+          // If the new booking is successfully saved to the database
+          this.setState((previousState) => {
+            // Find the relevant room in React State and replace it with the new room data
+            const updatedRoomData = previousState.roomData.map((room) => {
+              if (room._id === updatedRoom._id) {
+                return updatedRoom
+              } else {
+                return room
+              }
+            })
+            return {
+              roomData: updatedRoomData
             }
           })
-          return {
-            roomData: updatedRoomData
-          }
         })
-     })
-     .catch((error) => {
-       console.log({ error: error })
-     })
+      }
+    // If there is a booking clash and the booking could not be saved
+    catch(err) { 
+      alert("Your booking could not be saved. There is an existing booking during the times selected.") 
+    }
   }
 
   onRoomSelect = () => {
