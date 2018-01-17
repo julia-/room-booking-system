@@ -2,7 +2,7 @@
 // 8:30 => [8, 30]
 const formatTime = (time) => {
   let formatedTimeArray = []
-  formatedTimeArray = time.split(':').map((item) => parseInt(item))
+  formatedTimeArray = time.split(':').map((item) => parseInt(item, 10))
   return formatedTimeArray
 }
 

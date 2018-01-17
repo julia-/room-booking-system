@@ -2,7 +2,7 @@ import React from 'react'
 import BookingFormTable from './BookingFormTable'
 import Datetime  from 'react-datetime'
 import moment from 'moment'
-import momentTimezone from 'moment-timezone'
+// import momentTimezone from 'moment-timezone'
 import formatTime from '../helpers/bookingForm'
 
 function BookingForm({
@@ -22,7 +22,7 @@ function BookingForm({
   // eg. 2018-04-12 => [2018, 4, 12]
   const handleDate = (event) =>{
     const date = moment(event).format('Y M D')
-    dateArray = date.split(' ').map((item) => parseInt(item))
+    dateArray = date.split(' ').map((item) => parseInt(item, 10))
     return dateArray
  }
   var spanStyle = {
@@ -46,8 +46,8 @@ function BookingForm({
       const businessUnit = formData.business.value
       const purpose = formData.purpose.value
       const description = formData.description.value
-      console.log({startDate, endDate, businessUnit, purpose, roomId, description})
       {/* onMakeBooking({startDate, endDate, businessUnit, purpose, roomId}) */}
+      console.log({startDate, endDate, businessUnit, purpose, roomId, description})
     }}
     >
     <h2>{roomData.name}</h2>
@@ -65,7 +65,7 @@ function BookingForm({
       </div>
 
       <div className="middle-container">
-        <BookingFormTable />
+        <BookingFormTable roomData={roomData}/>
       </div>
 
       <div className="right-container">
@@ -82,8 +82,8 @@ function BookingForm({
 
         <label>
           {'Business Unit:'}
-          <select name="business"> 
-            <option value="Business Unit 1" selected>Business Unit 1</option> 
+          <select name="business" defaultValue="Business Unit 1"> 
+            <option value="Business Unit 1">Business Unit 1</option> 
             <option value="Business Unit 2">Business Unit 2</option> 
             <option value="Business Unit 3">Business Unit 3</option> 
             <option value="Business Unit 4">Business Unit 4</option> 

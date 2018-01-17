@@ -1,7 +1,7 @@
 import React from 'react'
 
 function BookingFormTable({
-
+  roomData
 }) {
   return (
     

@@ -1,7 +1,9 @@
 import React from 'react'
 
 function NavBar({
-  signOut
+  signOut,
+  loadMyBookings,
+  user
 }) {
   return (
     <nav className="nav">
@@ -10,11 +12,11 @@ function NavBar({
 
           <li id="brand">Room Booking System</li>
         <ul>
-          <li><a href="/" onClick={signOut}>Logout</a></li>
+          <li><a onClick={signOut}>Logout</a></li>
         </ul>
 
         <ul>
-          <li>My Bookings</li>
+          <li><a onClick={loadMyBookings}>My Bookings</a></li>
           <li>View Availability</li>
         </ul>
 
