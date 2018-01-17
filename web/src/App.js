@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react'
 import './App.css'
 import './react-datetime.css'
@@ -36,28 +34,39 @@ class App extends Component {
     this.setState({ decodedToken: null })
   }
 
+  // Makes a booking by updating the database and the React state
   onMakeBooking = ({startDate, endDate, businessUnit, purpose, roomId}) => {
     const bookingData = {startDate, endDate, businessUnit, purpose, roomId}
     const existingBookings = this.state.currentRoom.bookings
-    console.log('booking data:', bookingData)
-    makeBooking({startDate, endDate, businessUnit, purpose, roomId}, existingBookings)
-      .then((updatedRoom) => {
-        this.setState((previousState) => {
-          const updatedRoomData = previousState.roomData.map((room) => {
-             if (room._id === updatedRoom._id) {
-               return updatedRoom
-            } else {
-               return room
+    
+    // Check if there is a clash and, if not, save the new booking to the database
+    try {
+      makeBooking({startDate, endDate, businessUnit, purpose, roomId}, existingBookings)
+        .then((updatedRoom) => {
+          // If the new booking is successfully saved to the database
+          alert(`${updatedRoom.name} sucessfully booked.`)
+          this.setState((previousState) => {
+            // Find the relevant room in React State and replace it with the new room data
+            const updatedRoomData = previousState.roomData.map((room) => {
+              if (room._id === updatedRoom._id) {
+                return updatedRoom
+              } else {
+                return room
+              }
+            })
+            return {
+              // Update the room data in application state
+              roomData: updatedRoomData,
+              currentRoom: updatedRoom
             }
           })
-          return {
-            roomData: updatedRoomData
-          }
         })
-     })
-     .catch((error) => {
-       console.log({ error: error })
-     })
+    }
+    // If there is a booking clash and the booking could not be saved
+    catch(err) { 
+      alert("Your booking could not be saved. There is an existing booking during the times selected.")
+      console.error(err.message) 
+    }
   }
 
   setRoom = (roomNumber) => {
