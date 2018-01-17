@@ -110,8 +110,8 @@ class App extends Component {
               <MyBookings user={decodedToken.email} userBookings={userBookings} onDeleteBooking={onDeleteBooking}/>
               {/* <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} /> */}
               <div className="booking-container">
-                <RoomSelector setRoom={this.setRoom} roomData={currentRoom} />
-                {/* <FilterElement /> */}
+                {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
+                <FilterElement />
                 <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
               </div>
             </div>

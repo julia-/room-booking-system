@@ -4,7 +4,7 @@ function SignInForm({
   onSignIn
 }) {
   return (
-    <form 
+    <form className="sign-in-form"
       onSubmit={ (event) => {
         event.preventDefault()
         const elements = event.target.elements
@@ -13,22 +13,25 @@ function SignInForm({
         onSignIn({email, password})
       }}
     >
-      <label>
-        {'Email: '}
-        <input 
-          type="email"
-          name="email"
-        />
-      </label>
+      <h2>Sign In</h2>
+      <div className="time-selector">
+        <label>
+          {'Email: '}
+          <input 
+            type="email"
+            name="email"
+          />
+        </label>
 
-      <label>
-        {'Password: '}
-        <input 
-          type="password"
-          name="password"
-        />
-      </label>
-      <button>Sign In</button>
+        <label>
+          {'Password: '}
+          <input 
+            type="password"
+            name="password"
+          />
+        </label>
+      </div>  
+      <button className="custom-button filter-button">Sign In</button>
     </form>
   )
 }
