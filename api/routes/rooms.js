@@ -42,10 +42,11 @@ const durationHours = (bookingStart, bookingEnd) => {
   return difference.hours() + difference.minutes() / 60
 }
 
+// Make a booking
 router.put('/rooms/:id', requireJWT, (req, res) => {
   const { id } = req.params
   Room.findByIdAndUpdate(
-    id, 
+    id,
     {
       $addToSet: {
         bookings: {
@@ -72,10 +73,9 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
 // Delete a booking
 router.delete('/rooms/:id', requireJWT, (req, res) => {
   const { id } = req.params
-  const bookingId = req.body.id
   Room.findByIdAndUpdate(
     id,
-    { $pull: { bookings: { _id: bookingId } } },
+    { $pull: { bookings: { _id: req.body.bookingId } } },
     { new: true }
   )
     .then(room => {
