@@ -54,4 +54,3 @@ export function deleteBooking(roomId, bookingId) {
   return api.delete(`/rooms/${roomId}`, { bookingId })
     .then(res => res.data)
 }
-
