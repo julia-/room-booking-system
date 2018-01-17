@@ -46,22 +46,22 @@ class App extends Component {
         .then((updatedRoom) => {
           // If the new booking is successfully saved to the database
           alert(`${updatedRoom.name} sucessfully booked.`)
-          updateStateRoom(this, updatedRoom)
+          updateStateRoom(this, updatedRoom, this.loadMyBookings)
         })
     }
     // If there is a booking clash and the booking could not be saved
     catch(err) { 
-      alert("Your booking could not be saved. There is an existing booking during the times selected.")
+      alert("Your booking could not be saved. There is a clash with an existing booking.")
       console.error(err.message) 
     }
   }
 
   // Deletes a booking from the database and updates the React state
-  onDeleteBooking = ({ roomId, bookingId }) => {
+  onDeleteBooking = (roomId, bookingId) => {
     deleteBooking(roomId, bookingId)
       .then((updatedRoom) => {
         alert('Booking successfully deleted')
-        updateStateRoom(self, updatedRoom)
+        updateStateRoom(this, updatedRoom, this.loadMyBookings)
       })
     .catch(error => console.error( error.message ))
   }
@@ -145,9 +145,8 @@ class App extends Component {
   }
 
   // When the App first renders
-  componentDidMount() {
+  componentWillMount() {
     this.load()
-
   }
 }
 
