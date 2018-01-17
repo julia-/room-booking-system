@@ -71,11 +71,12 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
 })
 
 // Delete a booking
-router.delete('/rooms/:id', requireJWT, (req, res) => {
+router.delete('/rooms/:id/:bookingId', requireJWT, (req, res) => {
   const { id } = req.params
+  const { bookingId } = req.params
   Room.findByIdAndUpdate(
     id,
-    { $pull: { bookings: { _id: req.body.bookingId } } },
+    { $pull: { bookings: { _id: bookingId } } },
     { new: true }
   )
     .then(room => {
