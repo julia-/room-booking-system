@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import './App.css'
-import './react-datetime.css'
+import './css/App.css'
+import './css/react-datetime.css'
 
 import BookingForm from './components/BookingForm'
 import FilterElement from './components/FilterElement'
