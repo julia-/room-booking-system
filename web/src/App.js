@@ -6,6 +6,7 @@ import SignInForm from './components/SignInForm'
 import BookingForm from './components/BookingForm'
 import NavBar from './components/NavBar'
 import MyBookings from './components/MyBookings'
+import FilterElement from './components/FilterElement'
 import { signIn, signOut } from './api/auth'
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
@@ -79,6 +80,7 @@ class App extends Component {
       room.bookings.forEach(booking => {
         if (booking.user === userId) {
           // Push all bookings where the current userId is equal to the booking's userId into myBookings
+          booking.roomId = room._id
           myBookings.push(booking)
         }
       })
@@ -93,6 +95,7 @@ class App extends Component {
     const signedIn = !!decodedToken
     const signOut = this.onSignOut
     const loadMyBookings = this.loadMyBookings
+    const onDeleteBooking = this.onDeleteBooking
 
     return (
       <div className="App">
@@ -104,10 +107,11 @@ class App extends Component {
                 <h3>Signed in User: {decodedToken.email}</h3>
                 <button onClick={ signOut } >Log Out</button>
               </div>
-              <MyBookings user={decodedToken.email} userBookings={userBookings} />
+              <MyBookings user={decodedToken.email} userBookings={userBookings} onDeleteBooking={onDeleteBooking}/>
               {/* <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} /> */}
               <div className="booking-container">
                 <RoomSelector setRoom={this.setRoom} roomData={currentRoom} />
+                {/* <FilterElement /> */}
                 <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
               </div>
             </div>

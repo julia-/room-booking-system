@@ -47,7 +47,9 @@ function BookingForm({
       const purpose = formData.purpose.value
       const description = formData.description.value
       onMakeBooking({startDate, endDate, businessUnit, purpose, roomId})
-      console.log({startDate, endDate, businessUnit, purpose, roomId, description})
+    
+      {/* console.log({startDate, endDate, businessUnit, purpose, roomId, description}) */}
+
     }}
     >
     <h2>{roomData.name}</h2>
@@ -70,6 +72,7 @@ function BookingForm({
 
       <div className="right-container">
         <h3>Make a Booking</h3>
+        <div className="time-selector">
           <label>
             {'Start Time: '}
             <input type="time" name="startTime" min="00:00" max="23:00" />
@@ -79,7 +82,7 @@ function BookingForm({
             {'End Time: '}
             <input type="time" name="endTime" min="00:00" max="23:00" />
           </label>
-
+        </div>
         <label>
           {'Business Unit:'}
           <select name="business" defaultValue="Business Unit 1"> 
@@ -92,8 +95,12 @@ function BookingForm({
         </label>
 
         <label>
-          {'Purpose: '}
-          <input type="text" name="purpose" />
+          {'Purpose:'}
+          <select name="purpose" defaultValue="Scheduled Class"> 
+            <option value="Scheduled Class">Scheduled Class</option> 
+            <option value="Special Event">Special Event</option> 
+            <option value="Ad-hoc Event">Ad-hoc Event</option> 
+          </select>
         </label>
 
         <label>
