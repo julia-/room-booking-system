@@ -11,7 +11,7 @@ const dateUTC = (dataArray) => {
 
 // Make a room booking
 export function makeBooking(data, existingBookings) {
-
+  
   // Convert booking data to UTC Date objects
   let bookingStart = dateUTC(data.startDate)
   let bookingEnd = dateUTC(data.endDate)
@@ -25,25 +25,51 @@ export function makeBooking(data, existingBookings) {
 
   existingBookings.forEach(booking => {
 
-    let existingBookingStart = booking.bookingStart.getTime()
-    let existingBookingEnd = booking.bookingEnd.getTime()
+    // Convert existing booking Date objects into number values
+    let existingBookingStart = new Date(booking.bookingStart).getTime()
+    let existingBookingEnd = new Date(booking.bookingEnd).getTime()
 
-    if (newBookingStart > existingBookingStart && newBookingStart < existingBookingEnd || 
-        existingBookingStart > newBookingStart && existingBookingStart < newBookingEnd) {
+    // Check whether there is a clash between the new booking and the existing booking
+    if (newBookingStart >= existingBookingStart && newBookingStart < existingBookingEnd || 
+        existingBookingStart >= newBookingStart && existingBookingStart < newBookingEnd) {
+          // Switch the bookingClash variable if there is a clash
           return bookingClash = true
     }
   })
   
-  // Return an error message if there is a booking clash, otherwise make the booking
-  if (bookingClash) {
-    throw "Your booking could not be saved. There is an existing booking during the times selected."
-  } else {
+  // Save the booking to the database and return the booking if there are no clashes
+  if (!bookingClash) {
     return api.put(`/rooms/${data.roomId}`, {
       bookingStart: bookingStart,
       bookingEnd: bookingEnd,
       businessUnit: data.businessUnit,
       purpose: data.purpose
     })
-      .then((res) => res.data)
+      .then(res => res.data)
+      .catch(err => console.error(err))
   }
+}
+
+// Delete a room booking
+export function deleteBooking(roomId, bookingId) {
+  return api.delete(`/rooms/${roomId}`, { bookingId })
+    .then(res => res.data)
+}
+
+export function updateStateRoom(self, updatedRoom) {
+  self.setState((previousState) => {
+    // Find the relevant room in React State and replace it with the new room data
+    const updatedRoomData = previousState.roomData.map((room) => {
+      if (room._id === updatedRoom._id) {
+        return updatedRoom
+      } else {
+        return room
+      }
+    })
+    return {
+      // Update the room data in application state
+      roomData: updatedRoomData,
+      currentRoom: updatedRoom
+    }
+  })
 }
