@@ -1,11 +1,12 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: josefin sans;
+  font-family: roboto sans, josefin sans;
 }
 
 label {
   display: block;
+  margin: 15px;
 }
 
 input {
@@ -13,13 +14,34 @@ input {
   margin: 10px auto;
 }
 
+select {
+  display: block;
+  margin: 10px auto;
+}
+
 form {
   padding: 20px;
   margin: 10px auto;
-  width: 1800px;
+  width: 800px;
   border-radius: 15px;
-  box-shadow: 0px 3px 15px rgba(4, 5, 10, 0.4);
+  box-shadow: 0px 3px 15px rgba(4, 5, 10, 0.2);
   }
+
+.booking-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 1300px;
+  margin: 10px auto;
+}
+
+.room-selector {
+  width: 400px;
+  margin: 10px auto;
+  padding: 10px;
+  border: 0.5px solid lightgray;
+  border-radius: 10px;
+}
 
 .date-container {
   display: flex;
@@ -57,4 +79,70 @@ table {
   border: 0.5px solid lightgray;
   border-radius: 15px;
   padding: 10px;
+}
+
+nav {
+  box-sizing: border-box;
+  overflow: auto;
+  position: relative;
+  top: 0;
+  padding: 1px 50px;
+  width: 100%;
+  z-index: 999;
+  background:#1E8BC3;
+  color:#fff;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+#brand {
+  float: left;
+  font-size: 30px;
+  letter-spacing: 1px;
+}
+
+li {
+  display: inline-block;
+  padding: 10px 18px 10px 18px;
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin: 0;
+  /* cursor: pointer; */
+  text-transform: uppercase;
+  float: right;
+}
+
+.user-info {
+  width: 400px;
+  margin: 10px auto;
+  padding: 10px;
+  margin-right: 10px;
+  border: 0.5px solid lightgray;
+  border-radius: 10px;
+}
+
+.my-bookings-container {
+  padding: 20px;
+  margin: 10px auto;
+  width: 800px;
+  border-radius: 15px;
+  box-shadow: 0px 3px 15px rgba(4, 5, 10, 0.2);
+}
+
+.user-booking-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center
+}
+.booking {
+  background: rgb(71, 179, 233);
+  border-radius: 5px;
+  padding: 5px;
+  width: 100px;
+  margin: 5px;
 }

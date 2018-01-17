@@ -4,8 +4,10 @@ import React, { Component } from 'react'
 import './App.css'
 import './react-datetime.css'
 import SignInForm from './components/SignInForm'
-import RoomsList from './components/RoomsList'
+// import RoomsList from './components/RoomsList'
 import BookingForm from './components/BookingForm'
+import NavBar from './components/NavBar'
+import MyBookings from './components/MyBookings'
 import { signIn, signOut } from './api/auth'
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
@@ -16,6 +18,7 @@ class App extends Component {
   state = {
     decodedToken: getDecodedToken(), // retrieves the token from local storage if valid, else will be null
     roomData: null,
+    userBookings: null,
     currentRoom: {"_id":"5a5c0d782b191c21b1eebf4e","name":"Room 1","floor":"8","capacity":18,"bookings":[],"assets":{"whiteBoard":false,"opWalls":false,"tv":false,"projector":false,"pcLab":true,"macLab":false},"__v":0}
   }
 
@@ -27,6 +30,7 @@ class App extends Component {
     })
   }
 
+  // Removes the current token from local storage
   onSignOut = () => {
     signOut()
     this.setState({ decodedToken: null })
@@ -56,31 +60,51 @@ class App extends Component {
      })
   }
 
-  onRoomSelect = () => {
-    console.log('hi')
-  }
-
   setRoom = (roomNumber) => {
     const room = this.state.roomData.find(room => room.name === roomNumber)
     this.setState({ currentRoom: room })
   }
 
+  loadMyBookings = () => {
+    let myBookings = []
+    const userId = this.state.decodedToken.sub
+    // Loop through all the rooms
+    this.state.roomData.forEach(room => {
+      // Loop through all the bookings in 'room'
+      room.bookings.forEach(booking => {
+        if (booking.user === userId) {
+          // Push all bookings where the current userId is equal to the booking's userId into myBookings
+          myBookings.push(booking)
+        }
+      })
+    })
+    this.setState({ userBookings: myBookings})    
+    console.log('state:', this.state.userBookings)
+    console.log('myBookings:', myBookings)
+  }
+
   render() {
-    const { decodedToken, roomData, currentRoom } = this.state
+    const { decodedToken, currentRoom, userBookings } = this.state
     const signedIn = !!decodedToken
+    const signOut = this.onSignOut
+    const loadMyBookings = this.loadMyBookings
 
     return (
       <div className="App">
-        <h1>Booking Room System</h1>
+        <NavBar signOut={signOut} loadMyBookings={loadMyBookings} user={signedIn ? (decodedToken.sub) : (null)} />
         {
           signedIn ? (
             <div>
-              <h3>Signed in User: {decodedToken.email}</h3>
-              <h3>{currentRoom.name}</h3>
-              <button onClick={ this.onSignOut } >Log Out</button>
+              <div className="user-info">
+                <h3>Signed in User: {decodedToken.email}</h3>
+                <button onClick={ signOut } >Log Out</button>
+              </div>
+              <MyBookings user={decodedToken.email} userBookings={userBookings} />
               {/* <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} /> */}
-              <RoomSelector setRoom={this.setRoom} roomData={currentRoom} />
-              <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
+              <div className="booking-container">
+                <RoomSelector setRoom={this.setRoom} roomData={currentRoom} />
+                <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
+              </div>
             </div>
           ) : (
             <SignInForm onSignIn={ this.onSignIn } />
@@ -99,10 +123,22 @@ class App extends Component {
       .catch(error => {
         console.error('Error loading room data', error)
       })
+      .then(() => {
+        this.loadMyBookings()
+      })
+      .catch(error => {
+        console.error('Error loading myBookings', error)
+      })
+      .then(() => {
+        this.setRoom("Room 1")
+      })
+    
   }
+
   // When the App first renders
   componentDidMount() {
     this.load()
+
   }
 }
 

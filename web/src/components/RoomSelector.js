@@ -1,11 +1,12 @@
 import React from 'react'
+import BookingElement from './BookingElement'
 
 function RoomSelector({
   setRoom,
   roomData
 }) {
   return (
-    <div>
+    <div className="room-selector" >
       <h2>Select Room</h2>
       <button onClick={ () => setRoom('Room 1')}>room 1</button>
       <button onClick={ () => setRoom('Room 2')}>room 2</button>
@@ -13,8 +14,7 @@ function RoomSelector({
       <button onClick={ () => setRoom('Room 5')}>room 5</button>
       <div>
         {
-          !!roomData &&
-          Object.keys(roomData.bookings).map(key => <p key={key}>O</p>)
+          Object.keys(roomData.bookings).map(key => <BookingElement key={key} bookingData={roomData.bookings[key]}/>)
         }
       </div>
     </div>
