@@ -70,6 +70,7 @@ function BookingForm({
 
       <div className="right-container">
         <h3>Make a Booking</h3>
+        <div className="time-selector">
           <label>
             {'Start Time: '}
             <input type="time" name="startTime" min="00:00" max="23:00" />
@@ -79,7 +80,7 @@ function BookingForm({
             {'End Time: '}
             <input type="time" name="endTime" min="00:00" max="23:00" />
           </label>
-
+        </div>
         <label>
           {'Business Unit:'}
           <select name="business" defaultValue="Business Unit 1"> 

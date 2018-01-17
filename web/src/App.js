@@ -6,6 +6,7 @@ import SignInForm from './components/SignInForm'
 import BookingForm from './components/BookingForm'
 import NavBar from './components/NavBar'
 import MyBookings from './components/MyBookings'
+import FilterElement from './components/FilterElement'
 import { signIn, signOut } from './api/auth'
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
@@ -111,7 +112,8 @@ class App extends Component {
               <MyBookings user={decodedToken.email} userBookings={userBookings} />
               {/* <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} /> */}
               <div className="booking-container">
-                <RoomSelector setRoom={this.setRoom} roomData={currentRoom} />
+                {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
+                <FilterElement />
                 <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
               </div>
             </div>
