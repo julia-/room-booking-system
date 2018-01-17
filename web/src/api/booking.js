@@ -52,7 +52,8 @@ export function makeBooking(data, existingBookings) {
 
 // Delete a room booking
 export function deleteBooking(roomId, bookingId) {
-  return api.delete(`/rooms/${roomId}`, { bookingId })
+  console.log('room id:', roomId, 'booking id:', bookingId)
+  return api.delete(`/rooms/${roomId}`, { bookingId: bookingId })
     .then(res => res.data)
 }
 
