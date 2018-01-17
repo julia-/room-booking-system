@@ -40,6 +40,7 @@ class App extends Component {
       makeBooking({startDate, endDate, businessUnit, purpose, roomId}, existingBookings)
         .then((updatedRoom) => {
           // If the new booking is successfully saved to the database
+          alert(`${updatedRoom.name} sucessfully booked.`)
           this.setState((previousState) => {
             // Find the relevant room in React State and replace it with the new room data
             const updatedRoomData = previousState.roomData.map((room) => {
@@ -54,10 +55,11 @@ class App extends Component {
             }
           })
         })
-      }
+    }
     // If there is a booking clash and the booking could not be saved
     catch(err) { 
-      alert("Your booking could not be saved. There is an existing booking during the times selected.") 
+      alert("Your booking could not be saved. There is an existing booking during the times selected.")
+      console.error(err.message) 
     }
   }
 
