@@ -57,11 +57,11 @@ class App extends Component {
   }
 
   // Deletes a booking from the database and updates the React state
-  onDeleteBooking = ({ roomId, bookingId }) => {
+  onDeleteBooking = ( roomId, bookingId ) => {
     deleteBooking(roomId, bookingId)
       .then((updatedRoom) => {
         alert('Booking successfully deleted')
-        updateStateRoom(self, updatedRoom)
+        updateStateRoom(this, updatedRoom)
       })
     .catch(error => console.error( error.message ))
   }
