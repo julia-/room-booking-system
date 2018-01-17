@@ -92,8 +92,12 @@ function BookingForm({
         </label>
 
         <label>
-          {'Purpose: '}
-          <input type="text" name="purpose" />
+          {'Purpose:'}
+          <select name="purpose" defaultValue="Scheduled Class"> 
+            <option value="Scheduled Class">Scheduled Class</option> 
+            <option value="Special Event">Special Event</option> 
+            <option value="Ad-hoc Event">Ad-hoc Event</option> 
+          </select>
         </label>
 
         <label>
