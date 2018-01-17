@@ -46,6 +46,7 @@ export function makeBooking(data, existingBookings) {
       purpose: data.purpose
     })
       .then(res => res.data)
+      .catch(err => console.error(err))
   }
 }
 
@@ -53,4 +54,22 @@ export function makeBooking(data, existingBookings) {
 export function deleteBooking(roomId, bookingId) {
   return api.delete(`/rooms/${roomId}`, { bookingId })
     .then(res => res.data)
+}
+
+export function updateStateRoom(self, updatedRoom) {
+  self.setState((previousState) => {
+    // Find the relevant room in React State and replace it with the new room data
+    const updatedRoomData = previousState.roomData.map((room) => {
+      if (room._id === updatedRoom._id) {
+        return updatedRoom
+      } else {
+        return room
+      }
+    })
+    return {
+      // Update the room data in application state
+      roomData: updatedRoomData,
+      currentRoom: updatedRoom
+    }
+  })
 }
