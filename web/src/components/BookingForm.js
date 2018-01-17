@@ -47,7 +47,9 @@ function BookingForm({
       const purpose = formData.purpose.value
       const description = formData.description.value
       onMakeBooking({startDate, endDate, businessUnit, purpose, roomId})
+    
       {/* console.log({startDate, endDate, businessUnit, purpose, roomId, description}) */}
+
     }}
     >
     <h2>{roomData.name}</h2>

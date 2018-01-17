@@ -10,7 +10,7 @@ import FilterElement from './components/FilterElement'
 import { signIn, signOut } from './api/auth'
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
-import { makeBooking } from './api/booking'
+import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
 import RoomSelector from './components/RoomSelector'
 
 class App extends Component {
@@ -46,21 +46,7 @@ class App extends Component {
         .then((updatedRoom) => {
           // If the new booking is successfully saved to the database
           alert(`${updatedRoom.name} sucessfully booked.`)
-          this.setState((previousState) => {
-            // Find the relevant room in React State and replace it with the new room data
-            const updatedRoomData = previousState.roomData.map((room) => {
-              if (room._id === updatedRoom._id) {
-                return updatedRoom
-              } else {
-                return room
-              }
-            })
-            return {
-              // Update the room data in application state
-              roomData: updatedRoomData,
-              currentRoom: updatedRoom
-            }
-          })
+          updateStateRoom(this, updatedRoom)
         })
     }
     // If there is a booking clash and the booking could not be saved
@@ -68,6 +54,16 @@ class App extends Component {
       alert("Your booking could not be saved. There is an existing booking during the times selected.")
       console.error(err.message) 
     }
+  }
+
+  // Deletes a booking from the database and updates the React state
+  onDeleteBooking = ({ roomId, bookingId }) => {
+    deleteBooking(roomId, bookingId)
+      .then((updatedRoom) => {
+        alert('Booking successfully deleted')
+        updateStateRoom(self, updatedRoom)
+      })
+    .catch(error => console.error( error.message ))
   }
 
   setRoom = (roomNumber) => {
