@@ -133,3 +133,16 @@ li {
   border-radius: 15px;
   box-shadow: 0px 3px 15px rgba(4, 5, 10, 0.2);
 }
+
+.user-booking-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center
+}
+.booking {
+  background: rgb(71, 179, 233);
+  border-radius: 5px;
+  padding: 5px;
+  width: 100px;
+  margin: 5px;
+}

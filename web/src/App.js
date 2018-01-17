@@ -30,6 +30,7 @@ class App extends Component {
     })
   }
 
+  // Removes the current token from local storage
   onSignOut = () => {
     signOut()
     this.setState({ decodedToken: null })
@@ -83,7 +84,7 @@ class App extends Component {
   }
 
   render() {
-    const { decodedToken, currentRoom } = this.state
+    const { decodedToken, currentRoom, userBookings } = this.state
     const signedIn = !!decodedToken
     const signOut = this.onSignOut
     const loadMyBookings = this.loadMyBookings
@@ -98,7 +99,7 @@ class App extends Component {
                 <h3>Signed in User: {decodedToken.email}</h3>
                 <button onClick={ signOut } >Log Out</button>
               </div>
-              <MyBookings user={decodedToken.email} />
+              <MyBookings user={decodedToken.email} userBookings={userBookings} />
               {/* <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} /> */}
               <div className="booking-container">
                 <RoomSelector setRoom={this.setRoom} roomData={currentRoom} />
@@ -121,6 +122,15 @@ class App extends Component {
       })
       .catch(error => {
         console.error('Error loading room data', error)
+      })
+      .then(() => {
+        this.loadMyBookings()
+      })
+      .catch(error => {
+        console.error('Error loading myBookings', error)
+      })
+      .then(() => {
+        this.setRoom("Room 1")
       })
     
   }
