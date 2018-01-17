@@ -1,8 +1,10 @@
 import React from 'react'
+import BookingElement from './BookingElement'
 
 function MyBookings({
   user,
-  userBookings
+  userBookings,
+  onDeleteBooking
 }) {
   return (
     <div className="my-bookings-container">
@@ -10,7 +12,12 @@ function MyBookings({
       <div className="user-booking-container">
         { !!userBookings ?
           (
-            Object.keys(userBookings).map(key => <p key={key} className="booking">{userBookings[key].businessUnit}</p>)
+            Object.keys(userBookings).map(key => 
+              <BookingElement 
+              key={key} 
+              bookingData={userBookings[key]}
+              onDeleteBooking={onDeleteBooking}
+              />)
            ) : (<p>no bookings</p>)
             
         }

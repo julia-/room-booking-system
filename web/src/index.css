@@ -195,3 +195,8 @@ li {
   justify-content: center;
   align-items: center;
 }
+
+.delete {
+  padding: 5px 0;
+  border-top: 1px solid white;
+}
