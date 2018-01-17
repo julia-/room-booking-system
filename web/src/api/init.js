@@ -1,19 +1,26 @@
 import axios from 'axios'
 import { rememberToken, getValidToken } from './token'
 
+// TODO: add env.production variable
+const baseURL = process.env.REACT_APP_BASE_URL
+
 // Create an axios instance
 const api = axios.create({
-  baseURL: 'http://localhost:7000'
+  baseURL
 })
+
+// Create the google authentication URL
+export function makeGoogleAuthURL(path) {
+  return baseURL + path
+}
 
 export function setToken(token) {
   // saves token to local storage
   rememberToken(token)
   if (token) {
-    // Setting the Authorisation header for all future GET requests 
+    // Setting the Authorisation header for all future GET requests
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-  }
-  else {
+  } else {
     delete api.defaults.headers.common['Authorization']
   }
 }
