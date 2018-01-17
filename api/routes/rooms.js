@@ -65,7 +65,23 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
       res.status(201).json(room)
     })
     .catch(error => {
-      console.log('User id', req.body.user)
+      res.status(400).json({ error })
+    })
+})
+
+// Delete a booking
+router.delete('/rooms/:id', requireJWT, (req, res) => {
+  const { id } = req.params
+  const bookingId = req.body.id
+  Room.findByIdAndUpdate(
+    id,
+    { $pull: { bookings: { _id: bookingId } } },
+    { new: true }
+  )
+    .then(room => {
+      res.status(201).json(room)
+    })
+    .catch(error => {
       res.status(400).json({ error })
     })
 })
