@@ -1,13 +1,21 @@
 import React, { Component } from 'react'
 import './App.css'
 import './react-datetime.css'
+
+import BookingForm from './components/BookingForm'
+import FilterElement from './components/FilterElement'
+import GoogleSignInButton from './components/GoogleSignInButton'
+import MyBookings from './components/MyBookings'
+import NavBar from './components/NavBar'
 import SignInForm from './components/SignInForm'
 // import RoomsList from './components/RoomsList'
-import BookingForm from './components/BookingForm'
-import NavBar from './components/NavBar'
-import MyBookings from './components/MyBookings'
-import FilterElement from './components/FilterElement'
-import { signIn, signOut } from './api/auth'
+
+import {
+  signIn,
+  signOut,
+  googleSignIn,
+  googleDidSignInWithToken
+} from './api/auth'
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
 import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
@@ -27,6 +35,17 @@ class App extends Component {
       console.log('signed in', decodedToken)
       this.setState({ decodedToken })
     })
+  }
+  
+  onBeginGoogleSignIn = () => {
+    // Begin journey through Google
+    googleSignIn()
+  }
+
+  onFinishGoogleSignIn = token => {
+    // Successfully return from journey with Google
+    const decodedToken = googleDidSignInWithToken(token)
+    this.setState({ decodedToken })
   }
 
   // Removes the current token from local storage
@@ -116,7 +135,10 @@ class App extends Component {
               </div>
             </div>
           ) : (
-            <SignInForm onSignIn={ this.onSignIn } />
+          <div>
+            <SignInForm onSignIn={this.onSignIn} />
+            <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
+          </div>
           )
         }
       </div>
@@ -148,6 +170,11 @@ class App extends Component {
   componentDidMount() {
     this.load()
 
+    window.authenticateCallback = this.onFinishGoogleSignIn
+  }
+
+  componentWillUnmount() {
+    delete window.authenticateCallback
   }
 }
 
