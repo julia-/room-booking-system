@@ -51,7 +51,9 @@ class App extends Component {
               }
             })
             return {
-              roomData: updatedRoomData
+              // Update the room data in application state
+              roomData: updatedRoomData,
+              currentRoom: updatedRoom
             }
           })
         })
