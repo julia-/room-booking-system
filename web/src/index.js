@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import registerServiceWorker from './registerServiceWorker'
+import queryString from 'query-string'
 
-const queryPairs = window.location.search.substring(1).split('&')
-console.log('queryPairs', queryPairs)
-// TODO: maybe use a better query parser
-if (!!queryPairs[0] && queryPairs[0].slice(0, 6) === 'token=') {
-  const token = queryPairs[0].slice(6)
+const parsedQuery = queryString.parse(window.location.search)
+const token = queryString.stringify(parsedQuery).slice(6)
+
+if (!!token) {
   window.opener.authenticateCallback(token)
   window.close()
 }

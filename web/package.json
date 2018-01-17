@@ -7,6 +7,7 @@
     "jwt-decode": "^2.2.0",
     "moment": "^2.20.1",
     "moment-timezone": "^0.5.14",
+    "query-string": "^5.0.1",
     "react": "^16.2.0",
     "react-datetime": "^2.11.1",
     "react-dom": "^16.2.0",
