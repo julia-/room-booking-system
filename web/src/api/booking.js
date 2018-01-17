@@ -45,6 +45,13 @@ export function makeBooking(data, existingBookings) {
       businessUnit: data.businessUnit,
       purpose: data.purpose
     })
-      .then((res) => res.data)
+      .then(res => res.data)
   }
 }
+
+// Delete a room booking
+export function deleteBooking(roomId, bookingId) {
+  return api.delete(`/rooms/${roomId}`, { bookingId })
+    .then(res => res.data)
+}
+
