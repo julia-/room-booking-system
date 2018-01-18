@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: roboto sans, josefin sans;
+  font-family: Raleway, josefin sans, sans-serif;
 }
 
 .time-selector label {
@@ -144,7 +144,7 @@ li {
   background: rgb(71, 179, 233);
   border-radius: 5px;
   padding: 5px;
-  width: 100px;
+  width: 180px;
   margin: 5px;
 }
 
@@ -196,7 +196,6 @@ li {
   align-items: center;
 }
 
-.delete {
-  padding: 5px 0;
-  border-top: 1px solid white;
+.sign-in-form {
+  margin-top: 10%;
 }
