@@ -8,7 +8,7 @@ import GoogleSignInButton from './components/GoogleSignInButton'
 import MyBookings from './components/MyBookings'
 import NavBar from './components/NavBar'
 import SignInForm from './components/SignInForm'
-// import RoomsList from './components/RoomsList'
+import RoomsList from './components/RoomsList'
 
 import {
   signIn,
@@ -20,6 +20,7 @@ import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
 import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
 import RoomSelector from './components/RoomSelector'
+import Calendar from './components/Calendar';
 
 class App extends Component {
   state = {
@@ -110,7 +111,7 @@ class App extends Component {
   }
 
   render() {
-    const { decodedToken, currentRoom, userBookings } = this.state
+    const { decodedToken, currentRoom, userBookings, roomData } = this.state
     const signedIn = !!decodedToken
     const signOut = this.onSignOut
     const loadMyBookings = this.loadMyBookings
@@ -127,7 +128,8 @@ class App extends Component {
                 <button onClick={ signOut } >Log Out</button>
               </div>
               <MyBookings user={decodedToken.email} userBookings={userBookings} onDeleteBooking={onDeleteBooking}/>
-              {/* <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} /> */}
+              <Calendar/>
+              <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} />
               <div className="booking-container">
                 {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
                 <FilterElement />
