@@ -7,6 +7,7 @@ const Calendar = props => (
     timeFormat={false}
     input={false}
     defaultValue={true}
+    utc={true}
     // isValidDate={valid}
   />
 )
