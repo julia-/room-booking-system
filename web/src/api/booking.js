@@ -5,13 +5,12 @@ import api from './init'
 // Function to receive booking data (AEST) and convert to JS Date object
 // Data expected in [year, month, date, hours, seconds] format
 const dateUTC = (dataArray) => {
-  // Save as Date object in UTC
-  return moment(dataArray).toDate()
+  // Ensure date data is saved in AEST and then converted to a Date object in UTC
+  return momentTimezone(dataArray).tz('Australia/Sydney').toDate()
 }
 
 // Make a room booking
 export function makeBooking(data, existingBookings) {
-  
   // Convert booking data to UTC Date objects
   let bookingStart = dateUTC(data.startDate)
   let bookingEnd = dateUTC(data.endDate)
