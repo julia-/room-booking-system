@@ -219,3 +219,11 @@ li {
 .business-unit-5 {
   background: lightpink;
 }
+
+.first-half-hour {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 50%, #FFF 50%);
+}
+
+.last-half-hour {
+  background: linear-gradient(90deg, #FFF 50%, rgba(0, 0, 0, 0) 50%);
+}
