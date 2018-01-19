@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './css/App.css'
+import './css/style.css'
 import './css/react-datetime.css'
 import moment from 'moment'
 
