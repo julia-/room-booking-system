@@ -72,7 +72,7 @@ class App extends Component {
     this.setState({ decodedToken: null })
   }
 
-  getCalendarDate = (date) => {
+  getCalendarDate = date => {
     this.setState({ calendarDate: date })
   }
   // Makes a booking by updating the database and the React state
@@ -122,8 +122,7 @@ class App extends Component {
     const roomData = this.state.roomData
     roomData.forEach(room => {
       // if the room has no bookings
-      if (room.bookings.length > 0)
-        bookedRooms.push(room)
+      if (room.bookings.length > 0) bookedRooms.push(room)
     })
     console.log(bookedRooms)
   }
@@ -146,7 +145,7 @@ class App extends Component {
         }
       })
     })
-    console.log(todaysBookings) 
+    console.log(todaysBookings)
   }
 
   loadMyBookings = () => {
@@ -181,41 +180,56 @@ class App extends Component {
     const loadMyBookings = this.loadMyBookings
     const onDeleteBooking = this.onDeleteBooking
     const getCalendarDate = this.getCalendarDate
-    
+
     return (
       <div className="App">
-        <NavBar signOut={signOut} loadMyBookings={loadMyBookings} user={signedIn ? (decodedToken.sub) : (null)} />
-        {
-          signedIn ? (
-            <div>
-              <div className="user-info">
-                <h3>Signed in User: {decodedToken.email}</h3>
-                <button onClick={ signOut } >Log Out</button>
-                <button onClick={ this.onSortEmptyRooms} >show me the bookings</button>
-                <button onClick={ this.oneSetCurrentDateBookings} >show me todays bookings</button>
-              </div>
-              <MyBookings user={decodedToken.email} userBookings={userBookings} onDeleteBooking={onDeleteBooking}/>
-              {/* <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} /> */}
-              <div className="booking-container">
-                {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
-                <FilterElement />
-                <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
-              </div>
-            <MyBookings user={decodedToken.email} userBookings={userBookings} onDeleteBooking={onDeleteBooking} />
+        <NavBar
+          signOut={signOut}
+          loadMyBookings={loadMyBookings}
+          user={signedIn ? decodedToken.sub : null}
+        />
+        {signedIn ? (
+          <div>
+            <div className="user-info">
+              <h3>Signed in User: {decodedToken.email}</h3>
+              <button onClick={signOut}>Log Out</button>
+              <button onClick={this.onSortEmptyRooms}>
+                show me the bookings
+              </button>
+              <button onClick={this.oneSetCurrentDateBookings}>
+                show me todays bookings
+              </button>
+            </div>
+            <MyBookings
+              user={decodedToken.email}
+              userBookings={userBookings}
+              onDeleteBooking={onDeleteBooking}
+            />
             <Calendar getCalendarDate={getCalendarDate} />
-            <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} date={calendarDate} />
+            <RoomsList
+              rooms={roomData}
+              onRoomSelect={this.onRoomSelect}
+              date={calendarDate}
+            />
             <div className="booking-container">
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
               <FilterElement />
-              <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
+              <BookingForm
+                user={decodedToken.email}
+                roomData={currentRoom}
+                onMakeBooking={this.onMakeBooking}
+              />
             </div>
-          </div> ) : (<div>
+          </div>
+        ) : (
+          <div>
             <SignInForm onSignIn={this.onSignIn} />
             <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
-          </div>)}
+          </div>
+        )}
       </div>
-  )
-}
+    )
+  }
 
   load() {
     listRooms()
