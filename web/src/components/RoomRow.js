@@ -14,11 +14,25 @@ const bookingArray = filteredBookings => {
     let finalHour = startTime + duration
 
     // Push each booking into the relevant hour in the 24 hour array 
-    for (var i = startTime; i < finalHour; i++) {
+    for (var i = Math.floor(startTime); i < Math.floor(finalHour); i++) {
+
+      // Check if the start time is on the hour, or half hour
+      if (startTime % 1 !== 0) {
+        // If on the half hour, add this to the booking object
+        booking.secondHalfHour = true
+      }
+
+      // Check if the end time is on the hour, or half hour
+      if (finalHour % 1 !== 0) {
+        booking.firstHalfHour = true
+      }
+
+      // Add the booking object to the relevant hour in the 24 hour array
       dayHours[i] = booking
     }
   })
   
+  // Return the 24 hour array with all booking objects added
   return dayHours
 }
 
