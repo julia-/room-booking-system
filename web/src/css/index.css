@@ -200,3 +200,63 @@ li {
 .sign-in-form {
   margin-top: 10%;
 }
+
+.business-unit-1 {
+  background: honeydew;
+}
+
+.business-unit-1.first-half-hour {
+  background: linear-gradient(90deg, honeydew 50%, #FFF 50%);
+}
+
+.business-unit-1.second-half-hour{
+  background: linear-gradient(90deg, #FFF 50%, honeydew 50%);
+}
+
+.business-unit-2 {
+  background: peachpuff;
+}
+
+.business-unit-2.first-half-hour {
+  background: linear-gradient(90deg, peachpuff 50%, #FFF 50%);
+}
+
+.business-unit-2.second-half-hour{
+  background: linear-gradient(90deg, #FFF 50%, peachpuff 50%);
+}
+
+.business-unit-3 {
+  background: lightblue;
+}
+
+.business-unit-3.first-half-hour {
+  background: linear-gradient(90deg, lightblue 50%, #FFF 50%);
+}
+
+.business-unit-3.second-half-hour{
+  background: linear-gradient(90deg, #FFF 50%, lightblue 50%);
+}
+
+.business-unit-4 {
+  background: lavender;
+}
+
+.business-unit-4.first-half-hour {
+  background: linear-gradient(90deg, lavender 50%, #FFF 50%);
+}
+
+.business-unit-4.second-half-hour{
+  background: linear-gradient(90deg, #FFF 50%, lavender 50%);
+}
+
+.business-unit-5 {
+  background: lightpink;
+}
+
+.business-unit-5.first-half-hour {
+  background: linear-gradient(90deg, lightpink 50%, #FFF 50%);
+}
+
+.business-unit-5.second-half-hour{
+  background: linear-gradient(90deg, #FFF 50%, lightpink 50%);
+}
