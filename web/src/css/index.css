@@ -104,6 +104,7 @@ a {
   float: left;
   font-size: 30px;
   letter-spacing: 1px;
+  line-height: .5em;
 }
 
 li {
@@ -144,7 +145,7 @@ li {
   background: rgb(71, 179, 233);
   border-radius: 5px;
   padding: 5px;
-  width: 180px;
+  width: 250px;
   margin: 5px;
 }
 
@@ -259,4 +260,3 @@ li {
 .business-unit-5.second-half-hour{
   background: linear-gradient(90deg, #FFF 50%, lightpink 50%);
 }
-
