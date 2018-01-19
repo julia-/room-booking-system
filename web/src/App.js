@@ -9,7 +9,7 @@ import GoogleSignInButton from './components/GoogleSignInButton'
 import MyBookings from './components/MyBookings'
 import NavBar from './components/NavBar'
 import SignInForm from './components/SignInForm'
-// import RoomsList from './components/RoomsList'
+import RoomsList from './components/RoomsList'
 
 import {
   signIn,
@@ -21,13 +21,30 @@ import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
 import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
 import RoomSelector from './components/RoomSelector'
+import Calendar from './components/Calendar'
 
 class App extends Component {
   state = {
     decodedToken: getDecodedToken(), // retrieves the token from local storage if valid, else will be null
     roomData: null,
     userBookings: null,
-    currentRoom: {"_id":"5a5c0d782b191c21b1eebf4e","name":"Room 1","floor":"8","capacity":18,"bookings":[],"assets":{"whiteBoard":false,"opWalls":false,"tv":false,"projector":false,"pcLab":true,"macLab":false},"__v":0}
+    calendarDate: null,
+    currentRoom: {
+      _id: '5a5c0d782b191c21b1eebf4e',
+      name: 'Room 1',
+      floor: '8',
+      capacity: 18,
+      bookings: [],
+      assets: {
+        whiteBoard: false,
+        opWalls: false,
+        tv: false,
+        projector: false,
+        pcLab: true,
+        macLab: false
+      },
+      __v: 0
+    }
   }
 
   // Pass supplied email & password to the signIn function, returns the users token
@@ -37,7 +54,7 @@ class App extends Component {
       this.setState({ decodedToken })
     })
   }
-  
+
   onBeginGoogleSignIn = () => {
     // Begin journey through Google
     googleSignIn()
@@ -55,38 +72,45 @@ class App extends Component {
     this.setState({ decodedToken: null })
   }
 
+  getCalendarDate = (date) => {
+    this.setState({ calendarDate: date })
+  }
   // Makes a booking by updating the database and the React state
-  onMakeBooking = ({startDate, endDate, businessUnit, purpose, roomId}) => {
-    const bookingData = {startDate, endDate, businessUnit, purpose, roomId}
+  onMakeBooking = ({ startDate, endDate, businessUnit, purpose, roomId }) => {
+    const bookingData = { startDate, endDate, businessUnit, purpose, roomId }
     const existingBookings = this.state.currentRoom.bookings
-    
+    console.log('bookingData', bookingData)
+
     // Check if there is a clash and, if not, save the new booking to the database
     try {
-      makeBooking({startDate, endDate, businessUnit, purpose, roomId}, existingBookings)
-        .then((updatedRoom) => {
-          // If the new booking is successfully saved to the database
-          alert(`${updatedRoom.name} sucessfully booked.`)
-          updateStateRoom(this, updatedRoom, this.loadMyBookings)
-        })
-    }
-    // If there is a booking clash and the booking could not be saved
-    catch(err) { 
-      alert("Your booking could not be saved. There is a clash with an existing booking.")
-      console.error(err.message) 
+      makeBooking(
+        { startDate, endDate, businessUnit, purpose, roomId },
+        existingBookings
+      ).then(updatedRoom => {
+        // If the new booking is successfully saved to the database
+        alert(`${updatedRoom.name} sucessfully booked.`)
+        updateStateRoom(this, updatedRoom, this.loadMyBookings)
+      })
+    } catch (err) {
+      // If there is a booking clash and the booking could not be saved
+      alert(
+        'Your booking could not be saved. There is a clash with an existing booking.'
+      )
+      console.error(err.message)
     }
   }
 
   // Deletes a booking from the database and updates the React state
   onDeleteBooking = (roomId, bookingId) => {
     deleteBooking(roomId, bookingId)
-      .then((updatedRoom) => {
+      .then(updatedRoom => {
         alert('Booking successfully deleted')
         updateStateRoom(this, updatedRoom, this.loadMyBookings)
       })
-    .catch(error => console.error( error.message ))
+      .catch(error => console.error(error.message))
   }
 
-  setRoom = (roomNumber) => {
+  setRoom = roomNumber => {
     const room = this.state.roomData.find(room => room.name === roomNumber)
     this.setState({ currentRoom: room })
   }
@@ -139,18 +163,25 @@ class App extends Component {
         }
       })
     })
-    this.setState({ userBookings: myBookings})    
+    this.setState({ userBookings: myBookings })
     console.log('state:', this.state.userBookings)
     console.log('myBookings:', myBookings)
   }
 
   render() {
-    const { decodedToken, currentRoom, userBookings } = this.state
+    const {
+      decodedToken,
+      currentRoom,
+      userBookings,
+      roomData,
+      calendarDate
+    } = this.state
     const signedIn = !!decodedToken
     const signOut = this.onSignOut
     const loadMyBookings = this.loadMyBookings
     const onDeleteBooking = this.onDeleteBooking
-
+    const getCalendarDate = this.getCalendarDate
+    
     return (
       <div className="App">
         <NavBar signOut={signOut} loadMyBookings={loadMyBookings} user={signedIn ? (decodedToken.sub) : (null)} />
@@ -170,16 +201,19 @@ class App extends Component {
                 <FilterElement />
                 <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
               </div>
+            <MyBookings user={decodedToken.email} userBookings={userBookings} onDeleteBooking={onDeleteBooking} />
+            <Calendar getCalendarDate={getCalendarDate} />
+            <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} date={calendarDate} />
+            <div className="booking-container">
+              {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
+              <FilterElement />
+              <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
             </div>
-          ) : (
-          <div>
+          </div> : <div>
             <SignInForm onSignIn={this.onSignIn} />
             <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
-          </div>
-          )
-        }
+          </div>}
       </div>
-    )
   }
 
   load() {
@@ -198,9 +232,8 @@ class App extends Component {
         console.error('Error loading myBookings', error)
       })
       .then(() => {
-        this.setRoom("Room 1")
+        this.setRoom('Room 1')
       })
-    
   }
 
   // When the App first renders

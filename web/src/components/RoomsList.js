@@ -24,7 +24,15 @@ const RoomsList = props => (
     </thead>
     <tbody>
       {props.rooms &&
-        props.rooms.map(room => <RoomRow key={room._id} room={room} onSelectRoom={props.onSelectRoom} />)}
+        props.rooms.map(room => (
+          <RoomRow
+            key={room._id}
+            room={room}
+            bookings={room.bookings}
+            date={props.date === null ? new Date() : props.date}
+            onSelectRoom={props.onSelectRoom}
+          />
+        ))}
     </tbody>
   </table>
 )
