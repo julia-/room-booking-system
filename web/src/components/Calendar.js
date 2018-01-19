@@ -2,6 +2,8 @@ import React from 'react'
 import Datetime from 'react-datetime'
 import moment from 'moment'
 
+const validDate = current => current.day() !== 0
+
 const Calendar = props => (
   <Datetime
     dateFormat="YYYY-MM-DD"
@@ -9,6 +11,7 @@ const Calendar = props => (
     input={false}
     utc={false}
     onChange={event => props.getCalendarDate(event._d)}
+    isValidDate={validDate}
   />
 )
 
