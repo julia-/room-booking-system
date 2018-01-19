@@ -38,16 +38,24 @@ export function bookingArray(filteredBookings) {
       // Create a copy of the booking to customise for each hour
       let bookingData = Object.assign({}, booking)
 
-      // Check if the start time is on the hour, or half hour, and that this is the start of the booking duration
-      if (i === Math.floor(startTime) && startTime % 1 !== 0 ) {
-        // If on the half hour, add this to the booking object
+      // Check if the total booking is half-hour long and begins on the half hour
+      if (duration === 0.5 && startTime % 1 !== 0) {
         bookingData.secondHalfHour = true
+      // Check if the total booking is half-hour long and begins on the hour
+      } else if (duration === 0.5 && startTime % 1 === 0) {
+        bookingData.firstHalfHour = true
+      // If the booking is longer than half an hour
+      } else {
+        // Check if the booking starts on the half hour
+        if (i === Math.floor(startTime) && startTime % 1 !== 0 ) {
+          bookingData.secondHalfHour = true
+        }
+        // Check if the booking ends on the half hour
+        if (i === Math.ceil(finalHour - 1) && finalHour % 1 !== 0 ) {
+          bookingData.firstHalfHour = true
+        }
       }
 
-      // Check if the end time is on the hour, or half hour, and that this is the end of the booking duration
-      if (i === Math.ceil(finalHour - 1) && finalHour % 1 !== 0 ) {
-        bookingData.firstHalfHour = true
-      }
 
       // Add the booking object to the relevant hour in the 24 hour array
       dayHours[i] = bookingData
@@ -84,8 +92,8 @@ export function rowMapper(dayHours){
             .replace(/ /g, '-')
             .toLowerCase()}
             ${bookingData.firstHalfHour ? "first-half-hour" : '' }
-            ${bookingData.secondHalfHour ? "last-half-hour" : '' }
-          `}
+            ${bookingData.secondHalfHour ? "second-half-hour" : '' }`
+          }
         >
           {bookingData.businessUnit}
         </td>
