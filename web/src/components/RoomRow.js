@@ -2,17 +2,24 @@ import React from 'react'
 import formatAssetName from '../helpers/rooms'
 import { dailyBookings } from '../api/rooms'
 
+// A function to take the bookings for a particular room on a given date and insert them into an array which maps each hour of that day
 const bookingArray = filteredBookings => {
-  let array = [...Array(24).keys()]
+
+  // An array from 1 to 24 representing each hour of the day
+  let dayHours = [...Array(24).keys()]
+
   filteredBookings.forEach(booking => {
     let startTime = booking.startHour
     let duration = booking.duration
-    let bookingDuration = Math.floor(startTime + duration)
-    for (var i = startTime; i < bookingDuration; i++) {
-      array[i] = booking
+    let finalHour = startTime + duration
+
+    // Push each booking into the relevant hour in the 24 hour array 
+    for (var i = startTime; i < finalHour; i++) {
+      dayHours[i] = booking
     }
   })
-  return array
+  
+  return dayHours
 }
 
 const rowMapper = array => {
