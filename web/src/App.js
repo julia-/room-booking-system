@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './css/App.css'
 import './css/react-datetime.css'
+import moment from 'moment'
 
 import BookingForm from './components/BookingForm'
 import FilterElement from './components/FilterElement'
@@ -114,6 +115,40 @@ class App extends Component {
     this.setState({ currentRoom: room })
   }
 
+  // ***Need to add to the state***
+  //  filter out empty rooms
+  onSortEmptyRooms = () => {
+    let bookedRooms = []
+    const roomData = this.state.roomData
+    roomData.forEach(room => {
+      // if the room has no bookings
+      if (room.bookings.length > 0)
+        bookedRooms.push(room)
+    })
+    console.log(bookedRooms)
+  }
+
+  // ***Need to add to the state***
+  // get todays booking for all rooms
+  oneSetCurrentDateBookings = () => {
+    const currentDate = moment().format('DD-MM-YYYY')
+    const roomData = this.state.roomData
+    const bookings = this.state.roomData
+    // array to collect todays bookings
+    let todaysBookings = []
+    // loop through all rooms
+    roomData.forEach(room => {
+      // loop through all bookings for that room
+      room.bookings.forEach(booking => {
+        const bookingStart = moment(booking.bookingStart).format('DD-MM-YYYY')
+        if (bookingStart === currentDate) {
+          todaysBookings.push(booking)
+        }
+      })
+    })
+    console.log(todaysBookings) 
+  }
+
   loadMyBookings = () => {
     let myBookings = []
     const userId = this.state.decodedToken.sub
@@ -146,14 +181,26 @@ class App extends Component {
     const loadMyBookings = this.loadMyBookings
     const onDeleteBooking = this.onDeleteBooking
     const getCalendarDate = this.getCalendarDate
-
-    return <div className="App">
-        <NavBar signOut={signOut} loadMyBookings={loadMyBookings} user={signedIn ? decodedToken.sub : null} />
-        {signedIn ? <div>
-            <div className="user-info">
-              <h3>Signed in User: {decodedToken.email}</h3>
-              <button onClick={signOut}>Log Out</button>
-            </div>
+    
+    return (
+      <div className="App">
+        <NavBar signOut={signOut} loadMyBookings={loadMyBookings} user={signedIn ? (decodedToken.sub) : (null)} />
+        {
+          signedIn ? (
+            <div>
+              <div className="user-info">
+                <h3>Signed in User: {decodedToken.email}</h3>
+                <button onClick={ signOut } >Log Out</button>
+                <button onClick={ this.onSortEmptyRooms} >show me the bookings</button>
+                <button onClick={ this.oneSetCurrentDateBookings} >show me todays bookings</button>
+              </div>
+              <MyBookings user={decodedToken.email} userBookings={userBookings} onDeleteBooking={onDeleteBooking}/>
+              {/* <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} /> */}
+              <div className="booking-container">
+                {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
+                <FilterElement />
+                <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
+              </div>
             <MyBookings user={decodedToken.email} userBookings={userBookings} onDeleteBooking={onDeleteBooking} />
             <Calendar getCalendarDate={getCalendarDate} />
             <RoomsList rooms={roomData} onRoomSelect={this.onRoomSelect} date={calendarDate} />
