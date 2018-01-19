@@ -95,7 +95,7 @@ class App extends Component {
     } catch (err) {
       // If there is a booking clash and the booking could not be saved
       alert(
-        'Your booking could not be saved. There is a clash with an existing booking.'
+        'Your booking could not be saved. Please ensure it does not clash with an existing booking and that it is not a past date.'
       )
       console.error(err.message)
     }
