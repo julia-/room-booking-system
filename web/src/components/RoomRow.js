@@ -14,61 +14,91 @@ const bookingArray = filteredBookings => {
     let finalHour = startTime + duration
 
     // Push each booking into the relevant hour in the 24 hour array 
-    for (var i = Math.floor(startTime); i < Math.floor(finalHour); i++) {
+    // Loop from the beginning of the start hour to the end of the final hour (rounding half hours)
+    for (let i = Math.floor(startTime); i < Math.ceil(finalHour); i++) {
 
-      // Check if the start time is on the hour, or half hour
-      if (startTime % 1 !== 0) {
+      // Create a copy of the booking to customise for each hour
+      let bookingData = Object.assign({}, booking)
+
+      // Check if the start time is on the hour, or half hour, and that this is the start of the booking duration
+      if (i === Math.floor(startTime) && startTime % 1 !== 0 ) {
         // If on the half hour, add this to the booking object
-        booking.secondHalfHour = true
+        bookingData.secondHalfHour = true
       }
 
-      // Check if the end time is on the hour, or half hour
-      if (finalHour % 1 !== 0) {
-        booking.firstHalfHour = true
+      // Check if the end time is on the hour, or half hour, and that this is the end of the booking duration
+      if (i === Math.ceil(finalHour - 1) && finalHour % 1 !== 0 ) {
+        bookingData.firstHalfHour = true
       }
 
       // Add the booking object to the relevant hour in the 24 hour array
-      dayHours[i] = booking
+      dayHours[i] = bookingData
     }
   })
   
-  // Return the 24 hour array with all booking objects added
+  // Return the 24 hour array with all booking objects added to each hour they apply to
   return dayHours
 }
 
-const rowMapper = array => {
-  let row = []
+// Accept the 24 hour dayHours array as the day's booking data for a room
+const rowMapper = dayHours => {
+  let tableRow = []
+
+  // Loop through each hour from 8AM to 9PM (starting at 8AM = 0)
   for (var i = 0; i < 13; i++) {
-    let bookingData = array[i + 8]
+
+    // Extract the corresponding data from the 24 hour array 
+    let bookingData = dayHours[i + 8]
+
+    // If the data for that hour is a number (not a booking object), there is no booking
+    // Add a <td> element that indicates the time slot is available
     if (typeof bookingData == 'number') {
-      row.push(<td className="available">Available</td>)
+      tableRow.push(
+        <td className="available">Available</td>
+      )
+
+    // If there is a booking object, add a <td> element with custom class name to enable stlying
     } else {
-      row.push(
+      tableRow.push(
         <td
+        // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
           className={`${bookingData.businessUnit
             .replace(/ /g, '-')
-            .toLowerCase()}`}
+            .toLowerCase()}
+            ${bookingData.firstHalfHour ? "first-half-hour" : '' }
+            ${bookingData.secondHalfHour ? "last-half-hour" : '' }
+          `}
         >
           {bookingData.businessUnit}
         </td>
       )
     }
   }
-  return row
+  return tableRow
 }
 
 const RoomRow = props => (
   <tr>
     <td>{props.room.name}</td>
     <td>
-      {Object.keys(props.room.assets).map(
+      {
+        Object.keys(props.room.assets).map(
         asset =>
           props.room.assets[asset] && (
-            <span key={asset}>{formatAssetName(asset)}</span>
+            <span key={asset}>
+              { formatAssetName(asset) }
+            </span>
           )
-      )}
+        )
+      }
     </td>
-    {rowMapper(bookingArray(dailyBookings(props.date, props.bookings)))}
+    {
+      rowMapper(
+        bookingArray(
+          dailyBookings(props.date, props.bookings)
+        )
+      )
+    }
   </tr>
 )
 
