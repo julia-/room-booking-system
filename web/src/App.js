@@ -209,12 +209,13 @@ class App extends Component {
               <FilterElement />
               <BookingForm user={decodedToken.email} roomData={currentRoom} onMakeBooking={this.onMakeBooking} />
             </div>
-          </div> : <div>
+          </div> ) : (<div>
             <SignInForm onSignIn={this.onSignIn} />
             <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
-          </div>}
+          </div>)}
       </div>
-  }
+  )
+}
 
   load() {
     listRooms()
