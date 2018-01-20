@@ -41,7 +41,6 @@ function BookingForm({ onMakeBooking, user, roomData }) {
         const purpose = formData.purpose.value
         const description = formData.description.value
         onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId })
-
       }}
     >
       <h2>{roomData.name}</h2>
@@ -61,7 +60,9 @@ function BookingForm({ onMakeBooking, user, roomData }) {
         </div>
 
         <div className="middle-container">
-          <BookingFormTable roomData={roomData} />
+          <BookingFormTable 
+            roomData={roomData} 
+            date={ calendarDate ? calendarDate : new Date() } />
         </div>
 
         <div className="right-container">
