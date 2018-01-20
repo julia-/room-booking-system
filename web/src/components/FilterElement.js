@@ -28,6 +28,7 @@ function FilterElement({
       </div>
       <h3>Features</h3>
       <div>
+        <div>
           <input type="checkbox" id="macLab" name="macLab" onClick={() => onToggleFeature('macLab')}/>
           <label for="macLab">Mac Lab</label>
         </div>
@@ -51,6 +52,7 @@ function FilterElement({
           <input type="checkbox" id="projector" name="projector" onClick={() => onToggleFeature('projector')}/>
           <label for="projector">Projector</label>
         </div>
+      </div>
       <h3>Capacity</h3>
       <div>
           <input type="checkbox" id="16seats" name="16seats" onClick={(event) => console.log(event.target.value, event.target.disabled)}/>

@@ -89,7 +89,6 @@ class App extends Component {
   onMakeBooking = ({ startDate, endDate, businessUnit, purpose, roomId }) => {
     const bookingData = { startDate, endDate, businessUnit, purpose, roomId }
     const existingBookings = this.state.currentRoom.bookings
-    console.log('bookingData', bookingData)
 
     // Check if there is a clash and, if not, save the new booking to the database
     try {
@@ -131,11 +130,15 @@ class App extends Component {
   }
 
   onToggleFeature = (feature) => {
+    // Get the filter parameters
     let filterParams = this.state.filterParams
+    // Find the filter parameter that matches the the passed parameter
     let featureParam = filterParams.find(param => param.name === feature)
+    // Toggle the value of the parameter, eg if false, set to true
     featureParam.value = !featureParam.value
+    // Set state with the updated filter parameters
     this.setState({filterParams: filterParams})
-    console.log('onToggleFeature', this.state.filterParams)
+    // filter the filtered roomData again with the updated filter parameters
     this.onFilterByFeature(filterParams)
   }
 
@@ -149,7 +152,6 @@ class App extends Component {
       filteredData = roomData.filter(room => room.floor === value)
     }
     this.setState({filteredData: filteredData})
-    // console.log(value)
   }
 
   onFilterByCapacity = (value) => {
@@ -164,25 +166,18 @@ class App extends Component {
     featureParams.forEach(feature => {
       if (feature.name === 'macLab' && feature.value === true) {
         filteredData = roomData.filter(room => room.assets.macLab === true)
-        console.log('filtered', feature.name)
       } else if (feature.name === 'pcLab' && feature.value === true) {
         filteredData = roomData.filter(room => room.assets.pcLab === true)
-        console.log('filtered', feature.name)
       }else if (feature.name === 'tv' && feature.value === true) {
         filteredData = roomData.filter(room => room.assets.tv === true)
-        console.log('filtered', feature.name)
       } else if (feature.name === 'opWall' && feature.value === true) {
         filteredData = roomData.filter(room => room.assets.opWalls === true)
-        console.log('filtered', feature.name)
       } else if (feature.name === 'whiteboard' && feature.value === true) {
         filteredData = roomData.filter(room => room.assets.whiteboard === true)
-        console.log('filtered', feature.name)
       } else if (feature.name === 'projector' && feature.value === true) {
         filteredData = roomData.filter(room => room.assets.projector === true)
-        console.log('filtered', feature.name)
-      }
+      } 
     })
-
     // this.setState({filteredData: filteredData})
     console.log('onFilterByFeature', filteredData)
   }
@@ -236,8 +231,8 @@ class App extends Component {
       })
     })
     this.setState({ userBookings: myBookings })
-    console.log('state:', this.state.userBookings)
-    console.log('myBookings:', myBookings)
+    // console.log('state:', this.state.userBookings)
+    // console.log('myBookings:', myBookings)
   }
 
   render() {
