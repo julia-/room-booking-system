@@ -1,0 +1,98 @@
+// Day View - Room Table Display
+.table
+  border 2px solid mediumGrey
+  border-collapse collapse
+  margin 3rem auto
+  padding 0
+  table-layout fixed
+  // max-width 100%
+  &__body
+    tr
+      &:first-child
+        border-top none
+      &:last-child
+        border-bottom 2px solid darkGrey
+      &:last-child > td
+        border-bottom 2px solid darkGrey
+  &__cell--align-left
+    text-align left
+  &__cell--width
+    width 12rem
+  &__row
+    &:hover
+      background lightGrey
+  &__row
+    td
+      border 1px solid mediumGrey
+      padding 2rem 1rem
+      &:first-child
+        border-left 2px solid mediumGrey
+      &:last-child
+        border-right 2px solid mediumGrey
+  &__row
+    th
+      border 1px solid mediumGrey
+      padding 1.2rem
+      &:first-child
+        border-left 2px solid mediumGrey
+      &:last-child
+        border-right 2px solid mediumGrey
+  &__row--header
+    background lightGrey
+    border 2px solid darkGrey
+    margin 0 auto
+    padding 0
+    &:hover
+      border 2px solid darkGrey
+    th
+      &:first-child
+        border-left 2px solid darkGrey
+      &:last-child
+        border-right 2px solid darkGrey
+  &__row--subheader
+    background lightGrey
+    border 2px solid mediumGrey
+    border-top 2px solid darkGrey
+    &:hover
+      border 2px solid mediumGrey
+  &__data--asset
+    text-align left
+    span
+      display block
+      line-height 125%
+
+// Business Unit Booking Styling
+.table__cell--business-unit-1
+  background businessUnit1
+  &.table__cell--first-half-hour
+    background linear-gradient(90deg, businessUnit1 50%, rgba(255, 255, 255, 0) 50%)
+  &.table__cell--second-half-hour
+    background linear-gradient(90deg, rgba(255, 255, 255, 0) 50%, businessUnit1 50%)
+
+.table__cell--business-unit-2
+  background businessUnit2
+  &.table__cell--first-half-hour
+    background linear-gradient(90deg, businessUnit2 50%, rgba(255, 255, 255, 0) 50%)
+  &.table__cell--second-half-hour
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 50%, businessUnit2 50%)
+
+.table__cell--business-unit-3
+  background businessUnit3
+  &.table__cell--first-half-hour
+    background linear-gradient(90deg, businessUnit3 50%, rgba(255, 255, 255, 0) 50%)
+  &.table__cell--second-half-hour
+    background linear-gradient(90deg, rgba(255, 255, 255, 0) 50%, businessUnit3 50%)
+
+.table__cell--business-unit-4
+  background businessUnit4
+  &.table__cell--first-half-hour
+    background linear-gradient(90deg, businessUnit4 50%, rgba(255, 255, 255, 0) 50%)
+  &.table__cell--second-half-hour
+    background linear-gradient(90deg, rgba(255, 255, 255, 0) 50%, businessUnit4 50%)
+
+.table__cell--business-unit-5
+  background businessUnit5
+  &.table__cell--first-half-hour
+    background linear-gradient(90deg, businessUnit5 50%, rgba(255, 255, 255, 0) 50%)
+  &.table__cell--second-half-hour
+    background linear-gradient(90deg, rgba(255, 255, 255, 0) 50%, businessUnit5 50%)
