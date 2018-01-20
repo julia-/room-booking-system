@@ -36,6 +36,13 @@ class App extends Component {
       {name: 'opWalls', value: false},
       {name: 'whiteboard', value: false},
       {name: 'projector', value: false} ],
+    capacityParams: [
+      {capacity: 16, id: '16seats', value: false},
+      {capacity: 18, id: '18seats', value: false},
+      {capacity: 20, id: '20seats', value: false},
+      {capacity: 24, id: '24seats', value: false},
+      {capacity: 40, id: '40seats', value: false},
+    ],
     filteredData: null,
     checked: null,
     currentRoom: {
@@ -142,6 +149,21 @@ class App extends Component {
     this.onFilterByFeature(filterParams)
   }
 
+  onToggleCapacity = (capacity) => {
+    // Get the capacity parameters
+    let capacityParams = this.state.capacityParams
+    // Find the capacity parameter that matches the the passed parameter
+    let capacityParam = capacityParams.find(param => param.id === capacity)
+    // Toggle the value of the parameter, eg if false, set to true
+    capacityParam.value = !capacityParam.value
+    // Set state with the updated capacity parameters
+    this.setState({capacityParams: capacityParams})
+    // filter the filtered roomData again with the updated capacity parameters
+    // this.onFilterByCapacity(capacityParams)
+    console.log('cap params', this.state.capacityParams)
+    this.onFilterByCapacity(capacityParams)
+  }
+
   onFilterByFloor = (value) => {
     // might need to reset roomData before executing the rest of the code
     const roomData = this.state.roomData
@@ -154,9 +176,13 @@ class App extends Component {
     this.setState({filteredData: filteredData})
   }
 
-  onFilterByCapacity = (value) => {
+  onFilterByCapacity = (capacityParams) => {
     const roomData = this.state.roomData
-    let filteredData = roomData.filter(room => room.capacity === value)
+    let filteredData = []
+    capacityParams.forEach(capacity => {
+      if (capacity.value === true)
+      filteredData.push(...roomData.filter(room => room.capacity === capacity.capacity)) 
+    })
     this.setState({filteredData: filteredData})
   }
 
@@ -278,7 +304,7 @@ class App extends Component {
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
               <FilterElement 
                 filterByFloor={this.onFilterByFloor}
-                filterByCapacity={this.onFilterByCapacity}
+                onToggleCapacity={this.onToggleCapacity}
                 filterByFeature={this.onFilterByFeature}
                 filterByAvailability={this.onFilterByAvailablity}
                 onToggleFeature={this.onToggleFeature}

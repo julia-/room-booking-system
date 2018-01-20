@@ -2,7 +2,7 @@ import React from 'react'
 
 function FilterElement({
   filterByFloor,
-  filterByCapacity,
+  onToggleCapacity,
   filterByFeature,
   filterByAvailability,
   onToggleFeature
@@ -27,53 +27,55 @@ function FilterElement({
         </div>
       </div>
       <h3>Features</h3>
-      <div>
+      <div onChange={(event) => onToggleFeature(event.target.name)} >
         <div>
-          <input type="checkbox" id="macLab" name="macLab" onClick={() => onToggleFeature('macLab')}/>
+          <input type="checkbox" id="macLab" name="macLab" />
           <label for="macLab">Mac Lab</label>
         </div>
         <div>
-          <input type="checkbox" id="pcLab" name="pcLab" onClick={() => onToggleFeature('pcLab')}/>
+          <input type="checkbox" id="pcLab" name="pcLab" />
           <label for="pcLab">PC Lab</label>
         </div>
         <div>
-          <input type="checkbox" id="tv" name="tv" onClick={() => onToggleFeature('tv')}/>
+          <input type="checkbox" id="tv" name="tv" />
           <label for="tv">TV</label>
         </div>
         <div>
-          <input type="checkbox" id="opWalls" name="opWalls" onClick={() => onToggleFeature('opWalls')}/>
+          <input type="checkbox" id="opWalls" name="opWalls" />
           <label for="opWall">Operable Walls</label>
         </div>
         <div>
-          <input type="checkbox" id="whiteboard" name="whiteboard" onClick={() => onToggleFeature('whiteboard')}/>
+          <input type="checkbox" id="whiteboard" name="whiteboard" />
           <label for="whiteboard">Whiteboard</label>
         </div>
         <div>
-          <input type="checkbox" id="projector" name="projector" onClick={() => onToggleFeature('projector')}/>
+          <input type="checkbox" id="projector" name="projector" />
           <label for="projector">Projector</label>
         </div>
       </div>
       <h3>Capacity</h3>
-      <div>
-          <input type="checkbox" id="16seats" name="16seats" onClick={(event) => console.log(event.target.value, event.target.disabled)}/>
+      <div onChange={ (event) => onToggleCapacity(event.target.id)}>
+        <div>
+          <input type="checkbox" id="16seats" name="16seats"/>
           <label for="16seats">16 Seats</label>
         </div>
         <div>
-          <input type="checkbox" id="18seats" name="18seats" onClick={() => filterByCapacity(18)}/>
+          <input type="checkbox" id="18seats" name="18seats"/>
           <label for="18seats">18 Seats</label>
         </div>
         <div>
-          <input type="checkbox" id="20seats" name="20seats" onClick={() => filterByCapacity(20)}/>
+          <input type="checkbox" id="20seats" name="20seats"/>
           <label for="20seats">20 Seats</label>
         </div>
         <div>
-          <input type="checkbox" id="24seats" name="24seats" onClick={() => filterByCapacity(24)}/>
+          <input type="checkbox" id="24seats" name="24seats"/>
           <label for="24seats">24 Seats</label>
         </div>
         <div>
-          <input type="checkbox" id="40seats" name="40seats" onClick={() => filterByCapacity(40)}/>
+          <input type="checkbox" id="40seats" name="40seats"/>
           <label for="40seats">40 Seats</label>
         </div>
+      </div>
       <h3>Availability</h3>
         <div className="radio-container" onChange={(event) => filterByAvailability(event.target.value)} >
           <div className="radio"> 
