@@ -22,6 +22,8 @@ import { getDecodedToken } from './api/token'
 import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
 import RoomSelector from './components/RoomSelector'
 import Calendar from './components/Calendar'
+import { filterParams, capacityParams } from './helpers/filters'
+import { initialRoom } from './helpers/rooms'
 
 class App extends Component {
   state = {
@@ -29,38 +31,11 @@ class App extends Component {
     roomData: null,
     userBookings: null,
     calendarDate: null,
-    filterParams:  [ 
-      {name: 'macLab', value: false},
-      {name: 'pcLab', value: false},
-      {name: 'tv', value: false},
-      {name: 'opWalls', value: false},
-      {name: 'whiteboard', value: false},
-      {name: 'projector', value: false} ],
-    capacityParams: [
-      {capacity: 16, id: '16seats', value: false},
-      {capacity: 18, id: '18seats', value: false},
-      {capacity: 20, id: '20seats', value: false},
-      {capacity: 24, id: '24seats', value: false},
-      {capacity: 40, id: '40seats', value: false},
-    ],
+    filterParams:  filterParams,
+    capacityParams: capacityParams,
     filteredData: null,
     checked: null,
-    currentRoom: {
-      _id: '5a5c0d782b191c21b1eebf4e',
-      name: 'Room 1',
-      floor: '8',
-      capacity: 18,
-      bookings: [],
-      assets: {
-        whiteBoard: false,
-        opWalls: false,
-        tv: false,
-        projector: false,
-        pcLab: true,
-        macLab: false
-      },
-      __v: 0
-    }
+    currentRoom: initialRoom
   }
 
   // Pass supplied email & password to the signIn function, returns the users token
