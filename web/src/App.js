@@ -97,6 +97,7 @@ class App extends Component {
       alert(
         'Your booking could not be saved. Please ensure it does not clash with an existing booking and that it is not a past date.'
       )
+
       console.error(err.message)
     }
   }
@@ -129,7 +130,7 @@ class App extends Component {
   }
 
   // ***Need to add to the state***
-  // get todays booking for all rooms
+  // get today's bookings for all rooms
   oneSetCurrentDateBookings = () => {
     const currentDate = moment().format('DD-MM-YYYY')
     const roomData = this.state.roomData
@@ -219,6 +220,7 @@ class App extends Component {
                 user={decodedToken.email}
                 roomData={currentRoom}
                 onMakeBooking={this.onMakeBooking}
+                date={calendarDate}
               />
             </div>
           </div>
