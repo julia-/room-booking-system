@@ -136,6 +136,7 @@ class App extends Component {
     this.setState({ filteredData: roomData})
   }
 
+  // setting the feature filter parameters
   onToggleFeature = (feature) => {
     // Get the filter parameters
     let filterParams = this.state.filterParams
@@ -149,6 +150,7 @@ class App extends Component {
     this.onFilterByFeature(filterParams)
   }
 
+  // setting the capacity filter parameters
   onToggleCapacity = (capacity) => {
     // Get the capacity parameters
     let capacityParams = this.state.capacityParams
@@ -176,16 +178,6 @@ class App extends Component {
     this.setState({filteredData: filteredData})
   }
 
-  onFilterByCapacity = (capacityParams) => {
-    const roomData = this.state.roomData
-    let filteredData = []
-    capacityParams.forEach(capacity => {
-      if (capacity.value === true)
-      filteredData.push(...roomData.filter(room => room.capacity === capacity.capacity)) 
-    })
-    this.setState({filteredData: filteredData})
-  }
-
   onFilterByFeature = (featureParams) => {
     const roomData = this.state.filteredData
     let filteredData = []
@@ -206,6 +198,16 @@ class App extends Component {
     })
     // this.setState({filteredData: filteredData})
     console.log('onFilterByFeature', filteredData)
+  }
+
+  onFilterByCapacity = (capacityParams) => {
+    const roomData = this.state.roomData
+    let filteredData = []
+    capacityParams.forEach(capacity => {
+      if (capacity.value === true)
+      filteredData.push(...roomData.filter(room => room.capacity === capacity.capacity)) 
+    })
+    this.setState({filteredData: filteredData})
   }
 
   //  filter out occupied rooms

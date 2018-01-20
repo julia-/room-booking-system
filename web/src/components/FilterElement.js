@@ -9,7 +9,7 @@ function FilterElement({
 }) {
 
   return (
-    <form className="filter-element" >
+    <form className="filter-element" onSubmit={() => console.log('submitted')} >
       <h2>Filter By:</h2>
       <h3>Floor</h3>
       <div className="floor-select" onChange={(event) => filterByFloor(event.target.value)}>
