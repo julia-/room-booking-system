@@ -66,7 +66,7 @@ export function bookingArray(filteredBookings) {
   return dayHours
 }
   
-// Accept the 24 hour dayHours array as the day's booking data for a room
+// Accept the 24 hour dayHours array as the day's booking data for a room and return a table row
 export function rowMapper(dayHours){
   let tableRow = []
 
@@ -102,4 +102,31 @@ export function rowMapper(dayHours){
   }
   return tableRow
 }
+
+// Accept the 24 hour dayHours array as the day's booking data for a room and a specific hour
+// Return a single <td> cell's data for that hour
+export function columnMapper(dayHours, hour){
   
+  // Extract the corresponding data for a single hour from the 24 hour array 
+  let bookingData = dayHours[hour]
+  
+  // If the data for that hour is a number (not a booking object), there is no booking
+  // Return a <td> element that indicates the time slot is available
+  if (typeof bookingData == 'number') {
+    return <td className="available">Available</td>
+  // If there is a booking object, add a <td> element with custom class name to enable stlying
+  } else {
+    return
+      <td
+      // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
+        className={`${bookingData.businessUnit
+          .replace(/ /g, '-')
+          .toLowerCase()}
+          ${bookingData.firstHalfHour ? "first-half-hour" : '' }
+          ${bookingData.secondHalfHour ? "second-half-hour" : '' }`
+        }
+      >
+        {bookingData.businessUnit}
+      </td>
+  }
+}
