@@ -3,44 +3,57 @@ import React from 'react'
 function FilterElement({
   filterByFloor,
   filterByCapacity,
-  filterByFeature
+  filterByFeature,
+  filterByAvailability,
+  onToggleFeature
 }) {
+
   return (
     <form className="filter-element" >
       <h2>Filter By:</h2>
       <h3>Floor</h3>
+      <div className="floor-select" onChange={(event) => filterByFloor(event.target.value)}>
         <div>
-          <input type="checkbox" id="floor8" name="floor8" onClick={() => filterByFloor('8')}/>
+          <input type="radio" value="8" name="floor-select" />
           <label for="floor8">Floor 8</label>
         </div>
         <div>
-          <input type="checkbox" id="floor13" name="floor13" onClick={() => filterByFloor('13')}/>
+          <input type="radio" value="13" name="floor-select" />
           <label for="floor13">Floor 13</label>
         </div>
+        <div>
+          <input type="radio" value="all" name="floor-select" />
+          <label for="floor13">All Floors</label>
+        </div>
+      </div>
       <h3>Features</h3>
       <div>
-          <input type="checkbox" id="macLab" name="macLab" onClick={() => filterByFeature('macLab')}/>
+          <input type="checkbox" id="macLab" name="macLab" onClick={() => onToggleFeature('macLab')}/>
           <label for="macLab">Mac Lab</label>
         </div>
         <div>
-          <input type="checkbox" id="pcLab" name="pcLab" onClick={() => filterByFeature('8')}/>
+          <input type="checkbox" id="pcLab" name="pcLab" onClick={() => onToggleFeature('pcLab')}/>
           <label for="pcLab">PC Lab</label>
         </div>
         <div>
-          <input type="checkbox" id="tv" name="tv" onClick={() => filterByFeature('8')}/>
+          <input type="checkbox" id="tv" name="tv" onClick={() => onToggleFeature('tv')}/>
           <label for="tv">TV</label>
         </div>
         <div>
-          <input type="checkbox" id="opWall" name="opWall" onClick={() => filterByFeature('8')}/>
+          <input type="checkbox" id="opWalls" name="opWalls" onClick={() => onToggleFeature('opWalls')}/>
           <label for="opWall">Operable Walls</label>
         </div>
         <div>
-          <input type="checkbox" id="whiteboard" name="whiteboard" onClick={() => filterByFeature('8')}/>
+          <input type="checkbox" id="whiteboard" name="whiteboard" onClick={() => onToggleFeature('whiteboard')}/>
           <label for="whiteboard">Whiteboard</label>
+        </div>
+        <div>
+          <input type="checkbox" id="projector" name="projector" onClick={() => onToggleFeature('projector')}/>
+          <label for="projector">Projector</label>
         </div>
       <h3>Capacity</h3>
       <div>
-          <input type="checkbox" id="16seats" name="16seats" onClick={() => filterByCapacity(16)}/>
+          <input type="checkbox" id="16seats" name="16seats" onClick={(event) => console.log(event.target.value, event.target.disabled)}/>
           <label for="16seats">16 Seats</label>
         </div>
         <div>
@@ -60,17 +73,19 @@ function FilterElement({
           <label for="40seats">40 Seats</label>
         </div>
       <h3>Availability</h3>
-      <div>
-          <input type="checkbox" id="fullyAvailable" name="fullyAvailable" onClick={() => filterByFloor('8')}/>
-          <label for="fullyAvailable">Fully Available</label>
-        </div>
-        <div>
-          <input type="checkbox" id="partialAvailable" name="PartialAvailable" />
-          <label for="partialAvailable">Partially Available</label>
-        </div>
-        <div>
-          <input type="checkbox" id="fullyBooked" name="fullyBooked" onClick={() => filterByFloor('8')}/>
-          <label for="fullyBooked">Fully Booked</label>
+        <div className="radio-container" onChange={(event) => filterByAvailability(event.target.value)} >
+          <div className="radio"> 
+            <input type="radio" id="fullyAvailable" value="fullyAvail" name="availability" />
+            <label for="fullyAvailable">Fully Available</label>
+          </div>
+          <div className="checkbox">
+            <input type="radio" id="partialAvailable" value="partAvail" name="availability" />
+            <label for="partialAvailable">Partially Available</label>
+          </div>
+          <div className="checkbox">
+            <input type="radio" id="fullyBooked" value="fullBooked" name="availability" />
+            <label for="fullyBooked">Fully Booked</label>
+          </div>
         </div>
         <div className="time-selector">
           <label>
