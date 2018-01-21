@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, } from 'react-router-dom'
 import './css/App.css'
 import './css/style.css'
 import './css/react-datetime.css'
@@ -285,63 +286,65 @@ class App extends Component {
     const setCalendarDate = this.setCalendarDate
 
     return (
-      <div id="app" className="App">
-        <NavBar
-          signOut={signOut}
-          loadMyBookings={loadMyBookings}
-          user={signedIn ? decodedToken.sub : null}
-        />
-        {signedIn ? (
-          <div>
-            <div className="user-info">
-              <h3>Signed in User: {decodedToken.email}</h3>
-              <button onClick={signOut}>Log Out</button>
-            </div>
-            <BookingModal
-              selectedBooking={selectedBooking}
-              onCloseBooking={this.onCloseBooking}
-            />
-            <div className="main-container">
-              {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
-              <div className="left-panel">
-              <Calendar setCalendarDate={setCalendarDate} />
-              <FilterElement 
-                onSetFloorParam={this.onSetFloorParam}
-                onToggleFeature={this.onToggleFeature}
-                onToggleCapacity={this.onToggleCapacity}
-                onSetAvailabilityParam={this.onSetAvailabilityParam}
-                onFilterAll={this.onFilterAll}
-              />
+      <Router>
+        <div id="app" className="App">
+          <NavBar
+            signOut={signOut}
+            loadMyBookings={loadMyBookings}
+            user={signedIn ? decodedToken.sub : null}
+          />
+          {signedIn ? (
+            <div>
+              <div className="user-info">
+                <h3>Signed in User: {decodedToken.email}</h3>
+                <button onClick={signOut}>Log Out</button>
               </div>
-              <RoomsList
-                rooms={filteredData}
-                onRoomSelect={this.onRoomSelect}
-                onShowBooking={this.onShowBooking}
-                date={calendarDate}
-            />
-            <div className="booking-container">
-              <BookingForm
-                user={decodedToken.email}
-                roomData={currentRoom}
-                onMakeBooking={this.onMakeBooking}
-                date={calendarDate}
-                updateCalendar={setCalendarDate}
+              <BookingModal
+                selectedBooking={selectedBooking}
+                onCloseBooking={this.onCloseBooking}
               />
-              <MyBookings
-                user={decodedToken.email}
-                userBookings={userBookings}
-                onDeleteBooking={onDeleteBooking}
+              <div className="main-container">
+                {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
+                <div className="left-panel">
+                <Calendar setCalendarDate={setCalendarDate} />
+                <FilterElement 
+                  onSetFloorParam={this.onSetFloorParam}
+                  onToggleFeature={this.onToggleFeature}
+                  onToggleCapacity={this.onToggleCapacity}
+                  onSetAvailabilityParam={this.onSetAvailabilityParam}
+                  onFilterAll={this.onFilterAll}
+                />
+                </div>
+                <RoomsList
+                  rooms={filteredData}
+                  onRoomSelect={this.onRoomSelect}
+                  onShowBooking={this.onShowBooking}
+                  date={calendarDate}
               />
+              <div className="booking-container">
+                <BookingForm
+                  user={decodedToken.email}
+                  roomData={currentRoom}
+                  onMakeBooking={this.onMakeBooking}
+                  date={calendarDate}
+                  updateCalendar={setCalendarDate}
+                />
+                <MyBookings
+                  user={decodedToken.email}
+                  userBookings={userBookings}
+                  onDeleteBooking={onDeleteBooking}
+                />
+              </div>
+              </div>
             </div>
+          ) : (
+            <div>
+              <SignInForm onSignIn={this.onSignIn} />
+              <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
             </div>
-          </div>
-        ) : (
-          <div>
-            <SignInForm onSignIn={this.onSignIn} />
-            <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      </Router>
     )
   }
 
