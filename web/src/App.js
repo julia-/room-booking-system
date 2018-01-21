@@ -32,7 +32,7 @@ class App extends Component {
     decodedToken: getDecodedToken(), // retrieves the token from local storage if valid, else will be null
     roomData: null,
     userBookings: null,
-    calendarDate: null,
+    calendarDate: new Date(),
     selectedBooking: null,
     filterParams:  filterParams,
     capacityParams: capacityParams,
@@ -68,8 +68,7 @@ class App extends Component {
     this.setState({ decodedToken: null })
   }
 
-  // set current selected calendar date
-  getCalendarDate = date => {
+  setCalendarDate = date => {
     this.setState({ calendarDate: date })
   }
 
@@ -102,6 +101,7 @@ class App extends Component {
       alert(
         'Your booking could not be saved. Please ensure it does not clash with an existing booking and that it is not a past date.'
       )
+
       console.error(err.message)
     }
   }
@@ -228,7 +228,7 @@ class App extends Component {
   }
 
   // ***Need to add to the state***
-  // get todays booking for all rooms
+  // get today's bookings for all rooms
   oneSetCurrentDateBookings = () => {
     const currentDate = moment().format('DD-MM-YYYY')
     // const roomData = this.state.roomData
@@ -282,7 +282,7 @@ class App extends Component {
     const signOut = this.onSignOut
     const loadMyBookings = this.loadMyBookings
     const onDeleteBooking = this.onDeleteBooking
-    const getCalendarDate = this.getCalendarDate
+    const setCalendarDate = this.setCalendarDate
 
     return (
       <div id="app" className="App">
@@ -324,6 +324,8 @@ class App extends Component {
                 user={decodedToken.email}
                 roomData={currentRoom}
                 onMakeBooking={this.onMakeBooking}
+                date={calendarDate}
+                updateCalendar={setCalendarDate}
               />
               <MyBookings
                 user={decodedToken.email}
