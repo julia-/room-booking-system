@@ -1,17 +1,17 @@
 import React from 'react'
-import { dailyBookings, bookingArray, columnMapper } from '../api/rooms'
+import { dailyBookings, bookingArray, columnMapper } from '../helpers/rooms'
 
 const BookingFormTable = props => (
-    <table>
+    <table className="room-table">
       <thead>
-        <tr>
-          <th>Time</th>
-          <th>Bookings</th>
+        <tr scope="col" className="room-table header-row">
+          <th className="left-column">Time</th>
+          <th className="bookings-column">Bookings</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>8am</td>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">8am</th>
             { 
               columnMapper(
                 bookingArray(
@@ -20,8 +20,8 @@ const BookingFormTable = props => (
               )
             }
         </tr>
-        <tr>
-          <td>9am</td>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">9am</th>
             { 
               columnMapper(
                 bookingArray(
@@ -30,8 +30,8 @@ const BookingFormTable = props => (
               )
             }
         </tr>
-        <tr>
-          <td>10am</td>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">10am</th>
             { 
               columnMapper(
                 bookingArray(
@@ -40,8 +40,8 @@ const BookingFormTable = props => (
               )
             }
         </tr>
-        <tr>
-          <td>11am</td>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">11am</th>
             { 
               columnMapper(
                 bookingArray(
@@ -50,8 +50,8 @@ const BookingFormTable = props => (
               )
             }
         </tr>
-        <tr>
-          <td>12pm</td>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">12pm</th>
             { 
               columnMapper(
                 bookingArray(
@@ -60,8 +60,8 @@ const BookingFormTable = props => (
               )
             }
         </tr>
-        <tr>
-          <td>1pm</td>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">1pm</th>
             { 
               columnMapper(
                 bookingArray(
@@ -70,8 +70,8 @@ const BookingFormTable = props => (
               )
             }
         </tr>
-        <tr>
-          <td>2pm</td>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">2pm</th>
             { 
               columnMapper(
                 bookingArray(
@@ -80,8 +80,8 @@ const BookingFormTable = props => (
               )
             }
         </tr>
-        <tr>
-          <td>3pm</td>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">3pm</th>
             { 
               columnMapper(
                 bookingArray(
@@ -90,8 +90,8 @@ const BookingFormTable = props => (
               )
             }
         </tr>
-        <tr>
-          <td>4pm</td>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">4pm</th>
             { 
               columnMapper(
                 bookingArray(
@@ -100,8 +100,8 @@ const BookingFormTable = props => (
               )
             }
         </tr>
-        <tr>
-          <td>5pm</td>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">5pm</th>
             { 
               columnMapper(
                 bookingArray(
@@ -110,8 +110,8 @@ const BookingFormTable = props => (
               )
             }
         </tr>
-        <tr>
-          <td>6pm</td>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">6pm</th>
             { 
               columnMapper(
                 bookingArray(
@@ -120,8 +120,8 @@ const BookingFormTable = props => (
               )
             }
         </tr>
-        <tr>
-          <td>7pm</td>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">7pm</th>
             { 
               columnMapper(
                 bookingArray(
@@ -130,8 +130,8 @@ const BookingFormTable = props => (
               )
             }
         </tr>
-        <tr>
-          <td>8pm</td>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">8pm</th>
             { 
               columnMapper(
                 bookingArray(
