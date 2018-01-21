@@ -1,71 +1,147 @@
 import React from 'react'
+import { dailyBookings, bookingArray, columnMapper } from '../api/rooms'
 
-function BookingFormTable({
-  roomData
-}) {
-  return (
-    
+const BookingFormTable = props => (
     <table>
       <thead>
         <tr>
-          <th>Date</th>
+          <th>Time</th>
+          <th>Bookings</th>
         </tr>
+      </thead>
+      <tbody>
         <tr>
           <td>8am</td>
-          <td></td>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 8
+              )
+            }
         </tr>
         <tr>
           <td>9am</td>
-          <td></td>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 9
+              )
+            }
         </tr>
         <tr>
           <td>10am</td>
-          <td></td>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 10
+              )
+            }
         </tr>
         <tr>
           <td>11am</td>
-          <td></td>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 11
+              )
+            }
         </tr>
         <tr>
           <td>12pm</td>
-          <td></td>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 12
+              )
+            }
         </tr>
         <tr>
           <td>1pm</td>
-          <td></td>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 13
+              )
+            }
         </tr>
         <tr>
           <td>2pm</td>
-          <td></td>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 14
+              )
+            }
         </tr>
         <tr>
           <td>3pm</td>
-          <td></td>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 15
+              )
+            }
         </tr>
         <tr>
           <td>4pm</td>
-          <td></td>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 16
+              )
+            }
         </tr>
         <tr>
           <td>5pm</td>
-          <td></td>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 17
+              )
+            }
         </tr>
         <tr>
           <td>6pm</td>
-          <td></td>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 18
+              )
+            }
         </tr>
         <tr>
           <td>7pm</td>
-          <td></td>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 19
+              )
+            }
         </tr>
         <tr>
           <td>8pm</td>
-          <td></td>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 20
+              )
+            }
         </tr>
-      </thead>
+      </tbody>
     </table>
-    
-  )
-}
+)
 
 export default BookingFormTable
