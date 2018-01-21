@@ -1,109 +1,147 @@
 import React from 'react'
-import { columnMapper } from '../api/rooms'
-import { bookingArray, dailyBookings } from '../helpers/rooms'
+import { dailyBookings, bookingArray, columnMapper } from '../helpers/rooms'
 
 const BookingFormTable = props => (
-  <table>
-    <thead>
-      <tr>
-        <th>Time</th>
-        <th>Bookings</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>8am</td>
-        {columnMapper(
-          bookingArray(dailyBookings(props.date, props.roomData.bookings)),
-          8
-        )}
-      </tr>
-      <tr>
-        <td>9am</td>
-        {columnMapper(
-          bookingArray(dailyBookings(props.date, props.roomData.bookings)),
-          9
-        )}
-      </tr>
-      <tr>
-        <td>10am</td>
-        {columnMapper(
-          bookingArray(dailyBookings(props.date, props.roomData.bookings)),
-          10
-        )}
-      </tr>
-      <tr>
-        <td>11am</td>
-        {columnMapper(
-          bookingArray(dailyBookings(props.date, props.roomData.bookings)),
-          11
-        )}
-      </tr>
-      <tr>
-        <td>12pm</td>
-        {columnMapper(
-          bookingArray(dailyBookings(props.date, props.roomData.bookings)),
-          12
-        )}
-      </tr>
-      <tr>
-        <td>1pm</td>
-        {columnMapper(
-          bookingArray(dailyBookings(props.date, props.roomData.bookings)),
-          13
-        )}
-      </tr>
-      <tr>
-        <td>2pm</td>
-        {columnMapper(
-          bookingArray(dailyBookings(props.date, props.roomData.bookings)),
-          14
-        )}
-      </tr>
-      <tr>
-        <td>3pm</td>
-        {columnMapper(
-          bookingArray(dailyBookings(props.date, props.roomData.bookings)),
-          15
-        )}
-      </tr>
-      <tr>
-        <td>4pm</td>
-        {columnMapper(
-          bookingArray(dailyBookings(props.date, props.roomData.bookings)),
-          16
-        )}
-      </tr>
-      <tr>
-        <td>5pm</td>
-        {columnMapper(
-          bookingArray(dailyBookings(props.date, props.roomData.bookings)),
-          17
-        )}
-      </tr>
-      <tr>
-        <td>6pm</td>
-        {columnMapper(
-          bookingArray(dailyBookings(props.date, props.roomData.bookings)),
-          18
-        )}
-      </tr>
-      <tr>
-        <td>7pm</td>
-        {columnMapper(
-          bookingArray(dailyBookings(props.date, props.roomData.bookings)),
-          19
-        )}
-      </tr>
-      <tr>
-        <td>8pm</td>
-        {columnMapper(
-          bookingArray(dailyBookings(props.date, props.roomData.bookings)),
-          20
-        )}
-      </tr>
-    </tbody>
-  </table>
+    <table className="room-table">
+      <thead>
+        <tr scope="col" className="room-table header-row">
+          <th className="left-column">Time</th>
+          <th className="bookings-column">Bookings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">8am</th>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 8, props.onShowBooking
+              )
+            }
+        </tr>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">9am</th>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 9, props.onShowBooking
+              )
+            }
+        </tr>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">10am</th>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 10, props.onShowBooking
+              )
+            }
+        </tr>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">11am</th>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 11, props.onShowBooking
+              )
+            }
+        </tr>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">12pm</th>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 12, props.onShowBooking
+              )
+            }
+        </tr>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">1pm</th>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 13, props.onShowBooking
+              )
+            }
+        </tr>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">2pm</th>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 14, props.onShowBooking
+              )
+            }
+        </tr>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">3pm</th>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 15, props.onShowBooking
+              )
+            }
+        </tr>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">4pm</th>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 16, props.onShowBooking
+              )
+            }
+        </tr>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">5pm</th>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 17, props.onShowBooking
+              )
+            }
+        </tr>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">6pm</th>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 18, props.onShowBooking
+              )
+            }
+        </tr>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">7pm</th>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 19, props.onShowBooking
+              )
+            }
+        </tr>
+        <tr className="room-table body-row">
+          <th scope="row" className="left-column">8pm</th>
+            { 
+              columnMapper(
+                bookingArray(
+                  dailyBookings(props.date, props.roomData.bookings)
+                ), 20, props.onShowBooking
+              )
+            }
+        </tr>
+      </tbody>
+    </table>
 )
 
 export default BookingFormTable
