@@ -1,5 +1,6 @@
 import React from 'react'
 
+// the <option> elements for the startTime and endTime <select> dropdowns
 export const timeSelectOptions = [      
   <option value="8:00">8:00am</option>,
   <option value="8:30">8:30am</option>,
@@ -29,8 +30,7 @@ export const timeSelectOptions = [
   <option value="20:30">8:30pm</option>
 ]
 
-// formats the time extracted from the time inputs into an array
-// 8:30 => [8, 30]
+// formats the time extracted from the time inputs into an array, eg 8:30 => [8, 30]
 export const formatTime = (time) => {
   let formatedTimeArray = []
   formatedTimeArray = time.split(':').map((item) => parseInt(item, 10))

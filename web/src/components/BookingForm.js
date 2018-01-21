@@ -17,10 +17,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
   const handleDate = event => {
     updateCalendar(moment(event)._i)
   }
-  
-  var spanStyle = {
-    color: 'blue'
-  }
+
   return (
     <form
       onSubmit={event => {
@@ -41,14 +38,10 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
         const businessUnit = formData.business.value
         const purpose = formData.purpose.value
         const description = formData.description.value
-        console.log(startDate, endDate, businessUnit, purpose, roomId )
         onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId })
       }}
     >
       <h2>{roomData.name}</h2>
-      <h2>
-        Room ID: <span style={spanStyle}>{roomData._id}</span>
-      </h2>
       <div className="date-container">
         <div className="left-container">
           <Datetime
