@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { BrowserRouter as Router, Route, } from 'react-router-dom'
 import './css/App.css'
 import './css/style.css'
@@ -199,33 +199,33 @@ class App extends Component {
       return filteredData
     }
   
-      const  onFilterByCapacity = () => {
-        const capacityParams = this.state.capacityParams
-        capacityParams.forEach(capacity => {
-          if (capacity.value === true)
-          filteredData.push(...roomData.filter(room => room.capacity === capacity.capacity)) 
-        })
-        return filteredData
-      }
+    const  onFilterByCapacity = () => {
+      const capacityParams = this.state.capacityParams
+      capacityParams.forEach(capacity => {
+        if (capacity.value === true)
+        filteredData.push(...roomData.filter(room => room.capacity === capacity.capacity)) 
+      })
+      return filteredData
+    }
 
-        //  filter out occupied rooms
-      const onFilterByAvailablity = () => {
-        const availability = this.state.availabilityParam
-        if (availability === 'fullyAvail') {
-          filteredData = roomData.filter(room => room.bookings.length === 0)
-        } else if (availability === 'partAvail') {
-          filteredData = roomData.filter(room => room.bookings.length > 0)
-        } else if (availability === 'fullBooked') {
-          filteredData = !roomData.filter(room => room.bookings.length > 0) && !roomData.filter(room => room.bookings.length === 0)
-        }
-        return filteredData
+      //  filter out occupied rooms
+    const onFilterByAvailablity = () => {
+      const availability = this.state.availabilityParam
+      if (availability === 'fullyAvail') {
+        filteredData = roomData.filter(room => room.bookings.length === 0)
+      } else if (availability === 'partAvail') {
+        filteredData = roomData.filter(room => room.bookings.length > 0)
+      } else if (availability === 'fullBooked') {
+        filteredData = !roomData.filter(room => room.bookings.length > 0) && !roomData.filter(room => room.bookings.length === 0)
       }
+      return filteredData
+    }
 
-      onFilterByFloor()
-      onFilterByFeature()
-      onFilterByCapacity()
-      onFilterByAvailablity()
-      this.setState({ filteredData: filteredData })
+    onFilterByFloor()
+    onFilterByFeature()
+    onFilterByCapacity()
+    onFilterByAvailablity()
+    this.setState({ filteredData: filteredData })
   }
 
   // ***Need to add to the state***
@@ -293,35 +293,48 @@ class App extends Component {
             loadMyBookings={loadMyBookings}
             user={signedIn ? decodedToken.sub : null}
           />
-          {signedIn ? (
-            <div>
-              <div className="user-info">
-                <h3>Signed in User: {decodedToken.email}</h3>
-                <button onClick={signOut}>Log Out</button>
+          
+          <div>
+            {/* <div className="user-info">
+              <h3>Signed in User: {decodedToken.email}</h3>
+              <button onClick={signOut}>Log Out</button>
+            </div> */}
+            <BookingModal
+              selectedBooking={selectedBooking}
+              onCloseBooking={this.onCloseBooking}
+            />
+            <div className="main-container">
+              {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
+
+              <Route path='/signin' exact render={ () => (
+                <div>
+                <SignInForm onSignIn={this.onSignIn} />
+                <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
               </div>
-              <BookingModal
-                selectedBooking={selectedBooking}
-                onCloseBooking={this.onCloseBooking}
-              />
-              <div className="main-container">
-                {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
-                <div className="left-panel">
-                <Calendar setCalendarDate={setCalendarDate} />
-                <FilterElement 
-                  onSetFloorParam={this.onSetFloorParam}
-                  onToggleFeature={this.onToggleFeature}
-                  onToggleCapacity={this.onToggleCapacity}
-                  onSetAvailabilityParam={this.onSetAvailabilityParam}
-                  onFilterAll={this.onFilterAll}
-                />
-                </div>
-                <RoomsList
-                  rooms={filteredData}
-                  onRoomSelect={this.onRoomSelect}
-                  onShowBooking={this.onShowBooking}
-                  date={calendarDate}
-              />
-              <div className="booking-container">
+              )} />
+
+              <Route path='/bookings' exact render={ () => (
+                <Fragment>
+                  <div className="left-panel">
+                    <Calendar setCalendarDate={setCalendarDate} />
+                    <FilterElement 
+                      onSetFloorParam={this.onSetFloorParam}
+                      onToggleFeature={this.onToggleFeature}
+                      onToggleCapacity={this.onToggleCapacity}
+                      onSetAvailabilityParam={this.onSetAvailabilityParam}
+                      onFilterAll={this.onFilterAll}
+                    />
+                  </div>
+                  <RoomsList
+                    rooms={filteredData}
+                    onRoomSelect={this.onRoomSelect}
+                    onShowBooking={this.onShowBooking}
+                    date={calendarDate}
+                  />
+                </Fragment>
+              )} />
+
+              <Route path="/createbooking" exact render={ () => (
                 <BookingForm
                   user={decodedToken.email}
                   roomData={currentRoom}
@@ -329,20 +342,19 @@ class App extends Component {
                   date={calendarDate}
                   updateCalendar={setCalendarDate}
                 />
+              )} />
+
+              <Route path="/mybookings" exact render={ () => (
                 <MyBookings
                   user={decodedToken.email}
                   userBookings={userBookings}
                   onDeleteBooking={onDeleteBooking}
                 />
-              </div>
-              </div>
+              )} />
+            
             </div>
-          ) : (
-            <div>
-              <SignInForm onSignIn={this.onSignIn} />
-              <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
-            </div>
-          )}
+          </div>
+      
         </div>
       </Router>
     )
