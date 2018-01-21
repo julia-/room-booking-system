@@ -4,7 +4,7 @@ import api from './init'
 
 export function listRooms() {
   return api.get('/rooms').then(res => res.data)
-  
+}
 // Accept the 24 hour dayHours array as the day's booking data for a room and a specific hour
 // Return a single <td> cell's data for that hour
 export function columnMapper(dayHours, hour){
