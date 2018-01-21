@@ -4,7 +4,7 @@ function FilterElement({
 
 }) {
   return (
-    <form className="filter-element" onSubmit={console.log('filter me daddy!')} >
+    <form className="filter-element" >
       <h2>Filter By:</h2>
       <h3>Floor</h3>
         <div>

@@ -4,8 +4,7 @@ import Datetime from 'react-datetime'
 import moment from 'moment'
 import formatTime from '../helpers/bookingForm'
 
-const BookingForm = props => {
-
+function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar }) {
   const valid = function(current) {
     return current.day() !== 0
   }
@@ -13,31 +12,24 @@ const BookingForm = props => {
   // Array used for handleData function
   let dateArray = []
 
-  // Takes the momentJS date object and converts it to an Array
-  // eg. 2018-04-12 => [2018, 4, 12]
+  // Update the current date in the application state
   const handleDate = event => {
-    const date = moment(event).format('Y M D')
-
-    // Update the current date in the application state
-    props.updateCalendar(moment(event)._i)
-
-    // Prepare a date array to make the booking
-    dateArray = date.split(' ').map(item => parseInt(item, 10))
-    dateArray[1] = dateArray[1] - 1
-    return dateArray
+    updateCalendar(moment(event)._i)
   }
-
+  
   var spanStyle = {
     color: 'blue'
   }
-
   return (
     <form
       onSubmit={event => {
         event.preventDefault()
+        // Extract date array from current date in state
+        const dateArray = moment(date).format('Y M D').split(' ').map(item => parseInt(item, 10))
+        dateArray[1] = dateArray[1] - 1
         // Data from input
         const formData = event.target.elements
-        const roomId = props.roomData._id
+        const roomId = roomData._id
         // startDate data
         const startTime = formatTime(formData.startTime.value)
         const startDate = [...dateArray, ...startTime]
@@ -48,14 +40,14 @@ const BookingForm = props => {
         const businessUnit = formData.business.value
         const purpose = formData.purpose.value
         const description = formData.description.value
-        props.onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId })
+        console.log(startDate, endDate, businessUnit, purpose, roomId )
+        onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId })
       }}
     >
-      <h2>{props.roomData.name}</h2>
+      <h2>{roomData.name}</h2>
       <h2>
-        Room ID: <span style={spanStyle}>{props.roomData._id}</span>
+        Room ID: <span style={spanStyle}>{roomData._id}</span>
       </h2>
-      <h2>Date: {moment(props.date).format('YYYY-MM-DD')}</h2>
       <div className="date-container">
         <div className="left-container">
           <Datetime
@@ -69,9 +61,7 @@ const BookingForm = props => {
         </div>
 
         <div className="middle-container">
-          <BookingFormTable 
-            roomData={props.roomData} 
-            date={ props.date } />
+          <BookingFormTable roomData={roomData} date={date} />
         </div>
 
         <div className="right-container">

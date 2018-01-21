@@ -117,19 +117,58 @@ export function columnMapper(dayHours, hour){
   // Return a <td> element that indicates the time slot is available
   if (typeof bookingData == 'number') {
     columnData = <td className="available">Available</td>
-  // If there is a booking object, add a <td> element with custom class name to enable stlying
+
+  // If there is a booking object, but only for the first half of the hour, return a nested table to split the table data for that cell into two rows. 
+  } else if (bookingData.firstHalfHour) {
+    columnData =
+      <table>
+        <tbody>
+          <tr>
+            <td
+              className={`${bookingData.businessUnit
+                .replace(/ /g, '-')
+                .toLowerCase()}`
+              }
+            >
+              {bookingData.businessUnit}
+            </td>
+          </tr>
+          <tr>
+            <td className="available">Available</td>
+          </tr>
+        </tbody>
+      </table>
+
+  // If there is a booking object, but only for the second half of the hour, return a nested table to split the table data for that cell into two rows. 
+  } else if (bookingData.firstHalfHour) {
+    columnData =
+      <table>
+        <tbody>
+          <tr>
+            <td className="available">Available</td>
+          </tr>
+          <tr>
+            <td
+              className={`${bookingData.businessUnit
+                .replace(/ /g, '-')
+                .toLowerCase()}`
+              }
+            >
+              {bookingData.businessUnit}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+  // If there is a booking object for the full hour, return a single <td> cell  
   } else {
     columnData =
       <td
-      // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
         className={`${bookingData.businessUnit
           .replace(/ /g, '-')
-          .toLowerCase()}
-          ${bookingData.firstHalfHour ? "first-half-hour" : '' }
-          ${bookingData.secondHalfHour ? "second-half-hour" : '' }`
-        }
-      >
-        {bookingData.businessUnit}
+          .toLowerCase()}`
+        }>
+          {bookingData.businessUnit}
       </td>
   }
   return columnData
