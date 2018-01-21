@@ -29,7 +29,7 @@ class App extends Component {
     decodedToken: getDecodedToken(), // retrieves the token from local storage if valid, else will be null
     roomData: null,
     userBookings: null,
-    calendarDate: null,
+    calendarDate: new Date(),
     currentRoom: {
       _id: '5a5c0d782b191c21b1eebf4e',
       name: 'Room 1',
@@ -73,9 +73,10 @@ class App extends Component {
     this.setState({ decodedToken: null })
   }
 
-  getCalendarDate = date => {
+  setCalendarDate = date => {
     this.setState({ calendarDate: date })
   }
+
   // Makes a booking by updating the database and the React state
   onMakeBooking = ({ startDate, endDate, businessUnit, purpose, roomId }) => {
     const bookingData = { startDate, endDate, businessUnit, purpose, roomId }
@@ -181,7 +182,7 @@ class App extends Component {
     const signOut = this.onSignOut
     const loadMyBookings = this.loadMyBookings
     const onDeleteBooking = this.onDeleteBooking
-    const getCalendarDate = this.getCalendarDate
+    const setCalendarDate = this.setCalendarDate
 
     return (
       <div className="App">
@@ -207,7 +208,7 @@ class App extends Component {
               userBookings={userBookings}
               onDeleteBooking={onDeleteBooking}
             />
-            <Calendar getCalendarDate={getCalendarDate} />
+            <Calendar getCalendarDate={setCalendarDate} />
             <RoomsList
               rooms={roomData}
               onRoomSelect={this.onRoomSelect}
@@ -221,6 +222,7 @@ class App extends Component {
                 roomData={currentRoom}
                 onMakeBooking={this.onMakeBooking}
                 date={calendarDate}
+                updateCalendar={setCalendarDate}
               />
             </div>
           </div>
