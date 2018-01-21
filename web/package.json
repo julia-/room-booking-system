@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && cp _redirects build/_redirects",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "watch": "concurrently --names \"webpack, stylus\" --prefix name \"npm run start\" \"npm run styles:watch\"",
