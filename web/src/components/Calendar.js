@@ -10,7 +10,7 @@ const Calendar = props => (
     timeFormat={false}
     input={false}
     utc={false}
-    onChange={event => props.getCalendarDate(event._d)}
+    onChange={event => props.setCalendarDate(event._d)}
     isValidDate={validDate}
   />
 )

@@ -2,7 +2,8 @@ import React from 'react'
 import BookingFormTable from './BookingFormTable'
 import Datetime from 'react-datetime'
 import moment from 'moment'
-import formatTime from '../helpers/bookingForm'
+import { formatTime, timeSelectOptions} from '../helpers/bookingForm'
+
 
 function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onShowBooking }) {
   const valid = function(current) {
@@ -69,12 +70,16 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
           <div className="time-selector">
             <label>
               {'Start Time: '}
-              <input type="time" name="startTime" min="00:00" max="23:00" />
+              <select name="startTime">
+                {timeSelectOptions.map(option => {return option})}
+              </select>
             </label>
 
             <label>
               {'End Time: '}
-              <input type="time" name="endTime" min="00:00" max="23:00" />
+              <select name="endTime">
+                {timeSelectOptions.map(option => {return option})}
+              </select>
             </label>
           </div>
           <label>

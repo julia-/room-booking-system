@@ -29,11 +29,15 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "nodemon": "^1.14.10",
+    "now": "^9.2.7",
     "prettier": "^1.10.2"
   },
   "scripts": {
     "dev": "nodemon server.js",
     "drop": "node models/drop.js",
-    "seed": "node models/seed.js"
+    "seed": "node models/seed.js",
+    "start": "node server.js",
+    "deploy": "now -E production.env",
+    "rmdeploy": "now rm room-booking-system"
   }
 }

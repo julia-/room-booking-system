@@ -23,16 +23,24 @@ select {
 form {
   padding: 20px;
   margin: 10px auto;
-  width: 800px;
+  width: 1000px;
   border-radius: 15px;
   box-shadow: 0px 3px 15px rgba(4, 5, 10, 0.2);
   }
+
+.main-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 1500px;
+  margin: 10px auto;
+}
 
 .booking-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 1300px;
+  width: 1900px;
   margin: 10px auto;
 }
 
@@ -264,4 +272,8 @@ li {
 
 .sign-in-form {
   margin-top: 10%;
+}
+
+.left-panel {
+  margin-top: 20px;
 }

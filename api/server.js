@@ -3,10 +3,11 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const express = require('express')
-const cors = require('cors')
 const bodyParser = require('body-parser')
-const config = require('./config')
+const cors = require('cors')
 const authMiddleware = require('./middleware/auth')
+
+const config = require('./config')
 
 const server = express()
 
@@ -28,6 +29,10 @@ server.use((error, req, res, next) => {
 })
 
 // Read port and host from the configuration file
-server.listen(config.port, config.host, () => {
-  console.info('Express listening on port ', config.port)
+server.listen(config.port, config.host, error => {
+  if (error) {
+    console.error('Error starting', error)
+  } else {
+    console.info('Express listening on port ', config.port)
+  }
 })

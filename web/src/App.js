@@ -297,32 +297,30 @@ class App extends Component {
               <h3>Signed in User: {decodedToken.email}</h3>
               <button onClick={signOut}>Log Out</button>
             </div>
-            <MyBookings
-              user={decodedToken.email}
-              userBookings={userBookings}
-              onDeleteBooking={onDeleteBooking}
-            />
-            <Calendar getCalendarDate={setCalendarDate} />
-            <RoomsList
-              rooms={filteredData}
-              onRoomSelect={this.onRoomSelect}
-              onShowBooking={this.onShowBooking}
-              date={calendarDate}
-            />
             <BookingModal
               selectedBooking={selectedBooking}
               onCloseBooking={this.onCloseBooking}
               onDeleteBooking={onDeleteBooking}
             />
-            <div className="booking-container">
+            <div className="main-container">
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
+              <div className="left-panel">
+              <Calendar setCalendarDate={setCalendarDate} />
               <FilterElement 
                 onSetFloorParam={this.onSetFloorParam}
-                onToggleCapacity={this.onToggleCapacity}
-                onFilterAll={this.onFilterAll}
-                onSetAvailabilityParam={this.onSetAvailabilityParam}
                 onToggleFeature={this.onToggleFeature}
+                onToggleCapacity={this.onToggleCapacity}
+                onSetAvailabilityParam={this.onSetAvailabilityParam}
+                onFilterAll={this.onFilterAll}
               />
+              </div>
+              <RoomsList
+                rooms={filteredData}
+                onRoomSelect={this.onRoomSelect}
+                onShowBooking={this.onShowBooking}
+                date={calendarDate}
+            />
+            <div className="booking-container">
               <BookingForm
                 user={decodedToken.email}
                 roomData={currentRoom}
@@ -336,6 +334,12 @@ class App extends Component {
                 onCloseBooking={this.onCloseBooking}
                 onDeleteBooking={onDeleteBooking}
               />
+              <MyBookings
+                user={decodedToken.email}
+                userBookings={userBookings}
+                onDeleteBooking={onDeleteBooking}
+              />
+            </div>
             </div>
           </div>
         ) : (
