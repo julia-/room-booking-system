@@ -197,6 +197,17 @@ class App extends Component {
     this.setState({filteredData: bookedRooms})
   }
 
+  onFilterAll = () => {
+    roomData = this.state.roomData
+    let filteredData = []
+
+    this.onFilterByFloor(floor)
+    this.onFilterByFeature()
+    this.onFilterByCapacity()
+
+    this.setState({ filteredData: filteredData })
+  }
+
   // ***Need to add to the state***
   // get todays booking for all rooms
   oneSetCurrentDateBookings = () => {
