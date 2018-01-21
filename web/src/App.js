@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import './css/App.css'
 import './css/style.css'
 import './css/react-datetime.css'
@@ -314,7 +314,7 @@ class App extends Component {
             />
             <div className="main-container">
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
-
+            <Switch>
               <Route path='/signin' exact render={ () => (
                 signedIn ? (
                   <Redirect to='/bookings' />
@@ -364,7 +364,10 @@ class App extends Component {
                   onDeleteBooking={onDeleteBooking}
                 />
               ))} />
-            
+              <Route render={ () => (
+                <h2>Page Not Found</h2>
+              )} />
+            </Switch>
             </div>
           </div>
       
