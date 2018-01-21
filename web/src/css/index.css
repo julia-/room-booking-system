@@ -95,7 +95,7 @@ nav {
   overflow: auto;
   position: relative;
   top: 0;
-  padding: 1px 50px;
+  padding: 5px 50px;
   width: 100%;
   z-index: 999;
   background:#1E8BC3;
@@ -103,6 +103,7 @@ nav {
 }
 
 a {
+  padding: 10px 5px;
   text-decoration: none;
   color: #fff;
   cursor: pointer;
@@ -122,7 +123,6 @@ li {
   font-weight: 300;
   letter-spacing: 2px;
   margin: 0;
-  /* cursor: pointer; */
   text-transform: uppercase;
   float: right;
 }

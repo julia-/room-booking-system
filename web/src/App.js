@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter as Router, Route, } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import './css/App.css'
 import './css/style.css'
 import './css/react-datetime.css'
@@ -284,6 +284,14 @@ class App extends Component {
     const loadMyBookings = this.loadMyBookings
     const onDeleteBooking = this.onDeleteBooking
     const setCalendarDate = this.setCalendarDate
+
+    const requireAuth = (render) => () => (
+      signedIn ? (
+        render()
+      ) : (
+        <Redirect to='/signin' />
+      )
+    )
 
     return (
       <Router>
