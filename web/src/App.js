@@ -20,6 +20,7 @@ import {
 } from './api/auth'
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
+import { getUser } from './api/user'
 import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
 import RoomSelector from './components/RoomSelector'
 import Calendar from './components/Calendar'
@@ -72,6 +73,7 @@ class App extends Component {
     this.setState({ calendarDate: date })
   }
 
+
   onShowBooking = booking => {
     const selectedBooking = booking
     this.setState(() => ({ selectedBooking }))
@@ -79,6 +81,15 @@ class App extends Component {
 
   onCloseBooking = () => {
     this.setState(() => ({ selectedBooking: null }))
+  }
+
+  getUserDetails = (id) => {
+    getUser(id)
+      .then(user => {
+        console.log('user', user)
+        return {user}
+      })
+      .catch(error => console.error(error.message))
   }
 
   // Makes a booking by updating the database and the React state
@@ -317,6 +328,7 @@ class App extends Component {
                 rooms={filteredData}
                 onRoomSelect={this.onRoomSelect}
                 onShowBooking={this.onShowBooking}
+                getUserDetails={this.getUserDetails}
                 date={calendarDate}
             />
             <div className="booking-container">
