@@ -286,11 +286,6 @@ class App extends Component {
 
     return (
       <div id="app" className="App">
-        <NavBar
-          signOut={signOut}
-          loadMyBookings={loadMyBookings}
-          user={signedIn ? decodedToken.sub : null}
-        />
         {signedIn ? (
           <div>
             <div className="user-info">
