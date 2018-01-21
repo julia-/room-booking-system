@@ -336,7 +336,7 @@ class App extends Component {
             </div>
           </div>
         ) : (
-          <div>
+          <div className="form-container">
             <SignInForm onSignIn={this.onSignIn} />
             <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
           </div>
