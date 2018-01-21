@@ -47,7 +47,7 @@ const RoomRow = props => (
       {Object.keys(props.room.assets).map(
         asset =>
           props.room.assets[asset] && (
-            <span key={asset} onClick={props.onShowBooking}>
+            <span key={asset}>
               {formatAssetName(asset)}
             </span>
           )
