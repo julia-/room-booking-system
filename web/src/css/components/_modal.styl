@@ -1,0 +1,28 @@
+.ReactModalPortal .ReactModal__Overlay
+  align-items center
+  display flex
+  justify-content center
+  transition opacity 200ms ease-in-out
+
+.ReactModalPortal .ReactModal__Overlay .ReactModal__Overlay--after-open .overlay
+  opacity 1
+
+.ReactModalPortal > div
+  background-color rgba(28, 28, 28, 0.75) !important
+
+.ReactModalPortal .ReactModal__Overlay .ReactModal__Overlay--before-close .overlay
+  opacity 0
+
+.modal
+  background lightGrey
+  color darkGrey
+  min-width 50rem
+  padding 3rem 6rem
+  outline none
+  &__title
+    margin 2rem 0
+  &__body
+    font-size 2rem
+    font-weight 300
+    margin 0 0 3rem 0
+    word-break break-all
