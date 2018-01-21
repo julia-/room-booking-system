@@ -20,7 +20,6 @@ const rowMapper = (dayHours, onShowBooking) => {
       tableRow.push(
         <td className={`table__cell`}>
           <span
-          onClick={console.log('why!')}
             onClick={() => onShowBooking(bookingData)}
             className={`table__cell--${bookingData.businessUnit // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
               .replace(/ /g, '-')
