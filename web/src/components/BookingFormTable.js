@@ -1,12 +1,7 @@
 import React from 'react'
 import { dailyBookings, bookingArray, columnMapper } from '../api/rooms'
 
-function BookingFormTable({
-  roomData,
-  date
-}) {
-  return (
-    
+const BookingFormTable = props => (
     <table>
       <thead>
         <tr>
@@ -20,7 +15,7 @@ function BookingFormTable({
             { 
               columnMapper(
                 bookingArray(
-                  dailyBookings(date, roomData.bookings)
+                  dailyBookings(props.date, props.roomData.bookings)
                 ), 8
               )
             }
@@ -30,7 +25,7 @@ function BookingFormTable({
             { 
               columnMapper(
                 bookingArray(
-                  dailyBookings(date, roomData.bookings)
+                  dailyBookings(props.date, props.roomData.bookings)
                 ), 9
               )
             }
@@ -40,7 +35,7 @@ function BookingFormTable({
             { 
               columnMapper(
                 bookingArray(
-                  dailyBookings(date, roomData.bookings)
+                  dailyBookings(props.date, props.roomData.bookings)
                 ), 10
               )
             }
@@ -50,7 +45,7 @@ function BookingFormTable({
             { 
               columnMapper(
                 bookingArray(
-                  dailyBookings(date, roomData.bookings)
+                  dailyBookings(props.date, props.roomData.bookings)
                 ), 11
               )
             }
@@ -60,7 +55,7 @@ function BookingFormTable({
             { 
               columnMapper(
                 bookingArray(
-                  dailyBookings(date, roomData.bookings)
+                  dailyBookings(props.date, props.roomData.bookings)
                 ), 12
               )
             }
@@ -70,7 +65,7 @@ function BookingFormTable({
             { 
               columnMapper(
                 bookingArray(
-                  dailyBookings(date, roomData.bookings)
+                  dailyBookings(props.date, props.roomData.bookings)
                 ), 13
               )
             }
@@ -80,7 +75,7 @@ function BookingFormTable({
             { 
               columnMapper(
                 bookingArray(
-                  dailyBookings(date, roomData.bookings)
+                  dailyBookings(props.date, props.roomData.bookings)
                 ), 14
               )
             }
@@ -90,7 +85,7 @@ function BookingFormTable({
             { 
               columnMapper(
                 bookingArray(
-                  dailyBookings(date, roomData.bookings)
+                  dailyBookings(props.date, props.roomData.bookings)
                 ), 15
               )
             }
@@ -100,7 +95,7 @@ function BookingFormTable({
             { 
               columnMapper(
                 bookingArray(
-                  dailyBookings(date, roomData.bookings)
+                  dailyBookings(props.date, props.roomData.bookings)
                 ), 16
               )
             }
@@ -110,7 +105,7 @@ function BookingFormTable({
             { 
               columnMapper(
                 bookingArray(
-                  dailyBookings(date, roomData.bookings)
+                  dailyBookings(props.date, props.roomData.bookings)
                 ), 17
               )
             }
@@ -120,7 +115,7 @@ function BookingFormTable({
             { 
               columnMapper(
                 bookingArray(
-                  dailyBookings(date, roomData.bookings)
+                  dailyBookings(props.date, props.roomData.bookings)
                 ), 18
               )
             }
@@ -130,7 +125,7 @@ function BookingFormTable({
             { 
               columnMapper(
                 bookingArray(
-                  dailyBookings(date, roomData.bookings)
+                  dailyBookings(props.date, props.roomData.bookings)
                 ), 19
               )
             }
@@ -140,14 +135,13 @@ function BookingFormTable({
             { 
               columnMapper(
                 bookingArray(
-                  dailyBookings(date, roomData.bookings)
+                  dailyBookings(props.date, props.roomData.bookings)
                 ), 20
               )
             }
         </tr>
       </tbody>
     </table>
-  )
-}
+)
 
 export default BookingFormTable
