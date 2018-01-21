@@ -364,8 +364,8 @@ class App extends Component {
                   onDeleteBooking={onDeleteBooking}
                 />
               ))} />
-              <Route render={ () => (
-                <h2>Page Not Found</h2>
+              <Route render={ ({ location }) => (
+                <h2>Page Not Found: {location.pathname}</h2>
               )} />
             </Switch>
             </div>
