@@ -2,8 +2,7 @@ const mongoose = require('mongoose')
 
 mongoose.Promise = global.Promise
 
-mongoose
-  .connect(process.env.MONGO_URI, { userMongoClient: true })
+mongoose.connect(process.env.MONGO_URI, { useMongoClient: true })
 
   .then(() => {
     console.log('Successfully connected to database')
