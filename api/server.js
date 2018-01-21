@@ -16,7 +16,11 @@ server.use(cors())
 server.use(authMiddleware.initialize)
 
 // Routes
-server.use([require('./routes/auth'), require('./routes/rooms')])
+server.use([
+  require('./routes/auth'),
+  require('./routes/rooms'),
+  require('./routes/users')
+])
 
 // Error handling
 server.use((error, req, res, next) => {
