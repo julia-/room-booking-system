@@ -328,6 +328,11 @@ class App extends Component {
                 onMakeBooking={this.onMakeBooking}
                 date={calendarDate}
                 updateCalendar={setCalendarDate}
+                onShowBooking={this.onShowBooking}
+              />
+              <BookingModal
+                selectedBooking={selectedBooking}
+                onCloseBooking={this.onCloseBooking}
               />
             </div>
           </div>

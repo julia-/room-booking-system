@@ -4,7 +4,7 @@ import Datetime from 'react-datetime'
 import moment from 'moment'
 import formatTime from '../helpers/bookingForm'
 
-function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar }) {
+function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onShowBooking }) {
   const valid = function(current) {
     return current.day() !== 0
   }
@@ -61,7 +61,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar }) {
         </div>
 
         <div className="middle-container">
-          <BookingFormTable roomData={roomData} date={date} />
+          <BookingFormTable roomData={roomData} date={date} onShowBooking={onShowBooking} />
         </div>
 
         <div className="right-container">

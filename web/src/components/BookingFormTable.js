@@ -16,7 +16,7 @@ const BookingFormTable = props => (
               columnMapper(
                 bookingArray(
                   dailyBookings(props.date, props.roomData.bookings)
-                ), 8
+                ), 8, props.onShowBooking
               )
             }
         </tr>
@@ -26,7 +26,7 @@ const BookingFormTable = props => (
               columnMapper(
                 bookingArray(
                   dailyBookings(props.date, props.roomData.bookings)
-                ), 9
+                ), 9, props.onShowBooking
               )
             }
         </tr>
@@ -36,7 +36,7 @@ const BookingFormTable = props => (
               columnMapper(
                 bookingArray(
                   dailyBookings(props.date, props.roomData.bookings)
-                ), 10
+                ), 10, props.onShowBooking
               )
             }
         </tr>
@@ -46,7 +46,7 @@ const BookingFormTable = props => (
               columnMapper(
                 bookingArray(
                   dailyBookings(props.date, props.roomData.bookings)
-                ), 11
+                ), 11, props.onShowBooking
               )
             }
         </tr>
@@ -56,7 +56,7 @@ const BookingFormTable = props => (
               columnMapper(
                 bookingArray(
                   dailyBookings(props.date, props.roomData.bookings)
-                ), 12
+                ), 12, props.onShowBooking
               )
             }
         </tr>
@@ -66,7 +66,7 @@ const BookingFormTable = props => (
               columnMapper(
                 bookingArray(
                   dailyBookings(props.date, props.roomData.bookings)
-                ), 13
+                ), 13, props.onShowBooking
               )
             }
         </tr>
@@ -76,7 +76,7 @@ const BookingFormTable = props => (
               columnMapper(
                 bookingArray(
                   dailyBookings(props.date, props.roomData.bookings)
-                ), 14
+                ), 14, props.onShowBooking
               )
             }
         </tr>
@@ -86,7 +86,7 @@ const BookingFormTable = props => (
               columnMapper(
                 bookingArray(
                   dailyBookings(props.date, props.roomData.bookings)
-                ), 15
+                ), 15, props.onShowBooking
               )
             }
         </tr>
@@ -96,7 +96,7 @@ const BookingFormTable = props => (
               columnMapper(
                 bookingArray(
                   dailyBookings(props.date, props.roomData.bookings)
-                ), 16
+                ), 16, props.onShowBooking
               )
             }
         </tr>
@@ -106,7 +106,7 @@ const BookingFormTable = props => (
               columnMapper(
                 bookingArray(
                   dailyBookings(props.date, props.roomData.bookings)
-                ), 17
+                ), 17, props.onShowBooking
               )
             }
         </tr>
@@ -116,7 +116,7 @@ const BookingFormTable = props => (
               columnMapper(
                 bookingArray(
                   dailyBookings(props.date, props.roomData.bookings)
-                ), 18
+                ), 18, props.onShowBooking
               )
             }
         </tr>
@@ -126,7 +126,7 @@ const BookingFormTable = props => (
               columnMapper(
                 bookingArray(
                   dailyBookings(props.date, props.roomData.bookings)
-                ), 19
+                ), 19, props.onShowBooking
               )
             }
         </tr>
@@ -136,7 +136,7 @@ const BookingFormTable = props => (
               columnMapper(
                 bookingArray(
                   dailyBookings(props.date, props.roomData.bookings)
-                ), 20
+                ), 20, props.onShowBooking
               )
             }
         </tr>

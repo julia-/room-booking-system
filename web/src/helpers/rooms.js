@@ -91,7 +91,7 @@ const bookingArray = (filteredBookings) => {
 
 // Accept the 24 hour dayHours array as the day's booking data for a room and a specific hour
 // Return a single <td> cell's data for that hour
-const columnMapper = (dayHours, hour) => {
+const columnMapper = (dayHours, hour, onShowBooking) => {
   
   // Extract the corresponding data for a single hour from the 24 hour array 
   let bookingData = dayHours[hour]
@@ -112,6 +112,7 @@ const columnMapper = (dayHours, hour) => {
           <tbody>
             <tr className="sub-cell-divider">
               <td
+                onClick={() => onShowBooking(bookingData)}
                 className={`bookings-column ${bookingData.businessUnit
                   .replace(/ /g, '-')
                   .toLowerCase()} sub-cell`
@@ -138,6 +139,7 @@ const columnMapper = (dayHours, hour) => {
             </tr>
             <tr>
               <td
+                onClick={() => onShowBooking(bookingData)}
                 className={`bookings-column ${bookingData.businessUnit
                   .replace(/ /g, '-')
                   .toLowerCase()} sub-cell`
@@ -153,6 +155,7 @@ const columnMapper = (dayHours, hour) => {
   } else {
     columnData =
       <td
+        onClick={() => onShowBooking(bookingData)}
         className={`bookings-column ${bookingData.businessUnit
           .replace(/ /g, '-')
           .toLowerCase()}`
