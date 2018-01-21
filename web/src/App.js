@@ -23,6 +23,8 @@ import { getDecodedToken } from './api/token'
 import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
 import RoomSelector from './components/RoomSelector'
 import Calendar from './components/Calendar'
+import { filterParams, capacityParams } from './helpers/filters'
+import { initialRoom } from './helpers/rooms'
 
 class App extends Component {
   state = {
@@ -30,22 +32,13 @@ class App extends Component {
     roomData: null,
     userBookings: null,
     calendarDate: null,
-    currentRoom: {
-      _id: '5a5c0d782b191c21b1eebf4e',
-      name: 'Room 1',
-      floor: '8',
-      capacity: 18,
-      bookings: [],
-      assets: {
-        whiteBoard: false,
-        opWalls: false,
-        tv: false,
-        projector: false,
-        pcLab: true,
-        macLab: false
-      },
-      __v: 0
-    }
+    filterParams:  filterParams,
+    capacityParams: capacityParams,
+    floorParam: null,
+    availabilityParam: null,
+    filteredData: null,
+    checked: null,
+    currentRoom: initialRoom
   }
 
   // Pass supplied email & password to the signIn function, returns the users token
@@ -73,6 +66,7 @@ class App extends Component {
     this.setState({ decodedToken: null })
   }
 
+  // set current selected calendar date
   getCalendarDate = date => {
     this.setState({ calendarDate: date })
   }
@@ -80,7 +74,6 @@ class App extends Component {
   onMakeBooking = ({ startDate, endDate, businessUnit, purpose, roomId }) => {
     const bookingData = { startDate, endDate, businessUnit, purpose, roomId }
     const existingBookings = this.state.currentRoom.bookings
-    console.log('bookingData', bookingData)
 
     // Check if there is a clash and, if not, save the new booking to the database
     try {
@@ -116,24 +109,118 @@ class App extends Component {
     this.setState({ currentRoom: room })
   }
 
-  // ***Need to add to the state***
-  //  filter out empty rooms
-  onSortEmptyRooms = () => {
-    let bookedRooms = []
+  onResetFilteredData = () => {
     const roomData = this.state.roomData
-    roomData.forEach(room => {
-      // if the room has no bookings
-      if (room.bookings.length > 0) bookedRooms.push(room)
-    })
-    console.log(bookedRooms)
+    this.setState({ filteredData: roomData})
+  }
+
+  // setting the feature filter parameters
+  onToggleFeature = (feature) => {
+    // Get the filter parameters
+    let filterParams = this.state.filterParams
+    // Find the filter parameter that matches the the passed parameter
+    let featureParam = filterParams.find(param => param.name === feature)
+    // Toggle the value of the parameter, eg if false, set to true
+    featureParam.value = !featureParam.value
+    // Set state with the updated filter parameters
+    this.setState({filterParams: filterParams})
+    // filter the filtered roomData again with the updated filter parameters
+    // this.onFilterByFeature(filterParams)
+  }
+
+  // setting the capacity filter parameters
+  onToggleCapacity = (capacity) => {
+    // Get the capacity parameters
+    let capacityParams = this.state.capacityParams
+    // Find the capacity parameter that matches the the passed parameter
+    let capacityParam = capacityParams.find(param => param.id === capacity)
+    // Toggle the value of the parameter, eg if false, set to true
+    capacityParam.value = !capacityParam.value
+    // Set state with the updated capacity parameters
+    this.setState({capacityParams: capacityParams})
+    // filter the filtered roomData again with the updated capacity parameters
+    // this.onFilterByCapacity(capacityParams)
+    console.log('cap params', this.state.capacityParams)
+    // this.onFilterByCapacity(capacityParams)
+  }
+
+  onSetFloorParam = (value) => {
+    this.setState({floorParam: value})
+  } 
+
+  onSetAvailabilityParam = (availability) => {
+    this.setState({ availabilityParam: availability})
+  }
+
+  onFilterAll = (floor, availability) => {
+    const roomData = this.state.roomData
+    let filteredData = []
+
+    const onFilterByFloor = () => {
+      const value = this.state.floorParam
+      if (value === 'all') {
+        filteredData = roomData
+      } else {
+        filteredData = roomData.filter(room => room.floor === value)
+      }
+      return filteredData
+    }
+  
+    const onFilterByFeature = () => {
+      const featureParams = this.state.filterParams
+      featureParams.forEach(feature => {
+        if (feature.name === 'macLab' && feature.value === true) {
+          filteredData = roomData.filter(room => room.assets.macLab === true)
+        } else if (feature.name === 'pcLab' && feature.value === true) {
+          filteredData = roomData.filter(room => room.assets.pcLab === true)
+        }else if (feature.name === 'tv' && feature.value === true) {
+          filteredData = roomData.filter(room => room.assets.tv === true)
+        } else if (feature.name === 'opWall' && feature.value === true) {
+          filteredData = roomData.filter(room => room.assets.opWalls === true)
+        } else if (feature.name === 'whiteboard' && feature.value === true) {
+          filteredData = roomData.filter(room => room.assets.whiteboard === true)
+        } else if (feature.name === 'projector' && feature.value === true) {
+          filteredData = roomData.filter(room => room.assets.projector === true)
+        } 
+      })
+      return filteredData
+    }
+  
+      const  onFilterByCapacity = () => {
+        const capacityParams = this.state.capacityParams
+        capacityParams.forEach(capacity => {
+          if (capacity.value === true)
+          filteredData.push(...roomData.filter(room => room.capacity === capacity.capacity)) 
+        })
+        return filteredData
+      }
+
+        //  filter out occupied rooms
+      const onFilterByAvailablity = () => {
+        const availability = this.state.availabilityParam
+        if (availability === 'fullyAvail') {
+          filteredData = roomData.filter(room => room.bookings.length === 0)
+        } else if (availability === 'partAvail') {
+          filteredData = roomData.filter(room => room.bookings.length > 0)
+        } else if (availability === 'fullBooked') {
+          filteredData = !roomData.filter(room => room.bookings.length > 0) && !roomData.filter(room => room.bookings.length === 0)
+        }
+        return filteredData
+      }
+
+      onFilterByFloor()
+      onFilterByFeature()
+      onFilterByCapacity()
+      onFilterByAvailablity()
+      this.setState({ filteredData: filteredData })
   }
 
   // ***Need to add to the state***
   // get todays booking for all rooms
   oneSetCurrentDateBookings = () => {
     const currentDate = moment().format('DD-MM-YYYY')
+    // const roomData = this.state.roomData
     const roomData = this.state.roomData
-    const bookings = this.state.roomData
     // array to collect todays bookings
     let todaysBookings = []
     // loop through all rooms
@@ -146,7 +233,8 @@ class App extends Component {
         }
       })
     })
-    console.log(todaysBookings)
+    console.log('todays bookings:', todaysBookings)
+    // return todaysBookings
   }
 
   loadMyBookings = () => {
@@ -164,8 +252,8 @@ class App extends Component {
       })
     })
     this.setState({ userBookings: myBookings })
-    console.log('state:', this.state.userBookings)
-    console.log('myBookings:', myBookings)
+    // console.log('state:', this.state.userBookings)
+    // console.log('myBookings:', myBookings)
   }
 
   render() {
@@ -174,6 +262,7 @@ class App extends Component {
       currentRoom,
       userBookings,
       roomData,
+      filteredData,
       calendarDate
     } = this.state
     const signedIn = !!decodedToken
@@ -194,12 +283,6 @@ class App extends Component {
             <div className="user-info">
               <h3>Signed in User: {decodedToken.email}</h3>
               <button onClick={signOut}>Log Out</button>
-              <button onClick={this.onSortEmptyRooms}>
-                show me the bookings
-              </button>
-              <button onClick={this.oneSetCurrentDateBookings}>
-                show me todays bookings
-              </button>
             </div>
             <MyBookings
               user={decodedToken.email}
@@ -208,13 +291,19 @@ class App extends Component {
             />
             <Calendar getCalendarDate={getCalendarDate} />
             <RoomsList
-              rooms={roomData}
+              rooms={filteredData}
               onRoomSelect={this.onRoomSelect}
               date={calendarDate}
             />
             <div className="booking-container">
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
-              <FilterElement />
+              <FilterElement 
+                onSetFloorParam={this.onSetFloorParam}
+                onToggleCapacity={this.onToggleCapacity}
+                onFilterAll={this.onFilterAll}
+                onSetAvailabilityParam={this.onSetAvailabilityParam}
+                onToggleFeature={this.onToggleFeature}
+              />
               <BookingForm
                 user={decodedToken.email}
                 roomData={currentRoom}
@@ -240,6 +329,9 @@ class App extends Component {
       })
       .catch(error => {
         console.error('Error loading room data', error)
+      })
+      .then(() => {
+        this.onResetFilteredData()
       })
       .then(() => {
         this.loadMyBookings()
