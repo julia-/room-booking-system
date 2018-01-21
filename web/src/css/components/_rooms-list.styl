@@ -14,6 +14,9 @@
         border-bottom 2px solid darkGrey
       &:last-child > td
         border-bottom 2px solid darkGrey
+  &__cell
+    padding 0
+    line-height 0
   &__cell--align-left
     text-align left
   &__cell--width
@@ -24,7 +27,6 @@
   &__row
     td
       border 1px solid mediumGrey
-      padding 2rem 1rem
       &:first-child
         border-left 2px solid mediumGrey
       &:last-child
@@ -64,35 +66,110 @@
 // Business Unit Booking Styling
 .table__cell--business-unit-1
   background businessUnit1
+  border-top 1rem solid businessUnit1
+  cursor pointer
+  display block
+  padding 2rem
+  width 85%
   &.table__cell--first-half-hour
-    background linear-gradient(90deg, businessUnit1 50%, rgba(255, 255, 255, 0) 50%)
+    background businessUnit1
+    cursor pointer
+    display block
+    float left
+    padding 2rem 0
+    width 50%
   &.table__cell--second-half-hour
-    background linear-gradient(90deg, rgba(255, 255, 255, 0) 50%, businessUnit1 50%)
+    background businessUnit1
+    cursor pointer
+    display block
+    float right
+    padding 2rem 0
+    width 50%
 
 .table__cell--business-unit-2
   background businessUnit2
+  border-top 1rem solid businessUnit2
+  cursor pointer
+  display block
+  padding 2rem
+  width 85%
   &.table__cell--first-half-hour
-    background linear-gradient(90deg, businessUnit2 50%, rgba(255, 255, 255, 0) 50%)
+    background businessUnit2
+    cursor pointer
+    display block
+    float left
+    padding 2rem 0
+    width 50%
   &.table__cell--second-half-hour
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 50%, businessUnit2 50%)
+    background businessUnit2
+    cursor pointer
+    display block
+    float right
+    padding 2rem 0
+    width 50%
 
 .table__cell--business-unit-3
   background businessUnit3
+  border-top 1rem solid businessUnit3
+  cursor pointer
+  display block
+  padding 2rem
+  width 85%
   &.table__cell--first-half-hour
-    background linear-gradient(90deg, businessUnit3 50%, rgba(255, 255, 255, 0) 50%)
+    background businessUnit3
+    cursor pointer
+    display block
+    float left
+    padding 2rem 0
+    width 50%
   &.table__cell--second-half-hour
-    background linear-gradient(90deg, rgba(255, 255, 255, 0) 50%, businessUnit3 50%)
+    background businessUnit3
+    cursor pointer
+    display block
+    float right
+    padding 2rem 0
+    width 50%
 
 .table__cell--business-unit-4
   background businessUnit4
+  border-top 1rem solid businessUnit4
+  cursor pointer
+  display block
+  padding 2rem
+  width 85%
   &.table__cell--first-half-hour
-    background linear-gradient(90deg, businessUnit4 50%, rgba(255, 255, 255, 0) 50%)
+    background businessUnit4
+    cursor pointer
+    display block
+    float left
+    padding 2rem 0
+    width 50%
   &.table__cell--second-half-hour
-    background linear-gradient(90deg, rgba(255, 255, 255, 0) 50%, businessUnit4 50%)
+    background businessUnit4
+    cursor pointer
+    display block
+    float right
+    padding 2rem 0
+    width 50%
 
 .table__cell--business-unit-5
   background businessUnit5
+  border-top 1rem solid businessUnit5
+  cursor pointer
+  display block
+  padding 2rem
+  width 85%
   &.table__cell--first-half-hour
-    background linear-gradient(90deg, businessUnit5 50%, rgba(255, 255, 255, 0) 50%)
+    background businessUnit5
+    cursor pointer
+    display block
+    float left
+    padding 2rem 0
+    width 50%
   &.table__cell--second-half-hour
-    background linear-gradient(90deg, rgba(255, 255, 255, 0) 50%, businessUnit5 50%)
+    background businessUnit5
+    cursor pointer
+    display block
+    float right
+    padding 2rem 0
+    width 50%

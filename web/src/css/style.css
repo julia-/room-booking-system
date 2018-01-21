@@ -1,3 +1,58 @@
+.button {
+  background: #ed1c24;
+  border: 2px solid #ed1c24;
+  color: #fff;
+  font-family: Raleway, josefin sans, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-right: 2rem;
+  min-width: 4rem;
+  padding: 1.2rem 3rem;
+  text-transform: uppercase;
+}
+.button:hover {
+  background: #fff;
+  border: 2px solid #ed1c24;
+  color: #ed1c24;
+}
+.ReactModalPortal .ReactModal__Overlay {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-transition: opacity 200ms ease-in-out;
+  transition: opacity 200ms ease-in-out;
+}
+.ReactModalPortal .ReactModal__Overlay .ReactModal__Overlay--after-open .overlay {
+  opacity: 1;
+}
+.ReactModalPortal > div {
+  background-color: rgba(28,28,28,0.75) !important;
+}
+.ReactModalPortal .ReactModal__Overlay .ReactModal__Overlay--before-close .overlay {
+  opacity: 0;
+}
+.modal {
+  background: #f4f4f4;
+  color: #1c1c11;
+  min-width: 50rem;
+  padding: 3rem 6rem;
+  outline: none;
+}
+.modal__title {
+  margin: 2rem 0;
+}
+.modal__body {
+  font-size: 2rem;
+  font-weight: 300;
+  margin: 0 0 3rem 0;
+  word-break: break-all;
+}
 .table {
   border: 2px solid #cecece;
   border-collapse: collapse;
@@ -14,6 +69,10 @@
 .table__body tr:last-child > td {
   border-bottom: 2px solid #1c1c11;
 }
+.table__cell {
+  padding: 0;
+  line-height: 0;
+}
 .table__cell--align-left {
   text-align: left;
 }
@@ -25,7 +84,6 @@
 }
 .table__row td {
   border: 1px solid #cecece;
-  padding: 2rem 1rem;
 }
 .table__row td:first-child {
   border-left: 2px solid #cecece;
@@ -75,58 +133,123 @@
 }
 .table__cell--business-unit-1 {
   background: #f0fff0;
+  border-top: 1rem solid #f0fff0;
+  cursor: pointer;
+  display: block;
+  padding: 2rem;
+  width: 85%;
 }
 .table__cell--business-unit-1.table__cell--first-half-hour {
-  background: -webkit-gradient(linear, left top, right top, color-stop(50%, #f0fff0), color-stop(50%, rgba(255,255,255,0)));
-  background: linear-gradient(90deg, #f0fff0 50%, rgba(255,255,255,0) 50%);
+  background: #f0fff0;
+  cursor: pointer;
+  display: block;
+  float: left;
+  padding: 2rem 0;
+  width: 50%;
 }
 .table__cell--business-unit-1.table__cell--second-half-hour {
-  background: -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(255,255,255,0)), color-stop(50%, #f0fff0));
-  background: linear-gradient(90deg, rgba(255,255,255,0) 50%, #f0fff0 50%);
+  background: #f0fff0;
+  cursor: pointer;
+  display: block;
+  float: right;
+  padding: 2rem 0;
+  width: 50%;
 }
 .table__cell--business-unit-2 {
   background: #ffdab9;
+  border-top: 1rem solid #ffdab9;
+  cursor: pointer;
+  display: block;
+  padding: 2rem;
+  width: 85%;
 }
 .table__cell--business-unit-2.table__cell--first-half-hour {
-  background: -webkit-gradient(linear, left top, right top, color-stop(50%, #ffdab9), color-stop(50%, rgba(255,255,255,0)));
-  background: linear-gradient(90deg, #ffdab9 50%, rgba(255,255,255,0) 50%);
+  background: #ffdab9;
+  cursor: pointer;
+  display: block;
+  float: left;
+  padding: 2rem 0;
+  width: 50%;
 }
 .table__cell--business-unit-2.table__cell--second-half-hour {
-  background: -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(255,255,255,0)), color-stop(50%, #ffdab9));
-  background: linear-gradient(90deg, rgba(255,255,255,0) 50%, #ffdab9 50%);
+  background: #ffdab9;
+  cursor: pointer;
+  display: block;
+  float: right;
+  padding: 2rem 0;
+  width: 50%;
 }
 .table__cell--business-unit-3 {
   background: #add8e6;
+  border-top: 1rem solid #add8e6;
+  cursor: pointer;
+  display: block;
+  padding: 2rem;
+  width: 85%;
 }
 .table__cell--business-unit-3.table__cell--first-half-hour {
-  background: -webkit-gradient(linear, left top, right top, color-stop(50%, #add8e6), color-stop(50%, rgba(255,255,255,0)));
-  background: linear-gradient(90deg, #add8e6 50%, rgba(255,255,255,0) 50%);
+  background: #add8e6;
+  cursor: pointer;
+  display: block;
+  float: left;
+  padding: 2rem 0;
+  width: 50%;
 }
 .table__cell--business-unit-3.table__cell--second-half-hour {
-  background: -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(255,255,255,0)), color-stop(50%, #add8e6));
-  background: linear-gradient(90deg, rgba(255,255,255,0) 50%, #add8e6 50%);
+  background: #add8e6;
+  cursor: pointer;
+  display: block;
+  float: right;
+  padding: 2rem 0;
+  width: 50%;
 }
 .table__cell--business-unit-4 {
   background: #e6e6fa;
+  border-top: 1rem solid #e6e6fa;
+  cursor: pointer;
+  display: block;
+  padding: 2rem;
+  width: 85%;
 }
 .table__cell--business-unit-4.table__cell--first-half-hour {
-  background: -webkit-gradient(linear, left top, right top, color-stop(50%, #e6e6fa), color-stop(50%, rgba(255,255,255,0)));
-  background: linear-gradient(90deg, #e6e6fa 50%, rgba(255,255,255,0) 50%);
+  background: #e6e6fa;
+  cursor: pointer;
+  display: block;
+  float: left;
+  padding: 2rem 0;
+  width: 50%;
 }
 .table__cell--business-unit-4.table__cell--second-half-hour {
-  background: -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(255,255,255,0)), color-stop(50%, #e6e6fa));
-  background: linear-gradient(90deg, rgba(255,255,255,0) 50%, #e6e6fa 50%);
+  background: #e6e6fa;
+  cursor: pointer;
+  display: block;
+  float: right;
+  padding: 2rem 0;
+  width: 50%;
 }
 .table__cell--business-unit-5 {
   background: #ffb6c1;
+  border-top: 1rem solid #ffb6c1;
+  cursor: pointer;
+  display: block;
+  padding: 2rem;
+  width: 85%;
 }
 .table__cell--business-unit-5.table__cell--first-half-hour {
-  background: -webkit-gradient(linear, left top, right top, color-stop(50%, #ffb6c1), color-stop(50%, rgba(255,255,255,0)));
-  background: linear-gradient(90deg, #ffb6c1 50%, rgba(255,255,255,0) 50%);
+  background: #ffb6c1;
+  cursor: pointer;
+  display: block;
+  float: left;
+  padding: 2rem 0;
+  width: 50%;
 }
 .table__cell--business-unit-5.table__cell--second-half-hour {
-  background: -webkit-gradient(linear, left top, right top, color-stop(50%, rgba(255,255,255,0)), color-stop(50%, #ffb6c1));
-  background: linear-gradient(90deg, rgba(255,255,255,0) 50%, #ffb6c1 50%);
+  background: #ffb6c1;
+  cursor: pointer;
+  display: block;
+  float: right;
+  padding: 2rem 0;
+  width: 50%;
 }
 html {
   font-size: 62.5%;

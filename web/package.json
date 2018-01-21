@@ -12,6 +12,7 @@
     "react": "^16.2.0",
     "react-datetime": "^2.11.1",
     "react-dom": "^16.2.0",
+    "react-modal": "^3.1.11",
     "react-scripts": "1.0.17"
   },
   "scripts": {
@@ -19,12 +20,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "watch":
-      "concurrently --names \"webpack, stylus\" --prefix name \"npm run start\" \"npm run styles:watch\"",
-    "styles":
-      "stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
-    "styles:watch":
-      "stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css"
+    "watch": "concurrently --names \"webpack, stylus\" --prefix name \"npm run start\" \"npm run styles:watch\"",
+    "styles": "stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
+    "styles:watch": "stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css"
   },
   "devDependencies": {
     "autoprefixer-stylus": "^0.14.0",
