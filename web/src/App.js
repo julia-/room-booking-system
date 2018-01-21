@@ -304,7 +304,7 @@ class App extends Component {
             <div className="main-container">
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
               <div className="left-panel">
-              <Calendar getCalendarDate={getCalendarDate} />
+              <Calendar setCalendarDate={setCalendarDate} />
               <FilterElement 
                 onSetFloorParam={this.onSetFloorParam}
                 onToggleFeature={this.onToggleFeature}
