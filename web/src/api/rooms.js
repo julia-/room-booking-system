@@ -109,14 +109,17 @@ export function columnMapper(dayHours, hour){
   
   // Extract the corresponding data for a single hour from the 24 hour array 
   let bookingData = dayHours[hour]
+
+  // Data to be returned
+  let columnData = ''
   
   // If the data for that hour is a number (not a booking object), there is no booking
   // Return a <td> element that indicates the time slot is available
   if (typeof bookingData == 'number') {
-    return <td className="available">Available</td>
+    columnData = <td className="available">Available</td>
   // If there is a booking object, add a <td> element with custom class name to enable stlying
   } else {
-    return
+    columnData =
       <td
       // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
         className={`${bookingData.businessUnit
@@ -129,4 +132,5 @@ export function columnMapper(dayHours, hour){
         {bookingData.businessUnit}
       </td>
   }
+  return columnData
 }
