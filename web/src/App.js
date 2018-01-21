@@ -23,6 +23,7 @@ import { getDecodedToken } from './api/token'
 import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
 import RoomSelector from './components/RoomSelector'
 import Calendar from './components/Calendar'
+import BookingModal from './components/BookingModal';
 
 class App extends Component {
   state = {
@@ -30,6 +31,7 @@ class App extends Component {
     roomData: null,
     userBookings: null,
     calendarDate: null,
+    selectedBooking: null,
     currentRoom: {
       _id: '5a5c0d782b191c21b1eebf4e',
       name: 'Room 1',
@@ -57,12 +59,12 @@ class App extends Component {
   }
 
   onBeginGoogleSignIn = () => {
-    // Begin journey through Google
+    // Begin journey through Google auth process
     googleSignIn()
   }
 
   onFinishGoogleSignIn = token => {
-    // Successfully return from journey with Google
+    // Successfully return from journey with Google token
     const decodedToken = googleDidSignInWithToken(token)
     this.setState({ decodedToken })
   }
@@ -76,6 +78,16 @@ class App extends Component {
   getCalendarDate = date => {
     this.setState({ calendarDate: date })
   }
+
+  onShowBooking = booking => {
+    const selectedBooking = booking
+    this.setState(() => ({ selectedBooking }))
+  }
+
+  onCloseBooking = () => {
+    this.setState(() => ({ selectedBooking: null }))
+  }
+
   // Makes a booking by updating the database and the React state
   onMakeBooking = ({ startDate, endDate, businessUnit, purpose, roomId }) => {
     const bookingData = { startDate, endDate, businessUnit, purpose, roomId }
@@ -174,7 +186,8 @@ class App extends Component {
       currentRoom,
       userBookings,
       roomData,
-      calendarDate
+      calendarDate,
+      selectedBooking
     } = this.state
     const signedIn = !!decodedToken
     const signOut = this.onSignOut
@@ -183,7 +196,7 @@ class App extends Component {
     const getCalendarDate = this.getCalendarDate
 
     return (
-      <div className="App">
+      <div id="app" className="App">
         <NavBar
           signOut={signOut}
           loadMyBookings={loadMyBookings}
@@ -210,7 +223,12 @@ class App extends Component {
             <RoomsList
               rooms={roomData}
               onRoomSelect={this.onRoomSelect}
+              onShowBooking={this.onShowBooking}
               date={calendarDate}
+            />
+            <BookingModal
+              selectedBooking={selectedBooking}
+              onCloseBooking={this.onCloseBooking}
             />
             <div className="booking-container">
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
