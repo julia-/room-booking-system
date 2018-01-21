@@ -102,7 +102,7 @@ const columnMapper = (dayHours, hour) => {
   // If the data for that hour is a number (not a booking object), there is no booking
   // Return a <td> element that indicates the time slot is available
   if (typeof bookingData == 'number') {
-    columnData = <td className="bookings-column">Available</td>
+    columnData = <td className="bookings-column available">Available</td>
 
   // If there is a booking object, but only for the first half of the hour, return a nested table to split the table data for that cell into two rows. 
   } else if (bookingData.firstHalfHour) {
@@ -121,7 +121,7 @@ const columnMapper = (dayHours, hour) => {
               </td>
             </tr>
             <tr>
-              <td className="bookings-column sub-cell">Available</td>
+              <td className="bookings-column sub-cell available">Available</td>
             </tr>
           </tbody>
         </table>
@@ -134,7 +134,7 @@ const columnMapper = (dayHours, hour) => {
         <table>
           <tbody>
             <tr className="sub-cell-divider">
-              <td className="bookings-column sub-cell">Available</td>
+              <td className="bookings-column sub-cell available">Available</td>
             </tr>
             <tr>
               <td
