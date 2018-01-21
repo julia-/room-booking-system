@@ -121,45 +121,48 @@ export function columnMapper(dayHours, hour){
   // If there is a booking object, but only for the first half of the hour, return a nested table to split the table data for that cell into two rows. 
   } else if (bookingData.firstHalfHour) {
     columnData =
-      <table>
-        <tbody>
-          <tr>
-            <td
-              className={`${bookingData.businessUnit
-                .replace(/ /g, '-')
-                .toLowerCase()}`
-              }
-            >
-              {bookingData.businessUnit}
-            </td>
-          </tr>
-          <tr>
-            <td className="available">Available</td>
-          </tr>
-        </tbody>
-      </table>
+      <td>
+        <table>
+          <tbody>
+            <tr>
+              <td
+                className={`${bookingData.businessUnit
+                  .replace(/ /g, '-')
+                  .toLowerCase()}`
+                }
+              >
+                {bookingData.businessUnit}
+              </td>
+            </tr>
+            <tr>
+              <td className="available">Available</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
 
   // If there is a booking object, but only for the second half of the hour, return a nested table to split the table data for that cell into two rows. 
-  } else if (bookingData.firstHalfHour) {
+  } else if (bookingData.secondHalfHour) {
     columnData =
-      <table>
-        <tbody>
-          <tr>
-            <td className="available">Available</td>
-          </tr>
-          <tr>
-            <td
-              className={`${bookingData.businessUnit
-                .replace(/ /g, '-')
-                .toLowerCase()}`
-              }
-            >
-              {bookingData.businessUnit}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
+      <td>  
+        <table>
+          <tbody>
+            <tr>
+              <td className="available">Available</td>
+            </tr>
+            <tr>
+              <td
+                className={`${bookingData.businessUnit
+                  .replace(/ /g, '-')
+                  .toLowerCase()}`
+                }
+              >
+                {bookingData.businessUnit}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
   // If there is a booking object for the full hour, return a single <td> cell  
   } else {
     columnData =
