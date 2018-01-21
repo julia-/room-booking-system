@@ -321,7 +321,7 @@ class App extends Component {
               </div>
               )} />
 
-              <Route path='/bookings' exact render={ () => (
+              <Route path='/bookings' exact render={ requireAuth(() => (
                 <Fragment>
                   <div className="left-panel">
                     <Calendar setCalendarDate={setCalendarDate} />
@@ -340,9 +340,9 @@ class App extends Component {
                     date={calendarDate}
                   />
                 </Fragment>
-              )} />
+              ))} />
 
-              <Route path="/createbooking" exact render={ () => (
+              <Route path="/createbooking" exact render={ requireAuth(() => (
                 <BookingForm
                   user={decodedToken.email}
                   roomData={currentRoom}
@@ -350,15 +350,15 @@ class App extends Component {
                   date={calendarDate}
                   updateCalendar={setCalendarDate}
                 />
-              )} />
+              ))} />
 
-              <Route path="/mybookings" exact render={ () => (
+              <Route path="/mybookings" exact render={ requireAuth(() => (
                 <MyBookings
                   user={decodedToken.email}
                   userBookings={userBookings}
                   onDeleteBooking={onDeleteBooking}
                 />
-              )} />
+              ))} />
             
             </div>
           </div>
