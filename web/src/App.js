@@ -41,7 +41,8 @@ class App extends Component {
     availabilityParam: null,
     filteredData: null,
     checked: null,
-    currentRoom: initialRoom
+    currentRoom: initialRoom,
+    error: null
   }
 
   // Pass supplied email & password to the signIn function, returns the users token
@@ -372,19 +373,24 @@ class App extends Component {
     listRooms()
       .then(rooms => {
         this.setState({ roomData: rooms })
-        console.log('Room data on state:', this.state.roomData)
       })
       .catch(error => {
         console.error('Error loading room data', error)
+        this.setState({ error })
       })
       .then(() => {
         this.onResetFilteredData()
+      })
+      .catch(error => {
+        console.error('Error resetting filtered data', error)
+        this.setState({ error })
       })
       .then(() => {
         this.loadMyBookings()
       })
       .catch(error => {
         console.error('Error loading myBookings', error)
+        this.setState({ error })
       })
       .then(() => {
         this.setRoom('Room 1')
