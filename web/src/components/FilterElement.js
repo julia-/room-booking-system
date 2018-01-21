@@ -1,12 +1,10 @@
 import React from 'react'
 
 function FilterElement({
-  filterByFloor,
   onSetFloorParam,
-  onToggleCapacity,
-  filterByFeature,
-  onSetAvailabilityParam,
   onToggleFeature,
+  onToggleCapacity,
+  onSetAvailabilityParam,
   onFilterAll
 }) {
 
