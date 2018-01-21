@@ -2,7 +2,7 @@ import axios from 'axios'
 import { rememberToken, getValidToken } from './token'
 
 // TODO: add env.production variable
-const baseURL = process.env.REACT_APP_BASE_URL
+const baseURL = process.env.REACT_APP_API_URL
 
 // Create an axios instance
 const api = axios.create({
