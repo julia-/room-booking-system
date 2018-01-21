@@ -2,8 +2,8 @@ import React from 'react'
 import BookingFormTable from './BookingFormTable'
 import Datetime from 'react-datetime'
 import moment from 'moment'
-import formatTime from '../helpers/bookingForm'
-import TimeDropdown from './TimeDropdown'
+import { formatTime, timeSelectOptions} from '../helpers/bookingForm'
+
 
 function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar }) {
   const valid = function(current) {
@@ -42,7 +42,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar }) {
         const purpose = formData.purpose.value
         const description = formData.description.value
         console.log(startDate, endDate, businessUnit, purpose, roomId )
-        {/* onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId }) */}
+        onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId })
       }}
     >
       <h2>{roomData.name}</h2>
@@ -70,13 +70,16 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar }) {
           <div className="time-selector">
             <label>
               {'Start Time: '}
-              {/* <input type="time" name="startTime" min="00:00" max="23:00" /> */}
-              <TimeDropdown name="startTime"/>
+              <select name="startTime">
+                {timeSelectOptions.map(option => {return option})}
+              </select>
             </label>
 
             <label>
               {'End Time: '}
-              <input type="time" name="endTime" min="00:00" max="23:00" />
+              <select name="endTime">
+                {timeSelectOptions.map(option => {return option})}
+              </select>
             </label>
           </div>
           <label>
