@@ -94,7 +94,7 @@ class App extends Component {
       ).then(updatedRoom => {
         // If the new booking is successfully saved to the database
         alert(`${updatedRoom.name} sucessfully booked.`)
-        updateStateRoom(this, updatedRoom, this.loadMyBookings)
+        updateStateRoom(this, updatedRoom, this.loadMyBookings, this.onResetFilteredData)
       })
     } catch (err) {
       // If there is a booking clash and the booking could not be saved
@@ -111,7 +111,7 @@ class App extends Component {
     deleteBooking(roomId, bookingId)
       .then(updatedRoom => {
         alert('Booking successfully deleted')
-        updateStateRoom(this, updatedRoom, this.loadMyBookings)
+        updateStateRoom(this, updatedRoom, this.loadMyBookings, this.onResetFilteredData)
       })
       .catch(error => console.error(error.message))
   }
@@ -300,6 +300,7 @@ class App extends Component {
             <BookingModal
               selectedBooking={selectedBooking}
               onCloseBooking={this.onCloseBooking}
+              onDeleteBooking={onDeleteBooking}
             />
             <div className="main-container">
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
@@ -326,6 +327,12 @@ class App extends Component {
                 onMakeBooking={this.onMakeBooking}
                 date={calendarDate}
                 updateCalendar={setCalendarDate}
+                onShowBooking={this.onShowBooking}
+              />
+              <BookingModal
+                selectedBooking={selectedBooking}
+                onCloseBooking={this.onCloseBooking}
+                onDeleteBooking={onDeleteBooking}
               />
               <MyBookings
                 user={decodedToken.email}
