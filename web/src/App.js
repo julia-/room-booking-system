@@ -316,10 +316,14 @@ class App extends Component {
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
 
               <Route path='/signin' exact render={ () => (
-                <div>
-                <SignInForm onSignIn={this.onSignIn} />
-                <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
-              </div>
+                signedIn ? (
+                  <Redirect to='/bookings' />
+                ) : (
+                  <div>
+                    <SignInForm onSignIn={this.onSignIn} />
+                    <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
+                  </div>
+                )
               )} />
 
               <Route path='/bookings' exact render={ requireAuth(() => (
