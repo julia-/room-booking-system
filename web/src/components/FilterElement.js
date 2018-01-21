@@ -2,17 +2,19 @@ import React from 'react'
 
 function FilterElement({
   filterByFloor,
+  onSetFloorParam,
   onToggleCapacity,
   filterByFeature,
-  filterByAvailability,
-  onToggleFeature
+  onSetAvailabilityParam,
+  onToggleFeature,
+  onFilterAll
 }) {
 
   return (
-    <form className="filter-element" onSubmit={() => console.log('submitted')} >
+    <form className="filter-element" >
       <h2>Filter By:</h2>
       <h3>Floor</h3>
-      <div className="floor-select" onChange={(event) => filterByFloor(event.target.value)}>
+      <div className="floor-select" onChange={(event) => onSetFloorParam(event.target.value)}>
         <div>
           <input type="radio" value="8" name="floor-select" />
           <label for="floor8">Floor 8</label>
@@ -77,7 +79,7 @@ function FilterElement({
         </div>
       </div>
       <h3>Availability</h3>
-        <div className="radio-container" onChange={(event) => filterByAvailability(event.target.value)} >
+        <div className="radio-container" onChange={(event) => onSetAvailabilityParam(event.target.value)} >
           <div className="radio"> 
             <input type="radio" id="fullyAvailable" value="fullyAvail" name="availability" />
             <label for="fullyAvailable">Fully Available</label>
@@ -103,8 +105,8 @@ function FilterElement({
             </label>
           </div>
           <div className="filter-button-container">
-            <button className='custom-button filter-button'>Filter</button>
-            <div className='custom-button reset-button'>Reset</div>
+            <div onClick={ () => onFilterAll()} className='custom-button filter-button'>Filter</div>
+            <div onClick={ () => onFilterAll()} className='custom-button reset-button'>Reset</div>
           </div>
     </form>
   )
