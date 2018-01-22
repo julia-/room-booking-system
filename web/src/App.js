@@ -322,7 +322,7 @@ class App extends Component {
             <div className="main-container">
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
               <Switch>
-                <Route path="/signin" exact render={() => (signedIn ? <Redirect to="/bookings" /> : <div className="container__main">
+                <Route path="/" exact render={() => (signedIn ? <Redirect to="/bookings" /> : <div className="container__main">
                         <h2>Sign in</h2>
                         <div className="container__form">
                           <SignInForm onSignIn={this.onSignIn} />
