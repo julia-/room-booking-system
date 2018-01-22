@@ -5,7 +5,7 @@ import moment from 'moment'
 import { formatTime, timeSelectOptions} from '../helpers/bookingForm'
 
 
-function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar }) {
+function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onShowBooking }) {
   const valid = function(current) {
     return current.day() !== 0
   }
@@ -17,10 +17,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar }) {
   const handleDate = event => {
     updateCalendar(moment(event)._i)
   }
-  
-  var spanStyle = {
-    color: 'blue'
-  }
+
   return (
     <form
       onSubmit={event => {
@@ -41,14 +38,10 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar }) {
         const businessUnit = formData.business.value
         const purpose = formData.purpose.value
         const description = formData.description.value
-        console.log(startDate, endDate, businessUnit, purpose, roomId )
         onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId })
       }}
     >
       <h2>{roomData.name}</h2>
-      <h2>
-        Room ID: <span style={spanStyle}>{roomData._id}</span>
-      </h2>
       <div className="date-container">
         <div className="left-container">
           <Datetime
@@ -62,7 +55,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar }) {
         </div>
 
         <div className="middle-container">
-          <BookingFormTable roomData={roomData} date={date} />
+          <BookingFormTable roomData={roomData} date={date} onShowBooking={onShowBooking} />
         </div>
 
         <div className="right-container">
