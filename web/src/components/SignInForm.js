@@ -1,37 +1,29 @@
 import React from 'react'
 
-function SignInForm({
-  onSignIn
-}) {
+function SignInForm({ onSignIn }) {
   return (
-    <form className="sign-in-form"
-      onSubmit={ (event) => {
+    <form
+      onSubmit={event => {
         event.preventDefault()
         const elements = event.target.elements
         const email = elements.email.value
         const password = elements.password.value
-        onSignIn({email, password})
+        onSignIn({ email, password })
       }}
     >
-      <h2>Sign In</h2>
-      <div className="time-selector">
-        <label>
-          {'Email: '}
-          <input 
-            type="email"
-            name="email"
-          />
+      <div className="form__group">
+        <label className="form__label">
+          {'Email'}
+          <input type="email" name="email" className="form__input" />
         </label>
-
-        <label>
-          {'Password: '}
-          <input 
-            type="password"
-            name="password"
-          />
+      </div>
+      <div className="form__group">
+        <label className="form__label">
+          {'Password'}
+          <input type="password" name="password" className="form__input" />
         </label>
-      </div>  
-      <button className="custom-button filter-button">Sign In</button>
+      </div>
+      <button className="button button__form--submit">Sign in</button>
     </form>
   )
 }

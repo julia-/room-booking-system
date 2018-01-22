@@ -1,5 +1,10 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom'
 import './css/App.css'
 import './css/style.css'
 import './css/react-datetime.css'
@@ -7,7 +12,7 @@ import moment from 'moment'
 
 import BookingForm from './components/BookingForm'
 import FilterElement from './components/FilterElement'
-import GoogleSignInButton from './components/GoogleSignInButton'
+import Button from './components/Button'
 import MyBookings from './components/MyBookings'
 import NavBar from './components/NavBar'
 import SignInForm from './components/SignInForm'
@@ -24,7 +29,7 @@ import { getDecodedToken } from './api/token'
 import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
 import RoomSelector from './components/RoomSelector'
 import Calendar from './components/Calendar'
-import BookingModal from './components/BookingModal';
+import BookingModal from './components/BookingModal'
 import { filterParams, capacityParams } from './helpers/filters'
 import { initialRoom } from './helpers/rooms'
 
@@ -35,7 +40,7 @@ class App extends Component {
     userBookings: null,
     calendarDate: new Date(),
     selectedBooking: null,
-    filterParams:  filterParams,
+    filterParams: filterParams,
     capacityParams: capacityParams,
     floorParam: null,
     availabilityParam: null,
@@ -113,7 +118,12 @@ class App extends Component {
     deleteBooking(roomId, bookingId)
       .then(updatedRoom => {
         alert('Booking successfully deleted')
-        updateStateRoom(this, updatedRoom, this.loadMyBookings, this.onResetFilteredData)
+        updateStateRoom(
+          this,
+          updatedRoom,
+          this.loadMyBookings,
+          this.onResetFilteredData
+        )
       })
       .catch(error => console.error(error.message))
   }
@@ -125,11 +135,11 @@ class App extends Component {
 
   onResetFilteredData = () => {
     const roomData = this.state.roomData
-    this.setState({ filteredData: roomData})
+    this.setState({ filteredData: roomData })
   }
 
   // setting the feature filter parameters
-  onToggleFeature = (feature) => {
+  onToggleFeature = feature => {
     // Get the filter parameters
     let filterParams = this.state.filterParams
     // Find the filter parameter that matches the the passed parameter
@@ -137,13 +147,13 @@ class App extends Component {
     // Toggle the value of the parameter, eg if false, set to true
     featureParam.value = !featureParam.value
     // Set state with the updated filter parameters
-    this.setState({filterParams: filterParams})
+    this.setState({ filterParams: filterParams })
     // filter the filtered roomData again with the updated filter parameters
     // this.onFilterByFeature(filterParams)
   }
 
   // setting the capacity filter parameters
-  onToggleCapacity = (capacity) => {
+  onToggleCapacity = capacity => {
     // Get the capacity parameters
     let capacityParams = this.state.capacityParams
     // Find the capacity parameter that matches the the passed parameter
@@ -151,19 +161,19 @@ class App extends Component {
     // Toggle the value of the parameter, eg if false, set to true
     capacityParam.value = !capacityParam.value
     // Set state with the updated capacity parameters
-    this.setState({capacityParams: capacityParams})
+    this.setState({ capacityParams: capacityParams })
     // filter the filtered roomData again with the updated capacity parameters
     // this.onFilterByCapacity(capacityParams)
     console.log('cap params', this.state.capacityParams)
     // this.onFilterByCapacity(capacityParams)
   }
 
-  onSetFloorParam = (value) => {
-    this.setState({floorParam: value})
-  } 
+  onSetFloorParam = value => {
+    this.setState({ floorParam: value })
+  }
 
-  onSetAvailabilityParam = (availability) => {
-    this.setState({ availabilityParam: availability})
+  onSetAvailabilityParam = availability => {
+    this.setState({ availabilityParam: availability })
   }
 
   onFilterAll = (floor, availability) => {
@@ -179,7 +189,7 @@ class App extends Component {
       }
       return filteredData
     }
-  
+
     const onFilterByFeature = () => {
       const featureParams = this.state.filterParams
       featureParams.forEach(feature => {
@@ -187,29 +197,33 @@ class App extends Component {
           filteredData = roomData.filter(room => room.assets.macLab === true)
         } else if (feature.name === 'pcLab' && feature.value === true) {
           filteredData = roomData.filter(room => room.assets.pcLab === true)
-        }else if (feature.name === 'tv' && feature.value === true) {
+        } else if (feature.name === 'tv' && feature.value === true) {
           filteredData = roomData.filter(room => room.assets.tv === true)
         } else if (feature.name === 'opWall' && feature.value === true) {
           filteredData = roomData.filter(room => room.assets.opWalls === true)
         } else if (feature.name === 'whiteboard' && feature.value === true) {
-          filteredData = roomData.filter(room => room.assets.whiteboard === true)
+          filteredData = roomData.filter(
+            room => room.assets.whiteboard === true
+          )
         } else if (feature.name === 'projector' && feature.value === true) {
           filteredData = roomData.filter(room => room.assets.projector === true)
-        } 
-      })
-      return filteredData
-    }
-  
-    const  onFilterByCapacity = () => {
-      const capacityParams = this.state.capacityParams
-      capacityParams.forEach(capacity => {
-        if (capacity.value === true)
-        filteredData.push(...roomData.filter(room => room.capacity === capacity.capacity)) 
+        }
       })
       return filteredData
     }
 
-      //  filter out occupied rooms
+    const onFilterByCapacity = () => {
+      const capacityParams = this.state.capacityParams
+      capacityParams.forEach(capacity => {
+        if (capacity.value === true)
+          filteredData.push(
+            ...roomData.filter(room => room.capacity === capacity.capacity)
+          )
+      })
+      return filteredData
+    }
+
+    //  filter out occupied rooms
     const onFilterByAvailablity = () => {
       const availability = this.state.availabilityParam
       if (availability === 'fullyAvail') {
@@ -217,7 +231,9 @@ class App extends Component {
       } else if (availability === 'partAvail') {
         filteredData = roomData.filter(room => room.bookings.length > 0)
       } else if (availability === 'fullBooked') {
-        filteredData = !roomData.filter(room => room.bookings.length > 0) && !roomData.filter(room => room.bookings.length === 0)
+        filteredData =
+          !roomData.filter(room => room.bookings.length > 0) &&
+          !roomData.filter(room => room.bookings.length === 0)
       }
       return filteredData
     }
@@ -286,97 +302,109 @@ class App extends Component {
     const onDeleteBooking = this.onDeleteBooking
     const setCalendarDate = this.setCalendarDate
 
-    const requireAuth = (render) => () => (
-      signedIn ? (
-        render()
-      ) : (
-        <Redirect to='/signin' />
-      )
-    )
+    const requireAuth = render => () =>
+      signedIn ? render() : <Redirect to="/" />
 
     return (
-      <Router>
+       <Router>
         <div id="app" className="App">
-          <NavBar
-            signOut={signOut}
-            loadMyBookings={loadMyBookings}
-            user={signedIn ? decodedToken.sub : null}
-          />
-          
           <div>
             {/* <div className="user-info">
               <h3>Signed in User: {decodedToken.email}</h3>
               <button onClick={signOut}>Log Out</button>
             </div> */}
-            <BookingModal
-              selectedBooking={selectedBooking}
-              onCloseBooking={this.onCloseBooking}
-              onDeleteBooking={onDeleteBooking}
-            />
+
             <div className="main-container">
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
-            <Switch>
-              <Route path='/signin' exact render={ () => (
-                signedIn ? (
-                  <Redirect to='/bookings' />
-                ) : (
-                  <div>
-                    <SignInForm onSignIn={this.onSignIn} />
-                    <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
-                  </div>
-                )
-              )} />
+              <Switch>
+                <Route path="/" exact render={() => (signedIn ? <Redirect to="/bookings" /> : <div className="container__main">
+                        <h2>Sign in</h2>
+                        <div className="container__form">
+                          <SignInForm onSignIn={this.onSignIn} />
+                        </div>
+                        <div className="container__google">
+                          <h3>Or sign in with Google</h3>
+                          <Button onClick={this.onBeginGoogleSignIn} className="button button--google" text={'Sign in with Google'} />
+                        </div>
+                      </div>)} />
 
-              <Route path='/bookings' exact render={ requireAuth(() => (
-                <Fragment>
-                  <div className="left-panel">
-                    <Calendar setCalendarDate={setCalendarDate} />
-                    <FilterElement 
-                      onSetFloorParam={this.onSetFloorParam}
-                      onToggleFeature={this.onToggleFeature}
-                      onToggleCapacity={this.onToggleCapacity}
-                      onSetAvailabilityParam={this.onSetAvailabilityParam}
-                      onFilterAll={this.onFilterAll}
+                <Route path="/bookings" exact render={requireAuth(() => (
+                    <Fragment>
+                      <NavBar
+                        signOut={signOut}
+                        loadMyBookings={loadMyBookings}
+                        user={signedIn ? decodedToken.sub : null}
+                      />
+                      <div className="left-panel">
+                        <Calendar setCalendarDate={setCalendarDate} />
+                        <FilterElement
+                          onSetFloorParam={this.onSetFloorParam}
+                          onToggleFeature={this.onToggleFeature}
+                          onToggleCapacity={this.onToggleCapacity}
+                          onSetAvailabilityParam={
+                            this.onSetAvailabilityParam
+                          }
+                          onFilterAll={this.onFilterAll}
+                        />
+                      </div>
+                      <RoomsList
+                        rooms={filteredData}
+                        onRoomSelect={this.onRoomSelect}
+                        onShowBooking={this.onShowBooking}
+                        date={calendarDate}
+                      />
+                      <BookingModal
+                        selectedBooking={selectedBooking}
+                        onCloseBooking={this.onCloseBooking}
+                        onDeleteBooking={onDeleteBooking}
+                      />
+                    </Fragment>
+                  ))} />
+
+                <Route path="/createbooking" exact render={requireAuth(
+                    () => (
+                      <Fragment>
+                        <NavBar
+                          signOut={signOut}
+                          loadMyBookings={loadMyBookings}
+                          user={signedIn ? decodedToken.sub : null}
+                        />
+                        <BookingForm
+                          user={decodedToken.email}
+                          roomData={currentRoom}
+                          onMakeBooking={this.onMakeBooking}
+                          date={calendarDate}
+                          updateCalendar={setCalendarDate}
+                          onShowBooking={this.onShowBooking}
+                        />
+                      </Fragment>
+                    )
+                  )} />
+
+                <Route path="/mybookings" exact render={requireAuth(() => (
+                  <Fragment>
+                    <NavBar
+                      signOut={signOut}
+                      loadMyBookings={loadMyBookings}
+                      user={signedIn ? decodedToken.sub : null}
                     />
-                  </div>
-                  <RoomsList
-                    rooms={filteredData}
-                    onRoomSelect={this.onRoomSelect}
-                    onShowBooking={this.onShowBooking}
-                    date={calendarDate}
-                  />
-                </Fragment>
-              ))} />
+                    <MyBookings
+                      user={decodedToken.email}
+                      userBookings={userBookings}
+                      onDeleteBooking={onDeleteBooking}
+                    />
+                  </Fragment>
+                ))} />
 
-              <Route path="/createbooking" exact render={ requireAuth(() => (
-                <BookingForm
-                  user={decodedToken.email}
-                  roomData={currentRoom}
-                  onMakeBooking={this.onMakeBooking}
-                  date={calendarDate}
-                  updateCalendar={setCalendarDate}
-                  onShowBooking={this.onShowBooking}
-                />
-              ))} />
-
-              <Route path="/mybookings" exact render={ requireAuth(() => (
-                <MyBookings
-                  user={decodedToken.email}
-                  userBookings={userBookings}
-                  onDeleteBooking={onDeleteBooking}
-                />
-              ))} />
-              <Route render={ ({ location }) => (
-                <h2>Page Not Found: {location.pathname}</h2>
-              )} />
-            </Switch>
+                <Route render={({ location }) => <h2>
+                      Page Not Found: {location.pathname}
+                    </h2>} />
+              </Switch>
             </div>
           </div>
-      
         </div>
       </Router>
-    )
-  }
+  )}
 
   load() {
     listRooms()

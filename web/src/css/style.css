@@ -255,5 +255,39 @@ html {
   font-size: 62.5%;
 }
 body {
+  font-family: Raleway, josefin sans, sans-serif;
   font-size: 1.6rem;
+}
+.container__main {
+  background: #f4f4f4;
+  color: #1c1c11;
+  margin: 10rem auto;
+  padding: 3rem;
+  width: 40rem;
+}
+.container__form {
+  padding: 2rem 0;
+  margin: 0 auto;
+  max-width: 30rem;
+}
+.form__group {
+  margin: 0 auto;
+}
+.form__label {
+  display: block;
+  font-weight: 500;
+  margin: 1rem auto;
+  text-align: left;
+}
+.form__input {
+  display: block;
+  font-size: 1.6rem;
+  margin: 0.6rem 0 2rem 0;
+  padding: 1rem 1.6rem;
+  width: 27rem;
+}
+.button__form--submit,
+.button--google {
+  margin: 1rem 0;
+  width: 30.6rem;
 }
