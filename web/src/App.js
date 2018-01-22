@@ -175,9 +175,6 @@ class App extends Component {
     featureParam.value = !featureParam.value
     // Set state with the updated filter parameters
     this.setState({ filterParams: filterParams })
-    // filter the filtered roomData again with the updated filter parameters
-    // this.onFilterByFeature(filterParams)
-    console.log(featureParam.value)
   }
 
   // setting the capacity filter parameters
@@ -190,10 +187,6 @@ class App extends Component {
     capacityParam.value = !capacityParam.value
     // Set state with the updated capacity parameters
     this.setState({ capacityParams: capacityParams })
-    // filter the filtered roomData again with the updated capacity parameters
-    // this.onFilterByCapacity(capacityParams)
-    console.log('cap params', this.state.capacityParams)
-    // this.onFilterByCapacity(capacityParams)
   }
 
   onSetFloorParam = value => {
@@ -264,8 +257,6 @@ class App extends Component {
       })
     })
     this.setState({ userBookings: myBookings })
-    // console.log('state:', this.state.userBookings)
-    // console.log('myBookings:', myBookings)
   }
 
   render() {
