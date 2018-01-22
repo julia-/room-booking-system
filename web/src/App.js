@@ -6,7 +6,7 @@ import moment from 'moment'
 
 import BookingForm from './components/BookingForm'
 import FilterElement from './components/FilterElement'
-import GoogleSignInButton from './components/GoogleSignInButton'
+import Button from './components/Button'
 import MyBookings from './components/MyBookings'
 import NavBar from './components/NavBar'
 import SignInForm from './components/SignInForm'
@@ -331,9 +331,15 @@ class App extends Component {
             </div>
           </div>
         ) : (
-          <div className="form-container">
-            <SignInForm onSignIn={this.onSignIn} />
-            <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
+          <div className="container__main">
+            <h2>Sign in</h2>
+            <div className="container__form">
+              <SignInForm onSignIn={this.onSignIn} />
+            </div>
+            <div className="container__google">
+              <h3>Or sign in with Google</h3>
+              <Button onClick={this.onBeginGoogleSignIn} className="button button--google" text={'Sign in with Google'} />
+            </div>
           </div>
         )}
       </div>
