@@ -76,7 +76,7 @@ function FilterElement({
         </div>
         <div>
           <input type="checkbox" id="40seats" name="40seats"checked={capacityParams[4].value}/>
-          <label for="40seats">40+ Seats</label>
+          <label for="40seats">40 Seats</label>
         </div>
       </div>
       <h3>Availability</h3>
@@ -86,7 +86,7 @@ function FilterElement({
             <label for="fullyAvailable">Fully Available</label>
           </div>
           <div className="checkbox">
-            <input type="radio" id="partialAvailable" value="partAvail" name="availability" checked={availabilityParam === 'partialAvailable' ? true : false}/>
+            <input type="radio" id="partialAvailable" value="partAvail" name="availability" checked={availabilityParam === 'partAvail' ? true : false}/>
             <label for="partialAvailable">Partially Available</label>
           </div>
           <div className="checkbox">

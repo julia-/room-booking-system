@@ -30,7 +30,7 @@ import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
 import RoomSelector from './components/RoomSelector'
 import Calendar from './components/Calendar'
 import BookingModal from './components/BookingModal'
-import { floorParams, filterParams, capacityParams } from './helpers/filters'
+import { floorParams, filterParams, capacityParams, onFilterByFloor, onFilterByFeature, onFilterByCapacity, onFilterByAvailablity } from './helpers/filters'
 import { initialRoom } from './helpers/rooms'
 
 class App extends Component {
@@ -205,71 +205,21 @@ class App extends Component {
   }
 
   onFilterAll = (floor, availability) => {
-    const roomData = this.state.roomData
+    let roomData = this.state.roomData
     let filteredData = []
+    const floorParam = this.state.floorParam
+    const featureParams = this.state.filterParams
+    const capacityParams = this.state.capacityParams
+    const availabilityParam = this.state.availabilityParam
 
-    const onFilterByFloor = () => {
-      const value = this.state.floorParam
-      if (value === 'all') {
-        filteredData = roomData
-      } else {
-        filteredData = roomData.filter(room => room.floor === value)
-      }
-      return filteredData
-    }
-
-    const onFilterByFeature = () => {
-      const featureParams = this.state.filterParams
-      featureParams.forEach(feature => {
-        if (feature.name === 'macLab' && feature.value === true) {
-          filteredData = roomData.filter(room => room.assets.macLab === true)
-        } else if (feature.name === 'pcLab' && feature.value === true) {
-          filteredData = roomData.filter(room => room.assets.pcLab === true)
-        } else if (feature.name === 'tv' && feature.value === true) {
-          filteredData = roomData.filter(room => room.assets.tv === true)
-        } else if (feature.name === 'opWall' && feature.value === true) {
-          filteredData = roomData.filter(room => room.assets.opWalls === true)
-        } else if (feature.name === 'whiteboard' && feature.value === true) {
-          filteredData = roomData.filter(
-            room => room.assets.whiteboard === true
-          )
-        } else if (feature.name === 'projector' && feature.value === true) {
-          filteredData = roomData.filter(room => room.assets.projector === true)
-        }
-      })
-      return filteredData
-    }
-
-    const onFilterByCapacity = () => {
-      const capacityParams = this.state.capacityParams
-      capacityParams.forEach(capacity => {
-        if (capacity.value === true)
-          filteredData.push(
-            ...roomData.filter(room => room.capacity === capacity.capacity)
-          )
-      })
-      return filteredData
-    }
-
-    //  filter out occupied rooms
-    const onFilterByAvailablity = () => {
-      const availability = this.state.availabilityParam
-      if (availability === 'fullyAvail') {
-        filteredData = roomData.filter(room => room.bookings.length === 0)
-      } else if (availability === 'partAvail') {
-        filteredData = roomData.filter(room => room.bookings.length > 0)
-      } else if (availability === 'fullBooked') {
-        filteredData =
-          !roomData.filter(room => room.bookings.length > 0) &&
-          !roomData.filter(room => room.bookings.length === 0)
-      }
-      return filteredData
-    }
-
-    onFilterByFloor()
-    onFilterByFeature()
-    onFilterByCapacity()
-    onFilterByAvailablity()
+    filteredData = onFilterByFloor(floorParam, roomData)
+    console.log('finished byfloor', filteredData)
+    filteredData = onFilterByFeature(featureParams, filteredData)
+    console.log('finished byfeature', filteredData)
+    filteredData = onFilterByCapacity(capacityParams, filteredData)
+    console.log('finished byCapacity', filteredData)
+    filteredData = onFilterByAvailablity(availabilityParam, filteredData)
+    console.log('finished byAvail', filteredData)
     this.setState({ filteredData: filteredData })
 		this.onResetFeatureParams()
 		this.onResetCapacityParams()
