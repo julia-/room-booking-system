@@ -46,7 +46,7 @@ class App extends Component {
     availabilityParam: null,
     filteredData: null,
     checked: null,
-    currentRoom: initialRoom,
+    currentRoom: null,
     error: null
   }
 
@@ -81,6 +81,7 @@ class App extends Component {
 
   onShowBooking = booking => {
     const selectedBooking = booking
+    console.log('selectedBooking', selectedBooking)
     this.setState(() => ({ selectedBooking }))
   }
 
@@ -128,8 +129,8 @@ class App extends Component {
       .catch(error => console.error(error.message))
   }
 
-  setRoom = roomNumber => {
-    const room = this.state.roomData.find(room => room.name === roomNumber)
+  setRoom = id => {
+    const room = this.state.roomData.find(room => room._id === id)
     this.setState({ currentRoom: room })
   }
 
@@ -306,7 +307,7 @@ class App extends Component {
       signedIn ? render() : <Redirect to="/" />
 
     return (
-      <Router>
+    <Router>
         <div id="app" className="App">
           <div>
             {/* <div className="user-info">
@@ -327,81 +328,93 @@ class App extends Component {
                           <Button onClick={this.onBeginGoogleSignIn} className="button button--google" text={'Sign in with Google'} />
                         </div>
                       </div>)} />
-                <Route path="/bookings" exact render={ requireAuth(() => (
-                  <Fragment>
-                    {!!decodedToken && !!roomData &&
-                      <Fragment>
-                        <NavBar signOut={signOut}
-                          loadMyBookings={loadMyBookings}
-                          user={signedIn ? decodedToken.sub : null}
-                        />
-                        <div className="left-panel">
-                          <Calendar setCalendarDate={setCalendarDate} />
-                          <FilterElement
-                            onSetFloorParam={this.onSetFloorParam}
-                            onToggleFeature={this.onToggleFeature}
-                            onToggleCapacity={this.onToggleCapacity}
-                            onSetAvailabilityParam={
-                              this.onSetAvailabilityParam
-                            }
-                            onFilterAll={this.onFilterAll}
-                          />
-                        </div>
-                        <RoomsList
-                          rooms={filteredData}
-                          onRoomSelect={this.onRoomSelect}
-                          onShowBooking={this.onShowBooking}
-                          date={calendarDate}
-                        />
-                        <BookingModal
-                          selectedBooking={selectedBooking}
-                          onCloseBooking={this.onCloseBooking}
-                          onDeleteBooking={onDeleteBooking}
-                        />
-                      </Fragment>
-                    }
-                  </Fragment>
-                ))} />
+                <Route path="/bookings" exact render={requireAuth(() => (
+                    <Fragment>
+                      {!!decodedToken &&
+                        !!roomData && (
+                          <Fragment>
+                            <NavBar
+                              signOut={signOut}
+                              loadMyBookings={loadMyBookings}
+                              user={signedIn ? decodedToken.sub : null}
+                            />
+                            <div className="left-panel">
+                              <Calendar setCalendarDate={setCalendarDate} />
+                              <FilterElement
+                                onSetFloorParam={this.onSetFloorParam}
+                                onToggleFeature={this.onToggleFeature}
+                                onToggleCapacity={this.onToggleCapacity}
+                                onSetAvailabilityParam={
+                                  this.onSetAvailabilityParam
+                                }
+                                onFilterAll={this.onFilterAll}
+                              />
+                            </div>
+                            <RoomsList
+                              rooms={filteredData}
+                              onRoomSelect={this.onRoomSelect}
+                              onShowBooking={this.onShowBooking}
+                              date={calendarDate}
+                              onSetRoom={this.setRoom}
+                            />
+                            <BookingModal
+                              selectedBooking={selectedBooking}
+                              onCloseBooking={this.onCloseBooking}
+                              onDeleteBooking={onDeleteBooking}
+                            />
+                          </Fragment>
+                        )}
+                    </Fragment>
+                  ))} />
 
-                <Route path="/createbooking" exact render={ requireAuth(
+                <Route path="/createbooking" exact render={requireAuth(
                     () => (
-                  <Fragment>
-                    {!!decodedToken && !!roomData &&
                       <Fragment>
-                        <NavBar
-                          signOut={signOut}
-                          loadMyBookings={loadMyBookings}
-                          user={signedIn ? decodedToken.sub : null}
-                        />
-                        <BookingForm
-                          user={decodedToken.email}
-                          roomData={currentRoom}
-                          onMakeBooking={this.onMakeBooking}
-                          date={calendarDate}
-                          updateCalendar={setCalendarDate}
-                          onShowBooking={this.onShowBooking}
-                        />
-                        </Fragment>
-                    }
+                        {!!decodedToken &&
+                          !!roomData &&
+                          !!currentRoom && (
+                            <Fragment>
+                              <NavBar
+                                signOut={signOut}
+                                loadMyBookings={loadMyBookings}
+                                user={signedIn ? decodedToken.sub : null}
+                              />
+                              <BookingForm
+                                user={decodedToken.email}
+                                roomData={currentRoom}
+                                onMakeBooking={this.onMakeBooking}
+                                date={calendarDate}
+                                updateCalendar={setCalendarDate}
+                                onShowBooking={this.onShowBooking}
+                              />
+                              <BookingModal
+                                selectedBooking={selectedBooking}
+                                onCloseBooking={this.onCloseBooking}
+                                onDeleteBooking={onDeleteBooking}
+                              />
+                            </Fragment>
+                          )}
                       </Fragment>
-                    ))} />
+                    )
+                  )} />
 
                 <Route path="/mybookings" exact render={requireAuth(() => (
-                  <Fragment>
-                    {!!decodedToken && !!roomData &&
-                      <Fragment>
-                      <NavBar
-                        signOut={signOut}
-                        loadMyBookings={loadMyBookings}
-                        user={signedIn ? decodedToken.sub : null}
-                      />
-                      <MyBookings
-                        user={decodedToken.email}
-                        userBookings={userBookings}
-                        onDeleteBooking={onDeleteBooking}
-                      />
-                      </Fragment>
-                    }
+                    <Fragment>
+                      {!!decodedToken &&
+                        !!roomData && (
+                          <Fragment>
+                            <NavBar
+                              signOut={signOut}
+                              loadMyBookings={loadMyBookings}
+                              user={signedIn ? decodedToken.sub : null}
+                            />
+                            <MyBookings
+                              user={decodedToken.email}
+                              userBookings={userBookings}
+                              onDeleteBooking={onDeleteBooking}
+                            />
+                          </Fragment>
+                        )}
                     </Fragment>
                   ))} />
 
@@ -440,7 +453,8 @@ class App extends Component {
         this.setState({ error })
       })
       .then(() => {
-        this.setRoom('Room 1')
+        const room = this.state.roomData[0]
+        this.setRoom(room._id)
       })
   }
 

@@ -4,7 +4,13 @@ import RoomRow from './RoomRow'
 const RoomsList = props => (
   <table className="table">
     <tr className="table__row table__row--header">
-      <th scope="colgroup" colSpan="15" className="table__cell--header table__cell--align-left">Floor Eight</th>
+      <th
+        scope="colgroup"
+        colSpan="15"
+        className="table__cell--header table__cell--align-left"
+      >
+        Floor Eight
+      </th>
     </tr>
     <tr className="table__row table__row--subheader">
       <th scope="col" className="table__cell--header">
@@ -75,12 +81,19 @@ const RoomsList = props => (
               bookings={room.bookings}
               date={props.date === null ? new Date() : props.date}
               onShowBooking={props.onShowBooking}
+              onSetRoom={props.onSetRoom}
             />
           ))}
     </tbody>
     <tbody>
       <tr className="table__row table__row--header">
-        <th scope="colgroup" colSpan="15" className="table__cell--header table__cell--align-left">Floor Thirteen</th>
+        <th
+          scope="colgroup"
+          colSpan="15"
+          className="table__cell--header table__cell--align-left"
+        >
+          Floor Thirteen
+        </th>
       </tr>
       <tr className="table__row table__row--subheader">
         <th scope="col" className="table__cell--header table__cell--width">
@@ -146,6 +159,7 @@ const RoomsList = props => (
               bookings={room.bookings}
               date={props.date === null ? new Date() : props.date}
               onSelectRoom={props.onSelectRoom}
+              onSetRoom={props.onSetRoom}
             />
           ))}
     </tbody>
