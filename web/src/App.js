@@ -7,7 +7,7 @@ import moment from 'moment'
 
 import BookingForm from './components/BookingForm'
 import FilterElement from './components/FilterElement'
-import GoogleSignInButton from './components/GoogleSignInButton'
+import Button from './components/Button'
 import MyBookings from './components/MyBookings'
 import NavBar from './components/NavBar'
 import SignInForm from './components/SignInForm'
@@ -302,17 +302,12 @@ class App extends Component {
             loadMyBookings={loadMyBookings}
             user={signedIn ? decodedToken.sub : null}
           />
-          
           <div>
             {/* <div className="user-info">
               <h3>Signed in User: {decodedToken.email}</h3>
               <button onClick={signOut}>Log Out</button>
             </div> */}
-            <BookingModal
-              selectedBooking={selectedBooking}
-              onCloseBooking={this.onCloseBooking}
-              onDeleteBooking={onDeleteBooking}
-            />
+
             <div className="main-container">
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
             <Switch>
@@ -320,9 +315,15 @@ class App extends Component {
                 signedIn ? (
                   <Redirect to='/bookings' />
                 ) : (
-                  <div>
-                    <SignInForm onSignIn={this.onSignIn} />
-                    <GoogleSignInButton onGoogleSignIn={this.onBeginGoogleSignIn} />
+                  <div className="container__main">
+                    <h2>Sign in</h2>
+                    <div className="container__form">
+                      <SignInForm onSignIn={this.onSignIn} />
+                    </div>
+                    <div className="container__google">
+                      <h3>Or sign in with Google</h3>
+                      <Button onClick={this.onBeginGoogleSignIn} className="button button--google" text={'Sign in with Google'} />
+                    </div>
                   </div>
                 )
               )} />
@@ -344,6 +345,11 @@ class App extends Component {
                     onRoomSelect={this.onRoomSelect}
                     onShowBooking={this.onShowBooking}
                     date={calendarDate}
+                  />
+                  <BookingModal
+                    selectedBooking={selectedBooking}
+                    onCloseBooking={this.onCloseBooking}
+                    onDeleteBooking={onDeleteBooking}
                   />
                 </Fragment>
               ))} />
@@ -371,7 +377,6 @@ class App extends Component {
             </Switch>
             </div>
           </div>
-      
         </div>
       </Router>
     )
