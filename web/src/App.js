@@ -306,7 +306,7 @@ class App extends Component {
       signedIn ? render() : <Redirect to="/" />
 
     return (
-       <Router>
+      <Router>
         <div id="app" className="App">
           <div>
             {/* <div className="user-info">
@@ -413,7 +413,8 @@ class App extends Component {
           </div>
         </div>
       </Router>
-  )}
+    )
+  }
 
   load() {
     listRooms()
