@@ -98,23 +98,18 @@ class App extends Component {
       makeBooking(
         { startDate, endDate, businessUnit, purpose, roomId },
         existingBookings
-      ).then(updatedRoom => {
-        // If the new booking is successfully saved to the database
-        alert(`${updatedRoom.name} sucessfully booked.`)
-        updateStateRoom(
-          this,
-          updatedRoom,
-          this.loadMyBookings,
-          this.onResetFilteredData
-        )
+      )
+        .then(updatedRoom => {
+          // If the new booking is successfully saved to the database
+          alert(`${updatedRoom.name} sucessfully booked.`)
+          updateStateRoom(this, updatedRoom, this.loadMyBookings, this.onResetFilteredData)
       })
     } catch (err) {
       // If there is a booking clash and the booking could not be saved
       alert(
         'Your booking could not be saved. Please ensure it does not clash with an existing booking and that it is not a past date.'
       )
-
-      console.error(err.message)
+      console.log(err)
     }
   }
 
@@ -310,7 +305,8 @@ class App extends Component {
     const requireAuth = render => () =>
       signedIn ? render() : <Redirect to="/" />
 
-    return <Router>
+    return (
+       <Router>
         <div id="app" className="App">
           <div>
             {/* <div className="user-info">
@@ -408,7 +404,7 @@ class App extends Component {
           </div>
         </div>
       </Router>
-  }
+  )}
 
   load() {
     listRooms()
