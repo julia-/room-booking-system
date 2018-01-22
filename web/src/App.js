@@ -310,14 +310,8 @@ class App extends Component {
     const requireAuth = render => () =>
       signedIn ? render() : <Redirect to="/" />
 
-    return (
-      <Router>
+    return <Router>
         <div id="app" className="App">
-          <NavBar
-            signOut={signOut}
-            loadMyBookings={loadMyBookings}
-            user={signedIn ? decodedToken.sub : null}
-          />
           <div>
             {/* <div className="user-info">
               <h3>Signed in User: {decodedToken.email}</h3>
@@ -327,43 +321,33 @@ class App extends Component {
             <div className="main-container">
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
               <Switch>
-                <Route
-                  path="/"
-                  exact
-                  render={() =>
-                    signedIn ? (
-                      <Redirect to="/bookings" />
-                    ) : (
-                      <div className="container__main">
+                <Route path="/" exact render={() => (signedIn ? <Redirect to="/bookings" /> : <div className="container__main">
                         <h2>Sign in</h2>
                         <div className="container__form">
                           <SignInForm onSignIn={this.onSignIn} />
                         </div>
                         <div className="container__google">
                           <h3>Or sign in with Google</h3>
-                          <Button
-                            onClick={this.onBeginGoogleSignIn}
-                            className="button button--google"
-                            text={'Sign in with Google'}
-                          />
+                          <Button onClick={this.onBeginGoogleSignIn} className="button button--google" text={'Sign in with Google'} />
                         </div>
-                      </div>
-                    )
-                  }
-                />
+                      </div>)} />
 
-                <Route
-                  path="/bookings"
-                  exact
-                  render={requireAuth(() => (
+                <Route path="/bookings" exact render={requireAuth(() => (
                     <Fragment>
+                      <NavBar
+                        signOut={signOut}
+                        loadMyBookings={loadMyBookings}
+                        user={signedIn ? decodedToken.sub : null}
+                      />
                       <div className="left-panel">
                         <Calendar setCalendarDate={setCalendarDate} />
                         <FilterElement
                           onSetFloorParam={this.onSetFloorParam}
                           onToggleFeature={this.onToggleFeature}
                           onToggleCapacity={this.onToggleCapacity}
-                          onSetAvailabilityParam={this.onSetAvailabilityParam}
+                          onSetAvailabilityParam={
+                            this.onSetAvailabilityParam
+                          }
                           onFilterAll={this.onFilterAll}
                         />
                       </div>
@@ -379,46 +363,51 @@ class App extends Component {
                         onDeleteBooking={onDeleteBooking}
                       />
                     </Fragment>
-                  ))}
-                />
+                  ))} />
 
-                <Route
-                  path="/createbooking"
-                  exact
-                  render={requireAuth(() => (
-                    <BookingForm
-                      user={decodedToken.email}
-                      roomData={currentRoom}
-                      onMakeBooking={this.onMakeBooking}
-                      date={calendarDate}
-                      updateCalendar={setCalendarDate}
-                      onShowBooking={this.onShowBooking}
+                <Route path="/createbooking" exact render={requireAuth(
+                    () => (
+                      <Fragment>
+                        <NavBar
+                          signOut={signOut}
+                          loadMyBookings={loadMyBookings}
+                          user={signedIn ? decodedToken.sub : null}
+                        />
+                        <BookingForm
+                          user={decodedToken.email}
+                          roomData={currentRoom}
+                          onMakeBooking={this.onMakeBooking}
+                          date={calendarDate}
+                          updateCalendar={setCalendarDate}
+                          onShowBooking={this.onShowBooking}
+                        />
+                      </Fragment>
+                    )
+                  )} />
+
+                <Route path="/mybookings" exact render={requireAuth(() => (
+                  <Fragment>
+                    <NavBar
+                      signOut={signOut}
+                      loadMyBookings={loadMyBookings}
+                      user={signedIn ? decodedToken.sub : null}
                     />
-                  ))}
-                />
-
-                <Route
-                  path="/mybookings"
-                  exact
-                  render={requireAuth(() => (
                     <MyBookings
                       user={decodedToken.email}
                       userBookings={userBookings}
                       onDeleteBooking={onDeleteBooking}
                     />
-                  ))}
-                />
-                <Route
-                  render={({ location }) => (
-                    <h2>Page Not Found: {location.pathname}</h2>
-                  )}
-                />
+                  </Fragment>
+                ))} />
+
+                <Route render={({ location }) => <h2>
+                      Page Not Found: {location.pathname}
+                    </h2>} />
               </Switch>
             </div>
           </div>
         </div>
       </Router>
-    )
   }
 
   load() {
