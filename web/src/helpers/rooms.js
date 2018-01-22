@@ -1,23 +1,6 @@
 import React from 'react'
 import moment from 'moment'
 
-const initialRoom = {
-  _id: '5a5c0d782b191c21b1eebf4e',
-  name: 'Room 1',
-  floor: '8',
-  capacity: 18,
-  bookings: [],
-  assets: {
-    whiteBoard: false,
-    opWalls: false,
-    tv: false,
-    projector: false,
-    pcLab: true,
-    macLab: false
-  },
-  __v: 0
-}
-
 const formatAssetName = asset => {
   if (asset === 'opWalls') {
     return 'Operable Walls'
@@ -89,81 +72,4 @@ const bookingArray = (filteredBookings) => {
   return dayHours
 }
 
-// Accept the 24 hour dayHours array as the day's booking data for a room and a specific hour
-// Return a single <td> cell's data for that hour
-const columnMapper = (dayHours, hour, onShowBooking) => {
-  
-  // Extract the corresponding data for a single hour from the 24 hour array 
-  let bookingData = dayHours[hour]
-
-  // Data to be returned
-  let columnData = ''
-  
-  // If the data for that hour is a number (not a booking object), there is no booking
-  // Return a <td> element that indicates the time slot is available
-  if (typeof bookingData == 'number') {
-    columnData = <td className="bookings-column available">Available</td>
-
-  // If there is a booking object, but only for the first half of the hour, return a nested table to split the table data for that cell into two rows. 
-  } else if (bookingData.firstHalfHour) {
-    columnData =
-      <td>
-        <table>
-          <tbody>
-            <tr className="sub-cell-divider">
-              <td
-                onClick={() => onShowBooking(bookingData)}
-                className={`bookings-column ${bookingData.businessUnit
-                  .replace(/ /g, '-')
-                  .toLowerCase()} sub-cell`
-                }
-              >
-                {bookingData.businessUnit}
-              </td>
-            </tr>
-            <tr>
-              <td className="bookings-column sub-cell available">Available</td>
-            </tr>
-          </tbody>
-        </table>
-      </td>
-
-  // If there is a booking object, but only for the second half of the hour, return a nested table to split the table data for that cell into two rows. 
-  } else if (bookingData.secondHalfHour) {
-    columnData =
-      <td>  
-        <table>
-          <tbody>
-            <tr className="sub-cell-divider">
-              <td className="bookings-column sub-cell available">Available</td>
-            </tr>
-            <tr>
-              <td
-                onClick={() => onShowBooking(bookingData)}
-                className={`bookings-column ${bookingData.businessUnit
-                  .replace(/ /g, '-')
-                  .toLowerCase()} sub-cell`
-                }
-              >
-                {bookingData.businessUnit}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </td>
-  // If there is a booking object for the full hour, return a single <td> cell  
-  } else {
-    columnData =
-      <td
-        onClick={() => onShowBooking(bookingData)}
-        className={`bookings-column ${bookingData.businessUnit
-          .replace(/ /g, '-')
-          .toLowerCase()}`
-        }>
-          {bookingData.businessUnit}
-      </td>
-  }
-  return columnData
-}
-
-export { initialRoom, formatAssetName, dailyBookings, bookingArray, columnMapper }
+export { formatAssetName, dailyBookings, bookingArray }

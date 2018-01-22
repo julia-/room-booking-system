@@ -46,7 +46,7 @@ class App extends Component {
     availabilityParam: null,
     filteredData: null,
     checked: null,
-    currentRoom: initialRoom,
+    currentRoom: null,
     error: null,
     checked: { macLab: false, pcLab: false, tv: false, opWalls: false, whiteboard: false, projector: false }
   }
@@ -82,6 +82,7 @@ class App extends Component {
 
   onShowBooking = booking => {
     const selectedBooking = booking
+    console.log('selectedBooking', selectedBooking)
     this.setState(() => ({ selectedBooking }))
   }
 
@@ -99,23 +100,18 @@ class App extends Component {
       makeBooking(
         { startDate, endDate, businessUnit, purpose, roomId },
         existingBookings
-      ).then(updatedRoom => {
-        // If the new booking is successfully saved to the database
-        alert(`${updatedRoom.name} sucessfully booked.`)
-        updateStateRoom(
-          this,
-          updatedRoom,
-          this.loadMyBookings,
-          this.onResetFilteredData
-        )
+      )
+        .then(updatedRoom => {
+          // If the new booking is successfully saved to the database
+          alert(`${updatedRoom.name} sucessfully booked.`)
+          updateStateRoom(this, updatedRoom, this.loadMyBookings, this.onResetFilteredData)
       })
     } catch (err) {
       // If there is a booking clash and the booking could not be saved
       alert(
         'Your booking could not be saved. Please ensure it does not clash with an existing booking and that it is not a past date.'
       )
-
-      console.error(err.message)
+      console.log(err)
     }
   }
 
@@ -134,8 +130,8 @@ class App extends Component {
       .catch(error => console.error(error.message))
   }
 
-  setRoom = roomNumber => {
-    const room = this.state.roomData.find(room => room.name === roomNumber)
+  setRoom = id => {
+    const room = this.state.roomData.find(room => room._id === id)
     this.setState({ currentRoom: room })
   }
 
@@ -280,11 +276,11 @@ class App extends Component {
     const setCalendarDate = this.setCalendarDate
 
     const requireAuth = render => () =>
-      signedIn ? render() : <Redirect to="/signin" />
+      signedIn ? render() : <Redirect to="/" />
 
-    return <Router>
+    return (
+    <Router>
         <div id="app" className="App">
-          <NavBar signOut={signOut} loadMyBookings={loadMyBookings} user={signedIn ? decodedToken.sub : null} />
           <div>
             {/* <div className="user-info">
               <h3>Signed in User: {decodedToken.email}</h3>
@@ -294,7 +290,7 @@ class App extends Component {
             <div className="main-container">
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
               <Switch>
-                <Route path="/" exact render={() => (signedIn ? <Redirect to="/bookings" /> : <div className="container__main">
+                <Route path="/" exact render={() => (!!decodedToken && signedIn ? <Redirect to="/bookings" /> : <div className="container__main">
                         <h2>Sign in</h2>
                         <div className="container__form">
                           <SignInForm onSignIn={this.onSignIn} />
@@ -304,61 +300,102 @@ class App extends Component {
                           <Button onClick={this.onBeginGoogleSignIn} className="button button--google" text={'Sign in with Google'} />
                         </div>
                       </div>)} />
-
                 <Route path="/bookings" exact render={requireAuth(() => (
                     <Fragment>
-                      <div className="left-panel">
-                        <Calendar setCalendarDate={setCalendarDate} />
-                        <FilterElement
-                          onSetFloorParam={this.onSetFloorParam}
-                          onToggleFeature={this.onToggleFeature}
-                          onToggleCapacity={this.onToggleCapacity}
-                          onSetAvailabilityParam={
-                            this.onSetAvailabilityParam
-                          }
-                          onFilterAll={this.onFilterAll}
-                          onResetFeatureParams={this.onResetFeatureParams}
-                          onResetCapacityParams={this.onResetCapacityParams}
-                          filterParams={filterParams}
-													capacityParams={capacityParams}
-													floorParam={floorParam}
-													availabilityParam={availabilityParam}
-                        />
-                      </div>
-                      <RoomsList
-                        rooms={filteredData}
-                        onRoomSelect={this.onRoomSelect}
-                        onShowBooking={this.onShowBooking}
-                        date={calendarDate}
-                      />
-                      <BookingModal
-                        selectedBooking={selectedBooking}
-                        onCloseBooking={this.onCloseBooking}
-                        onDeleteBooking={onDeleteBooking}
-                      />
+                      {!!decodedToken &&
+                        !!roomData && (
+                          <Fragment>
+                            <NavBar
+                              signOut={signOut}
+                              loadMyBookings={loadMyBookings}
+                              user={signedIn ? decodedToken.sub : null}
+                            />
+                            <div className="left-panel">
+                              <Calendar setCalendarDate={setCalendarDate} />
+                               <FilterElement
+                                onSetFloorParam={this.onSetFloorParam}
+                                onToggleFeature={this.onToggleFeature}
+                                onToggleCapacity={this.onToggleCapacity}
+                                onSetAvailabilityParam={
+                                  this.onSetAvailabilityParam
+                                }
+                                onFilterAll={this.onFilterAll}
+                                onResetFeatureParams={this.onResetFeatureParams}
+                                onResetCapacityParams={this.onResetCapacityParams}
+                                filterParams={filterParams}
+                                capacityParams={capacityParams}
+                                floorParam={floorParam}
+                                availabilityParam={availabilityParam}
+                              />
+                            </div>
+                            <RoomsList
+                              rooms={filteredData}
+                              onRoomSelect={this.onRoomSelect}
+                              onShowBooking={this.onShowBooking}
+                              date={calendarDate}
+                              onSetRoom={this.setRoom}
+                            />
+                            <BookingModal
+                              selectedBooking={selectedBooking}
+                              onCloseBooking={this.onCloseBooking}
+                              onDeleteBooking={onDeleteBooking}
+                            />
+                          </Fragment>
+                        )}
                     </Fragment>
                   ))} />
 
                 <Route path="/createbooking" exact render={requireAuth(
                     () => (
-                      <BookingForm
-                        user={decodedToken.email}
-                        roomData={currentRoom}
-                        onMakeBooking={this.onMakeBooking}
-                        date={calendarDate}
-                        updateCalendar={setCalendarDate}
-                        onShowBooking={this.onShowBooking}
-                      />
+                      <Fragment>
+                        {!!decodedToken &&
+                          !!roomData &&
+                          !!currentRoom && (
+                            <Fragment>
+                              <NavBar
+                                signOut={signOut}
+                                loadMyBookings={loadMyBookings}
+                                user={signedIn ? decodedToken.sub : null}
+                              />
+                              <BookingForm
+                                user={decodedToken.email}
+                                roomData={currentRoom}
+                                onMakeBooking={this.onMakeBooking}
+                                date={calendarDate}
+                                updateCalendar={setCalendarDate}
+                                onShowBooking={this.onShowBooking}
+                              />
+                              <BookingModal
+                                selectedBooking={selectedBooking}
+                                onCloseBooking={this.onCloseBooking}
+                                onDeleteBooking={onDeleteBooking}
+                              />
+                            </Fragment>
+                          )}
+                      </Fragment>
                     )
                   )} />
 
                 <Route path="/mybookings" exact render={requireAuth(() => (
-                    <MyBookings
-                      user={decodedToken.email}
-                      userBookings={userBookings}
-                      onDeleteBooking={onDeleteBooking}
-                    />
+                    <Fragment>
+                      {!!decodedToken &&
+                        !!roomData && (
+                          <Fragment>
+                            <NavBar
+                              signOut={signOut}
+                              loadMyBookings={loadMyBookings}
+                              user={signedIn ? decodedToken.sub : null}
+                            />
+                            <MyBookings
+                              user={decodedToken.email}
+                              userBookings={userBookings}
+                              onDeleteBooking={onDeleteBooking}
+                            />
+                          </Fragment>
+                        )}
+                    </Fragment>
                   ))} />
+
                 <Route render={({ location }) => <h2>
                       Page Not Found: {location.pathname}
                     </h2>} />
@@ -367,6 +404,7 @@ class App extends Component {
           </div>
         </div>
       </Router>
+    )
   }
 
   load() {
@@ -393,7 +431,8 @@ class App extends Component {
         this.setState({ error })
       })
       .then(() => {
-        this.setRoom('Room 1')
+        const room = this.state.roomData[0]
+        this.setRoom(room._id)
       })
   }
 

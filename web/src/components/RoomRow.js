@@ -1,8 +1,9 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import { formatAssetName, dailyBookings, bookingArray } from '../helpers/rooms'
 
 // Accept the 24 hour dayHours array as the day's booking data for a room
-const rowMapper = (dayHours, onShowBooking) => {
+const rowMapper = (dayHours, props) => {
   let tableRow = []
 
   // Loop through each hour from 8AM to 9PM (starting at 8AM = 0)
@@ -13,15 +14,20 @@ const rowMapper = (dayHours, onShowBooking) => {
     // If the data for that hour is a number (not a booking object), there is no booking
     // Add a <td> element that indicates the time slot is available
     if (typeof bookingData == 'number') {
-      tableRow.push(<td className="available">&nbsp;</td>)
+      tableRow.push(<td className="available">
+          <Link to="/createbooking" onClick={() => {
+              props.onSetRoom(props.room._id)
+            }}>
+            &nbsp;
+          </Link>
+        </td>)
 
       // If there is a booking object, add a <td> element with custom class name to enable stlying
     } else {
       tableRow.push(
         <td className={`table__cell`}>
           <span
-          onClick={console.log('why!')}
-            onClick={() => onShowBooking(bookingData)}
+            onClick={() => props.onShowBooking(bookingData)}
             className={`table__cell--${bookingData.businessUnit // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
               .replace(/ /g, '-')
               .toLowerCase()}
@@ -42,7 +48,7 @@ const rowMapper = (dayHours, onShowBooking) => {
 const RoomRow = props => (
   <tr className="table__row">
     <th scope="row" className="table__cell--align-left">
-      {props.room.name}
+      <Link to="/createbooking" onClick={() => props.onSetRoom(props.room._id)}>{props.room.name}</Link>
     </th>
     <td className="table__data--asset">
       {Object.keys(props.room.assets).map(
@@ -56,7 +62,7 @@ const RoomRow = props => (
     </td>
     {rowMapper(
       bookingArray(dailyBookings(props.date, props.bookings)),
-      props.onShowBooking
+      props
     )}
   </tr>
 )
