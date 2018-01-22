@@ -310,7 +310,8 @@ class App extends Component {
     const requireAuth = render => () =>
       signedIn ? render() : <Redirect to="/" />
 
-    return <Router>
+    return (
+      <Router>
         <div id="app" className="App">
           <div>
             {/* <div className="user-info">
@@ -417,6 +418,7 @@ class App extends Component {
           </div>
         </div>
       </Router>
+    )
   }
 
   load() {
