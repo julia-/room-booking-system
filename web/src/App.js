@@ -47,7 +47,8 @@ class App extends Component {
     filteredData: null,
     checked: null,
     currentRoom: initialRoom,
-    error: null
+    error: null,
+    checked: { macLab: false, pcLab: false, tv: false, opWalls: false, whiteboard: false, projector: false }
   }
 
   // Pass supplied email & password to the signIn function, returns the users token
@@ -138,9 +139,22 @@ class App extends Component {
     this.setState({ currentRoom: room })
   }
 
+  onResetFeatureParams = () => {
+    let filterParams = this.state.filterParams
+    filterParams.forEach(param => param.value = false)
+    this.setState({filterParams: filterParams})
+  }
+
+  onResetCapacityParams = () => {
+    let capacityParams = this.state.capacityParams
+    capacityParams.forEach(param => param.value = false)
+    this.setState({capacityParams: capacityParams})
+  }
+
   onResetFilteredData = () => {
     const roomData = this.state.roomData
     this.setState({ filteredData: roomData })
+    this.render()
   }
 
   // setting the feature filter parameters
@@ -155,6 +169,7 @@ class App extends Component {
     this.setState({ filterParams: filterParams })
     // filter the filtered roomData again with the updated filter parameters
     // this.onFilterByFeature(filterParams)
+    console.log(featureParam.value)
   }
 
   // setting the capacity filter parameters
@@ -248,6 +263,7 @@ class App extends Component {
     onFilterByCapacity()
     onFilterByAvailablity()
     this.setState({ filteredData: filteredData })
+    this.onResetFeatureParams()
   }
 
   // ***Need to add to the state***
@@ -299,7 +315,9 @@ class App extends Component {
       roomData,
       calendarDate,
       selectedBooking,
-      filteredData
+      filteredData,
+      filterParams,
+      capacityParams
     } = this.state
     const signedIn = !!decodedToken
     const signOut = this.onSignOut
@@ -345,6 +363,10 @@ class App extends Component {
                             this.onSetAvailabilityParam
                           }
                           onFilterAll={this.onFilterAll}
+                          onResetFeatureParams={this.onResetFeatureParams}
+                          onResetCapacityParams={this.onResetCapacityParams}
+                          filterParams={filterParams}
+                          capacityParams={capacityParams}
                         />
                       </div>
                       <RoomsList

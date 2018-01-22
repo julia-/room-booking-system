@@ -4,7 +4,6 @@ export const filterParams = [
   {name: 'pcLab', value: false},
   {name: 'tv', value: false},
   {name: 'opWalls', value: false},
-  {name: 'whiteboard', value: false},
   {name: 'projector', value: false} ]
 
 // Initial Capacity parameters
