@@ -9,7 +9,9 @@ function FilterElement({
   onResetFeatureParams,
   onResetCapacityParams,
   filterParams,
-  capacityParams
+  capacityParams,
+  floorParam,
+  availabilityParam
 }) {
   const features = ['macLab', 'pcLab', 'tv']
 
@@ -19,16 +21,16 @@ function FilterElement({
       <h3>Floor</h3>
       <div className="floor-select" onChange={(event) => onSetFloorParam(event.target.value)}>
         <div>
-          <input type="radio" value="8" name="floor-select" />
+          <input type="radio" value="8" name="floor-select" checked={floorParam === '8' ? true : false}/>
           <label for="floor8">Floor 8</label>
         </div>
         <div>
-          <input type="radio" value="13" name="floor-select" />
+          <input type="radio" value="13" name="floor-select" checked={floorParam === '13' ? true : false}/>
           <label for="floor13">Floor 13</label>
         </div>
         <div>
-          <input type="radio" value="all" name="floor-select" />
-          <label for="floor13">All Floors</label>
+          <input type="radio" value="all" name="floor-select" checked={floorParam === 'all' ? true : false}/>
+          <label for="all">All Floors</label>
         </div>
       </div>
       <h3>Features</h3>
@@ -80,15 +82,15 @@ function FilterElement({
       <h3>Availability</h3>
         <div className="radio-container" onChange={(event) => onSetAvailabilityParam(event.target.value)} >
           <div className="radio"> 
-            <input type="radio" id="fullyAvailable" value="fullyAvail" name="availability" />
+            <input type="radio" id="fullyAvailable" value="fullyAvail" name="availability" checked={availabilityParam === 'fullyAvail' ? true : false} />
             <label for="fullyAvailable">Fully Available</label>
           </div>
           <div className="checkbox">
-            <input type="radio" id="partialAvailable" value="partAvail" name="availability" />
+            <input type="radio" id="partialAvailable" value="partAvail" name="availability" checked={availabilityParam === 'partialAvailable' ? true : false}/>
             <label for="partialAvailable">Partially Available</label>
           </div>
           <div className="checkbox">
-            <input type="radio" id="fullyBooked" value="fullBooked" name="availability" />
+            <input type="radio" id="fullyBooked" value="fullBooked" name="availability" checked={availabilityParam === 'fullBooked' ? true : false}/>
             <label for="fullyBooked">Fully Booked</label>
           </div>
         </div>

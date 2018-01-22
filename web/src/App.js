@@ -30,7 +30,7 @@ import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
 import RoomSelector from './components/RoomSelector'
 import Calendar from './components/Calendar'
 import BookingModal from './components/BookingModal'
-import { filterParams, capacityParams } from './helpers/filters'
+import { floorParams, filterParams, capacityParams } from './helpers/filters'
 import { initialRoom } from './helpers/rooms'
 
 class App extends Component {
@@ -139,6 +139,14 @@ class App extends Component {
     this.setState({ currentRoom: room })
   }
 
+  onResetFloorParams = () => {
+		this.setState({floorParam: null})
+	}
+
+	onResetAvailabilityParam = () => {
+		this.setState({availabilityParam: null})
+	}
+
   onResetFeatureParams = () => {
     let filterParams = this.state.filterParams
     filterParams.forEach(param => param.value = false)
@@ -189,7 +197,7 @@ class App extends Component {
   }
 
   onSetFloorParam = value => {
-    this.setState({ floorParam: value })
+		this.setState({ floorParam: value })
   }
 
   onSetAvailabilityParam = availability => {
@@ -263,7 +271,10 @@ class App extends Component {
     onFilterByCapacity()
     onFilterByAvailablity()
     this.setState({ filteredData: filteredData })
-    this.onResetFeatureParams()
+		this.onResetFeatureParams()
+		this.onResetCapacityParams()
+		this.onResetFloorParams()
+		this.onResetAvailabilityParam()
   }
 
   // ***Need to add to the state***
@@ -317,7 +328,9 @@ class App extends Component {
       selectedBooking,
       filteredData,
       filterParams,
-      capacityParams
+			capacityParams,
+			floorParam,
+			availabilityParam
     } = this.state
     const signedIn = !!decodedToken
     const signOut = this.onSignOut
@@ -366,7 +379,9 @@ class App extends Component {
                           onResetFeatureParams={this.onResetFeatureParams}
                           onResetCapacityParams={this.onResetCapacityParams}
                           filterParams={filterParams}
-                          capacityParams={capacityParams}
+													capacityParams={capacityParams}
+													floorParam={floorParam}
+													availabilityParam={availabilityParam}
                         />
                       </div>
                       <RoomsList

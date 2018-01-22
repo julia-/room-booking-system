@@ -1,3 +1,6 @@
+// Initial room filter parameters
+export const floorParams = [ {name: '8', value: false}, {name: '13', value: false}, {name: 'all', value: false}]
+
 // initial feature filter parameters
 export const filterParams = [ 
   {name: 'macLab', value: false},
