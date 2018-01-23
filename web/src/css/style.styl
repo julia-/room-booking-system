@@ -1,3 +1,4 @@
+@import url("https://use.typekit.net/jkj6uwy.css")
 @require './_*.styl'
 @require './*/_*.styl'
 
@@ -5,8 +6,93 @@ html
   font-size 62.5%
 
 body
-  font-family raleway
+  font-family proxima
   font-size 1.6rem
+  padding 0
+  margin 0 auto
+  -moz-osx-font-smoothing grayscale
+
+a
+  cursor pointer
+  padding 2rem
+  text-decoration none
+
+ul
+  margin 0 auto
+  padding 0
+  list-style-type none
+
+li
+  display inline-block
+
+.wrapper
+  display grid
+  grid-gap 1rem
+  grid-template-columns 1fr 2fr
+  grid-template-rows 1fr auto auto
+  &__content
+    display grid
+    grid-gap 1rem
+    grid-template-columns 1fr 2fr
+    grid-template-rows 1fr auto auto
+    max-width 95%
+    margin 0 auto
+
+.header
+  background mediumGrey
+  grid-area header
+  grid-column 1 / -1
+  grid-row 1
+  height 10rem
+  &--flex
+    display flex
+    justify-content space-between
+    align-items center
+    padding 0 2rem
+  &__page
+    grid-column 1 / -1
+    grid-row 2
+  &__heading
+    font-family proxima
+    &--main
+      font-size 3rem
+      margin 0 1rem
+    &--sub
+      font-size 2.6rem
+    &--sidebar
+      font-size 2.4rem
+
+.sidebar
+  grid-area sidebar
+  grid-column 1
+  grid-row 3
+  &__box
+    background lightGrey
+    margin 3rem auto
+    width 30rem
+
+.content
+  grid-area content
+  grid-column 2
+  grid-row 3
+
+.nav
+  font-family proxima
+  &__list
+    margin 0.4rem 1.6rem
+  &__link
+    border-bottom 1px solid mediumGrey
+    color darkGrey
+    font-size 1.8rem
+    font-weight 600
+    margin-left 4rem
+    padding 2rem 0 1rem 0
+    &:hover
+      border-bottom 2px solid darkGrey
+      font-weight 700
+
+.footer
+  grid-area footer
 
 .container__main
   background lightGrey
@@ -16,9 +102,9 @@ body
   width 40rem
 
 .container__form
-  padding 2rem 0
   margin 0 auto
   max-width 30rem
+  padding 2rem 0
 
 .form__group
   margin 0 auto
@@ -28,6 +114,10 @@ body
   font-weight 500
   margin 1rem auto
   text-align left
+  &--inline
+    display inline-block
+    padding-left 1rem
+    margin 0.3rem auto
 
 .form__input
   display block
@@ -36,7 +126,43 @@ body
   padding 1rem 1.6rem
   width 27rem
 
+input[type=checkbox]
+  box-shadow none
+  height 1.6rem
+  width 1.6rem
+
+input[type=radio]
+  box-shadow none
+  height 1.6rem
+  width 1.6rem
+
 .button__form--submit
 .button--google
   margin 1rem 0
   width 30.6rem
+
+.form__heading--filter
+  margin 0.8rem 0
+
+.form__input
+  &:active
+  &:focus
+    outline none
+.form__input--time
+  border 0.1em solid darkGrey
+  display inline-block
+  margin 1rem 0 1rem 1rem
+  width 12rem
+
+// Calendar
+
+.rdtToday
+  &::before
+    border-bottom 7px solid brightRed
+
+.rdtActive
+  background brightRed
+  color #fff
+  &:hover
+    background lightGrey
+    color darkGrey
