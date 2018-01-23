@@ -15,6 +15,7 @@ function BookingElement({
       <div className="booking-left">
         <h2>{bookingData.businessUnit}</h2>
         <h3>{bookingData.purpose}</h3>
+        {/* <p>Room: Floor:</p> */}
       </div>
       <div className="booking-middle">
         <p>{moment(bookingData.bookingStart).format('dddd, MMMM Do YYYY')}</p>
