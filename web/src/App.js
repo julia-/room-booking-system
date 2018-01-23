@@ -30,7 +30,7 @@ import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
 import RoomSelector from './components/RoomSelector'
 import Calendar from './components/Calendar'
 import BookingModal from './components/BookingModal'
-import { floorParams, filterParams, capacityParams, onFilterByFloor, onFilterByFeature, onFilterByCapacity, onFilterByAvailablity } from './helpers/filters'
+import { floorParams, filterParams, capacityParams, onFilterByFloor, onFilterByFeature, onFilterByCapacity, onFilterByAvailablity, onFilterByTime } from './helpers/filters'
 import { initialRoom } from './helpers/rooms'
 
 class App extends Component {
@@ -44,6 +44,7 @@ class App extends Component {
     capacityParams: capacityParams,
     floorParam: null,
     availabilityParam: null,
+    timeFilterParams: [],
     filteredData: null,
     checked: null,
     currentRoom: null,
@@ -154,6 +155,13 @@ class App extends Component {
     this.setState({capacityParams: capacityParams})
   }
 
+  onResetFilterParams = () => {
+    this.onResetFeatureParams()
+		this.onResetCapacityParams()
+		this.onResetFloorParams()
+		this.onResetAvailabilityParam()
+  }
+
   onResetFilteredData = () => {
     const roomData = this.state.roomData
     this.setState({ filteredData: roomData })
@@ -192,6 +200,12 @@ class App extends Component {
     this.setState({ availabilityParam: availability })
   }
 
+  onSetTimeFilterParams = (params, index) => {
+    let timeFilterParams = this.state.timeFilterParams
+    timeFilterParams[index] = params
+    this.setState({timeFilterParams: timeFilterParams})
+  }
+
   onFilterAll = (floor, availability) => {
     let roomData = this.state.roomData
     let filteredData = []
@@ -208,14 +222,12 @@ class App extends Component {
     filteredData = onFilterByCapacity(capacityParams, filteredData)
     // Send the previously filtered data along with the availability
     filteredData = onFilterByAvailablity(availabilityParam, filteredData)
-
+    // Send the previously filtered data along with the selested time frame
+    // filteredData = onFilterByTime(availabilityParam, filteredData)
     // set state to the room data, passed through all filter functions
     this.setState({ filteredData: filteredData })
     // reset filter variables stored in state
-		this.onResetFeatureParams()
-		this.onResetCapacityParams()
-		this.onResetFloorParams()
-		this.onResetAvailabilityParam()
+    this.onResetFilterParams()
   }
 
   // ***Need to add to the state***
@@ -322,12 +334,13 @@ class App extends Component {
                                   this.onSetAvailabilityParam
                                 }
                                 onFilterAll={this.onFilterAll}
-                                onResetFeatureParams={this.onResetFeatureParams}
-                                onResetCapacityParams={this.onResetCapacityParams}
+                                onResetFilterParams={this.onResetFilterParams}
                                 filterParams={filterParams}
                                 capacityParams={capacityParams}
                                 floorParam={floorParam}
                                 availabilityParam={availabilityParam}
+                                onSetTimeFilterParams={this.onSetTimeFilterParams}
+                                date={calendarDate}
                               />
                             </div>
                             <RoomsList

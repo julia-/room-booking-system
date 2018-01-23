@@ -7,13 +7,14 @@ function FilterElement({
   onToggleFeature,
   onToggleCapacity,
   onSetAvailabilityParam,
-  onFilterAll,
-  onResetFeatureParams,
-  onResetCapacityParams,
+  onResetFilterParams,
   filterParams,
   capacityParams,
   floorParam,
-  availabilityParam
+  availabilityParam,
+  onFilterAll,
+  onSetTimeFilterParams,
+  date
 }) {
 
   return (
@@ -98,26 +99,24 @@ function FilterElement({
         <div className="time-selector">
           <label>
             {'Start Time: '}
-            <select name="startTime">
+            <select name="startTime" 
+            onChange={(event) => onSetTimeFilterParams(formatTime(event.target.value), 0)}>
               {timeSelectOptions.map(option => {return option})}
             </select>
           </label>
 
           <label>
             {'End Time: '}
-            <select name="endTime">
+            <select name="endTime" onChange={(event) => onSetTimeFilterParams(formatTime(event.target.value), 1)}>
               {timeSelectOptions.map(option => {return option})}
             </select>
           </label>
         </div>
         <div className="filter-button-container">
           <div onClick={ () => onFilterAll()} className='custom-button filter-button'>Filter</div>
-          <div onClick={ () => {
-            onResetFeatureParams()
-            onResetCapacityParams()
-          }} 
-                className='custom-button reset-button'>Reset</div>
-        </div>
+          <div onClick={ () => onResetFilterParams()}
+            className='custom-button reset-button'>Reset</div>
+          </div>
     </form>
   )
 }
