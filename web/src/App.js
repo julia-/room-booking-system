@@ -30,7 +30,7 @@ import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
 import RoomSelector from './components/RoomSelector'
 import Calendar from './components/Calendar'
 import BookingModal from './components/BookingModal'
-import { floorParams, filterParams, capacityParams, onFilterByFloor, onFilterByFeature, onFilterByCapacity, onFilterByAvailablity, onFilterByTime } from './helpers/filters'
+import { floorParams, filterParams, capacityParams, onFilterByFloor, onFilterByFeature, onFilterByCapacity, onFilterByAvailablity } from './helpers/filters'
 import { initialRoom } from './helpers/rooms'
 
 class App extends Component {
@@ -225,7 +225,7 @@ class App extends Component {
     // Send the previously filtered data along with the availability
     filteredData = onFilterByAvailablity(availabilityParam, filteredData)
     // Send the previously filtered data along with the selested time frame
-    filteredData = onFilterByTime(date, timeFilterParams, filteredData)
+    // filteredData = onFilterByTime(date, timeFilterParams, filteredData)
     // set state to the room data, passed through all filter functions
     this.setState({ filteredData: filteredData })
     // reset filter variables stored in state

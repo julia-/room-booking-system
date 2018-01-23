@@ -211,13 +211,13 @@ li {
 .booking {
   background: rgb(71, 179, 233);
   border-radius: 5px;
-  padding: 5px;
+  /* padding: 5px; */
   width: 700px;
   margin: 5px;
 }
 
 .booking-top {
-  padding: 5px;
+  padding: 5px 0;
   border-bottom: 1px solid white;
 }
 
