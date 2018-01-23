@@ -7,17 +7,14 @@ const RoomsList = props => (
       <th
         scope="colgroup"
         colSpan="15"
-        className="table__cell--header table__cell--align-left"
+        className="table__cell--header table__cell--align-left table__cell--level"
       >
-        Floor Eight
+        Level Eight
       </th>
     </tr>
     <tr className="table__row table__row--subheader">
-      <th scope="col" className="table__cell--header">
+      <th scope="col" className="table__cell--header table__cell--align-left">
         Room
-      </th>
-      <th scope="col" className="table__cell--header">
-        Assets
       </th>
       <th scope="col" className="table__cell--header">
         8am
@@ -90,17 +87,14 @@ const RoomsList = props => (
         <th
           scope="colgroup"
           colSpan="15"
-          className="table__cell--header table__cell--align-left"
+          className="table__cell--header table__cell--level table__cell--align-left"
         >
-          Floor Thirteen
+          Level Thirteen
         </th>
       </tr>
       <tr className="table__row table__row--subheader">
-        <th scope="col" className="table__cell--header table__cell--width">
+        <th scope="col" className="table__cell--header table__cell--width table__cell--align-left">
           Room
-        </th>
-        <th scope="col" className="table__cell--header table__cell--width">
-          Assets
         </th>
         <th scope="col" className="table__cell--header">
           8am
