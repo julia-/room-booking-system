@@ -45,29 +45,101 @@ const durationHours = (bookingStart, bookingEnd) => {
 // Make a booking
 router.put('/rooms/:id', requireJWT, (req, res) => {
   const { id } = req.params
-  Room.findByIdAndUpdate(
-    id,
-    {
-      $addToSet: {
-        bookings: {
-          user: req.user,
-          // The hour on which the booking starts, calculated from 12:00AM as time = 0
-          startHour: dateAEST(req.body.bookingStart).format('H.mm'),
-          // The duration of the booking in decimal format
-          duration: durationHours(req.body.bookingStart, req.body.bookingEnd),
-          // Spread operator for remaining attributes
-          ...req.body
+
+  // If the recurring array is empty, the booking is not recurring
+  if (req.body.recurring.length === 0) {
+    Room.findByIdAndUpdate(
+      id,
+      {
+        $addToSet: {
+          bookings: {
+            user: req.user,
+            // The hour on which the booking starts, calculated from 12:00AM as time = 0
+            startHour: dateAEST(req.body.bookingStart).format('H.mm'),
+            // The duration of the booking in decimal format
+            duration: durationHours(req.body.bookingStart, req.body.bookingEnd),
+            // Spread operator for remaining attributes
+            ...req.body
+          }
         }
+      },
+      { new: true, runValidators: true, context: 'query' }
+    )
+      .then(room => {
+        res.status(201).json(room)
+      })
+      .catch(error => {
+        res.status(400).json({ error })
+      })
+  // If the booking is a recurring daily booking
+  } else if (req.body.recurring[1] === 'daily') {
+    
+    // The first booking in the recurring booking range
+    let firstBooking = req.body
+    firstBooking.startHour = dateAEST(req.body.bookingStart).format('H.mm')
+    firstBooking.duration = durationHours(req.body.bookingStart, req.body.bookingEnd)
+    firstBooking.user = req.user    
+    
+    // An array containing the first booking and for all remaining bookings to be added to
+    let recurringBookings = [ firstBooking ]
+    
+    // The start date of the first booking
+    let firstBookingStartDate = moment(firstBooking.bookingStart)
+    
+    // A Moment date object for the final booking date in the recurring booking range
+    let lastBookingDate = moment(firstBooking.recurring[0])
+    
+    // The number of days in the recurring booking date range
+    let daysInRange = lastBookingDate.diff(firstBookingStartDate, 'days', true)
+    
+    // Each loop will represent a day (i.e. a potential booking) in this range 
+    for (let i = 0; i < Math.ceil(daysInRange); i++) {
+
+      // The number of days between the day and the first booking
+      let days = i + 1
+      
+      // Add these days to get the date of the proposed booking
+      let proposedBookingDateStart = firstBookingStartDate.add(days, 'd')
+    
+      // Check whether this day is a weekday (no bookings on weekends)
+      if (proposedBookingDateStart.day() !== 6 && proposedBookingDateStart.day() !== 0) {
+        
+        // Create a new booking object based on the first booking 
+        let newBooking = Object.assign({}, firstBooking)
+        
+        // Calculate the end date of the new booking
+        let firstBookingEndDate = moment(firstBooking.bookingEnd)
+        let proposedBookingDateEnd = firstBookingEndDate.add(days, 'd')
+        
+        // Update the new booking object's start and end dates
+        newBooking.bookingStart = proposedBookingDateStart.toDate()
+        newBooking.bookingEnd = proposedBookingDateEnd.toDate()
+        
+        // Add the new booking to the recurring booking array
+        recurringBookings.push(newBooking)
       }
-    },
-    { new: true, runValidators: true, context: 'query' }
-  )
-    .then(room => {
-      res.status(201).json(room)
-    })
-    .catch(error => {
-      res.status(400).json({ error })
-    })
+    }
+
+    // Find the relevant room and save the bookings
+    Room.findByIdAndUpdate(
+      id,
+      {
+        $push: {
+          bookings: {
+            $each:
+              recurringBookings
+          }
+        }
+      },
+      { new: true, runValidators: true, context: 'query' }
+    )
+      .then(room => {
+        res.status(201).json(room)
+      })
+      .catch(error => {
+        res.status(400).json({ error })
+      })
+  }
 })
 
 // Delete a booking
