@@ -1,52 +1,60 @@
 @import url("https://use.typekit.net/jkj6uwy.css");
+.table--booking {
+  color: #1c1c11;
+  border: 0.1rem solid #cecece;
+  border-collapse: collapse !important;
+  border-spacing: 0 0 !important;
+  margin: 0 auto;
+  padding: 0;
+  width: 34rem;
+}
+.table--booking td {
+  text-align: center;
+}
+.table--booking th {
+  border: 0.1rem solid #cecece;
+}
+.table__cell {
+  padding: 0;
+  line-height: 0;
+}
+.table__row--full {
+  height: 6rem;
+  border: 0.1rem solid #cecece;
+}
+.table__row--full td {
+  border: 0.1rem solid #cecece;
+}
+.table--nested {
+  border-collapse: collapse !important;
+  border-spacing: 0 0 !important;
+  width: 100%;
+}
+.table--nested tr {
+  padding: 0;
+  margin: 0;
+}
+.table__cell--subcell {
+  height: 2.9rem;
+  padding: 0;
+  line-height: 0;
+  border-bottom-width: 0;
+  border-top-width: 0;
+}
+.table__row--border-top {
+  border-top: 0.1rem solid #cecece;
+}
+.table__row--border-bottom {
+  border-bottom: 0.1rem solid #cecece;
+}
+.table__row--no-border td {
+  border: none;
+  padding: 0;
+}
 .wrapper--booking {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr auto auto;
-}
-.wrapper--booking__content--booking {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: 1fr auto auto;
-  max-width: 95%;
-  margin: 0 auto;
-}
-.header--booking {
-  background: #cecece;
-  grid-area: header;
-  grid-row: 1;
-  height: 10rem;
-}
-.header--booking--flex {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 0 2rem;
-}
-.header--booking__page {
-  grid-column: 1/-1;
-  grid-row: 2;
-}
-.header--booking__heading {
-  font-family: "proxima-nova", sans-serif;
-}
-.header--booking__heading--main {
-  font-size: 3rem;
-  margin: 0 1rem;
-}
-.header--booking__heading--sub {
-  font-size: 2.6rem;
-}
-.content--booking {
-  grid-area: content;
-  grid-row: 2;
 }
 .content__nested {
   display: grid;
@@ -66,7 +74,7 @@
   background: #f4f4f4;
   grid-column: 3;
   grid-row: 3;
-  padding: 2rem;
+  padding: 4rem;
 }
 .container__main {
   background: #f4f4f4;
@@ -141,6 +149,16 @@ input[type=radio] {
 .rdtActive:hover {
   background: #f4f4f4;
   color: #1c1c11;
+}
+.form__input--select {
+  border: 1px solid #1c1c11;
+  background: #fff;
+  width: 20rem;
+  height: 3rem;
+}
+.form__input--textarea {
+  height: 10rem;
+  width: 100%;
 }
 .button {
   background: #ed1c24;
@@ -308,6 +326,9 @@ td.rdtYear:hover {
   color: #1c1c11;
   font-weight: 500;
 }
+.rdtToday::before {
+  border-bottom: 7px solid #ed1c24;
+}
 .filter {
   background: #f4f4f4;
   padding: 1.6rem 3.4rem 3rem 3.4rem;
@@ -391,6 +412,23 @@ td.rdtYear:hover {
   margin: 0 0 3rem 0;
   word-break: break-all;
 }
+.nav {
+  font-family: "proxima-nova", sans-serif;
+}
+.nav__list {
+  margin: 0.4rem 1.6rem;
+}
+.nav__link {
+  border-bottom: 2px solid #1c1c11;
+  color: #1c1c11;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-left: 4rem;
+  padding: 2rem 0 1rem 0;
+}
+.nav__link:hover {
+  font-weight: 700;
+}
 .table {
   color: #1c1c11;
   border: 1px solid #cecece;
@@ -452,13 +490,15 @@ td.rdtYear:hover {
   border-bottom: 0.2rem solid #1c1c11;
   color: #1c1c11;
 }
-.table__cell--business-unit-1 {
-  background: #f0fff0;
-  border-top: 1rem solid #f0fff0;
+.table_cell--booked {
   cursor: pointer;
   display: block;
   padding: 2rem;
   width: 85%;
+}
+.table__cell--business-unit-1 {
+  background: #f0fff0;
+  border-top: 1rem solid #f0fff0;
 }
 .table__cell--business-unit-1.table__cell--first-half-hour {
   background: #f0fff0;
@@ -479,10 +519,6 @@ td.rdtYear:hover {
 .table__cell--business-unit-2 {
   background: #ffdab9;
   border-top: 1rem solid #ffdab9;
-  cursor: pointer;
-  display: block;
-  padding: 2rem;
-  width: 85%;
 }
 .table__cell--business-unit-2.table__cell--first-half-hour {
   background: #ffdab9;
@@ -503,10 +539,6 @@ td.rdtYear:hover {
 .table__cell--business-unit-3 {
   background: #add8e6;
   border-top: 1rem solid #add8e6;
-  cursor: pointer;
-  display: block;
-  padding: 2rem;
-  width: 85%;
 }
 .table__cell--business-unit-3.table__cell--first-half-hour {
   background: #add8e6;
@@ -527,10 +559,6 @@ td.rdtYear:hover {
 .table__cell--business-unit-4 {
   background: #e6e6fa;
   border-top: 1rem solid #e6e6fa;
-  cursor: pointer;
-  display: block;
-  padding: 2rem;
-  width: 85%;
 }
 .table__cell--business-unit-4.table__cell--first-half-hour {
   background: #e6e6fa;
@@ -551,10 +579,6 @@ td.rdtYear:hover {
 .table__cell--business-unit-5 {
   background: #ffb6c1;
   border-top: 1rem solid #ffb6c1;
-  cursor: pointer;
-  display: block;
-  padding: 2rem;
-  width: 85%;
 }
 .table__cell--business-unit-5.table__cell--first-half-hour {
   background: #ffb6c1;
@@ -660,24 +684,6 @@ li {
   grid-column: 2;
   grid-row: 3;
 }
-.nav {
-  font-family: "proxima-nova", sans-serif;
-}
-.nav__list {
-  margin: 0.4rem 1.6rem;
-}
-.nav__link {
-  border-bottom: 1px solid #cecece;
-  color: #1c1c11;
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-left: 4rem;
-  padding: 2rem 0 1rem 0;
-}
-.nav__link:hover {
-  border-bottom: 2px solid #1c1c11;
-  font-weight: 700;
-}
 .footer {
   grid-area: footer;
 }
@@ -743,15 +749,4 @@ input[type=radio] {
   display: inline-block;
   margin: 1rem 0 1rem 1rem;
   width: 12rem;
-}
-.rdtToday::before {
-  border-bottom: 7px solid #ed1c24;
-}
-.rdtActive {
-  background: #ed1c24;
-  color: #fff;
-}
-.rdtActive:hover {
-  background: #f4f4f4;
-  color: #1c1c11;
 }
