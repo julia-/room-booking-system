@@ -1,76 +1,89 @@
 // Day View - Room Table Display
 .table
-  border 2px solid mediumGrey
+  color darkGrey
+  border 1px solid mediumGrey
   border-collapse collapse
-  margin 3rem auto
+  margin 3rem 1rem
   padding 0
-  table-layout fixed
-  // max-width 100%
+  width 880px
+  // table-layout fixed
   &__body
     tr
       &:first-child
         border-top none
-      &:last-child
-        border-bottom 2px solid darkGrey
-      &:last-child > td
-        border-bottom 2px solid darkGrey
+      // &:last-child
+      //   border-bottom 2px solid darkGrey
+      // &:last-child > td
+      //   border-bottom 2px solid darkGrey
   &__cell
     padding 0
     line-height 0
-  &__cell--align-left
-    text-align left
-  &__cell--width
-    width 12rem
+    &--align-left
+      text-align left
+    &--level
+      font-size 2.2rem
+    &--width
+      width 12rem
   &__row
     &:hover
       background lightGrey
   &__row
     td
       border 1px solid mediumGrey
-      &:first-child
-        border-left 2px solid mediumGrey
-      &:last-child
-        border-right 2px solid mediumGrey
+      // &:first-child
+      //   border-left 2px solid mediumGrey
+      // &:last-child
+      //   border-right 2px solid mediumGrey
   &__row
     th
       border 1px solid mediumGrey
       padding 1.2rem
-      &:first-child
-        border-left 2px solid mediumGrey
-      &:last-child
-        border-right 2px solid mediumGrey
+      // &:first-child
+      //   border-left 2px solid mediumGrey
+      // &:last-child
+      //   border-right 2px solid mediumGrey
   &__row--header
-    background lightGrey
-    border 2px solid darkGrey
+    background mediumGrey
+    // border 2px solid mediumGrey
     margin 0 auto
     padding 0
     &:hover
-      border 2px solid darkGrey
-    th
-      &:first-child
-        border-left 2px solid darkGrey
-      &:last-child
-        border-right 2px solid darkGrey
+      background mediumGrey
+    //   border 2px solid mediumGrey
+    // th
+    //   &:first-child
+    //     border-left 2px solid mediumGrey
+    //   &:last-child
+    //     border-right 2px solid mediumGrey
   &__row--subheader
     background lightGrey
-    border 2px solid mediumGrey
-    border-top 2px solid darkGrey
-    &:hover
-      border 2px solid mediumGrey
+    // border 2px solid mediumGrey
+    // &:hover
+    //   border 2px solid mediumGrey
   &__data--asset
+    font-family proxima
+    font-size 1.4rem
+    font-weight 400
+    line-height 1
+    padding 0
     text-align left
-    span
-      display block
-      line-height 125%
+  &__link
+    color darkGrey
+    padding 0
+    &:hover
+      border-bottom 0.2rem solid darkGrey
+      color darkGrey
 
 // Business Unit Booking Styling
-.table__cell--business-unit-1
-  background businessUnit1
-  border-top 1rem solid businessUnit1
+.table_cell--booked
   cursor pointer
   display block
   padding 2rem
   width 85%
+
+.table__cell--business-unit-1
+  background businessUnit1
+  border-top 1rem solid businessUnit1
   &.table__cell--first-half-hour
     background businessUnit1
     cursor pointer
@@ -89,10 +102,6 @@
 .table__cell--business-unit-2
   background businessUnit2
   border-top 1rem solid businessUnit2
-  cursor pointer
-  display block
-  padding 2rem
-  width 85%
   &.table__cell--first-half-hour
     background businessUnit2
     cursor pointer
@@ -111,10 +120,6 @@
 .table__cell--business-unit-3
   background businessUnit3
   border-top 1rem solid businessUnit3
-  cursor pointer
-  display block
-  padding 2rem
-  width 85%
   &.table__cell--first-half-hour
     background businessUnit3
     cursor pointer
@@ -133,10 +138,6 @@
 .table__cell--business-unit-4
   background businessUnit4
   border-top 1rem solid businessUnit4
-  cursor pointer
-  display block
-  padding 2rem
-  width 85%
   &.table__cell--first-half-hour
     background businessUnit4
     cursor pointer
@@ -155,10 +156,6 @@
 .table__cell--business-unit-5
   background businessUnit5
   border-top 1rem solid businessUnit5
-  cursor pointer
-  display block
-  padding 2rem
-  width 85%
   &.table__cell--first-half-hour
     background businessUnit5
     cursor pointer
