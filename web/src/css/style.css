@@ -384,6 +384,7 @@ td.rdtYear:hover {
 }
 .nav {
   font-family: "proxima-nova", sans-serif;
+  margin: 0 2rem;
 }
 .nav__list {
   margin: 0.4rem 1.6rem;
