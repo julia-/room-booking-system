@@ -5,9 +5,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
-import './css/App.css'
 import './css/style.css'
-import './css/react-datetime.css'
 import moment from 'moment'
 
 import BookingForm from './components/BookingForm'
