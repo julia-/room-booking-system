@@ -6,7 +6,7 @@ html
   font-size 62.5%
 
 body
-  font-family proxima
+  font-family raleway
   font-size 1.6rem
   padding 0
   margin 0 auto
@@ -39,7 +39,10 @@ li
     margin 0 auto
 
 .header
-  background mediumGrey
+  background darkGrey
+  -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
   grid-area header
   grid-column 1 / -1
   grid-row 1
@@ -55,10 +58,13 @@ li
   &__heading
     font-family proxima
     &--main
+      color lightGrey
       font-size 3rem
+      font-weight 600
       margin 0 1rem
     &--sub
       font-size 2.6rem
+      font-weight 700
     &--sidebar
       font-size 2.4rem
 
@@ -68,6 +74,9 @@ li
   grid-row 3
   &__box
     background lightGrey
+    -webkit-box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
+    -moz-box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
+    box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
     margin 3rem auto
     width 30rem
 

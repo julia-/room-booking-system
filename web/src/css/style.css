@@ -419,8 +419,8 @@ td.rdtYear:hover {
   margin: 0.4rem 1.6rem;
 }
 .nav__link {
-  border-bottom: 2px solid #1c1c11;
-  color: #1c1c11;
+  border-bottom: 2px solid #f4f4f4;
+  color: #f4f4f4;
   font-size: 1.8rem;
   font-weight: 600;
   margin-left: 4rem;
@@ -600,7 +600,7 @@ html {
   font-size: 62.5%;
 }
 body {
-  font-family: "proxima-nova", sans-serif;
+  font-family: "raleway", sans-serif;
   font-size: 1.6rem;
   padding: 0;
   margin: 0 auto;
@@ -634,7 +634,9 @@ li {
   margin: 0 auto;
 }
 .header {
-  background: #cecece;
+  background: #1c1c11;
+  -webkit-box-shadow: 0px 2px 5px 0px #cecece;
+  box-shadow: 0px 2px 5px 0px #cecece;
   grid-area: header;
   grid-column: 1/-1;
   grid-row: 1;
@@ -660,11 +662,14 @@ li {
   font-family: "proxima-nova", sans-serif;
 }
 .header__heading--main {
+  color: #f4f4f4;
   font-size: 3rem;
+  font-weight: 600;
   margin: 0 1rem;
 }
 .header__heading--sub {
   font-size: 2.6rem;
+  font-weight: 700;
 }
 .header__heading--sidebar {
   font-size: 2.4rem;
@@ -676,6 +681,8 @@ li {
 }
 .sidebar__box {
   background: #f4f4f4;
+  -webkit-box-shadow: 1px 1px 5px 0px #cecece;
+  box-shadow: 1px 1px 5px 0px #cecece;
   margin: 3rem auto;
   width: 30rem;
 }
