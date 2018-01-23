@@ -1,0 +1,53 @@
+// Table - Make a Bookin view
+.table--booking
+  color darkGrey
+  border 0.1rem solid mediumGrey
+  border-collapse collapse !important
+  border-spacing 0 0 !important
+  margin 0 auto
+  padding 0
+  width 34rem
+  td
+    text-align center
+  th
+    border 0.1rem solid mediumGrey
+
+.table__cell
+  padding 0
+  line-height 0
+
+.table__row
+  &--full
+    height 6rem
+    border 0.1rem solid mediumGrey
+    td
+      border 0.1rem solid mediumGrey
+
+// Nested table
+.table--nested
+  border-collapse collapse !important
+  border-spacing 0 0 !important
+  width 100%
+  tr
+    padding 0
+    margin 0
+
+// Nested table cells
+.table__cell
+  &--subcell // adjust height for when half hour bookings
+    height 2.9rem
+    padding 0
+    line-height 0
+    border-bottom-width 0
+    border-top-width 0
+
+.table__row--border-top
+  border-top 0.1rem solid mediumGrey
+
+.table__row--border-bottom
+  border-bottom 0.1rem solid mediumGrey
+
+.table__row--no-border
+  td
+    border none
+    padding 0
