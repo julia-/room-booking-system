@@ -6,10 +6,12 @@ html
   font-size 62.5%
 
 body
-  font-family raleway
+  background lightGrey
+  font-family proxima
   font-size 1.6rem
   padding 0
   margin 0 auto
+  min-width 100%
   -moz-osx-font-smoothing grayscale
 
 a
@@ -30,13 +32,16 @@ li
   grid-gap 1rem
   grid-template-columns 1fr 2fr
   grid-template-rows 1fr auto auto
-  &__content
-    display grid
-    grid-gap 1rem
-    grid-template-columns 1fr 2fr
-    grid-template-rows 1fr auto auto
-    max-width 95%
-    margin 0 auto
+  min-width 90rem
+  width 100%
+
+.wrapper__content
+  display grid
+  grid-gap 1rem
+  grid-template-columns 1fr auto
+  grid-template-rows 1fr auto
+  min-width 80%
+  margin 0 3rem
 
 .header
   background darkGrey
@@ -46,39 +51,47 @@ li
   grid-area header
   grid-column 1 / -1
   grid-row 1
+  width 100%
   height 10rem
   &--flex
     display flex
     justify-content space-between
     align-items center
-    padding 0 2rem
   &__page
     grid-column 1 / -1
-    grid-row 2
+    grid-row 1
   &__heading
-    font-family proxima
+    font-family raleway
     &--main
       color lightGrey
       font-size 3rem
       font-weight 600
-      margin 0 1rem
+      margin 0 3rem
     &--sub
+      border-bottom 0.2rem solid darkGrey
       font-size 2.6rem
       font-weight 700
+      padding 1rem 0
+      margin 2.2rem 0 4.2rem 0
     &--sidebar
       font-size 2.4rem
+    &--column
+      font-size 2.4rem
+      text-align center
 
 .sidebar
   grid-area sidebar
   grid-column 1
   grid-row 3
   &__box
-    background lightGrey
+    background offWhite
     -webkit-box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
     -moz-box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
     box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
     margin 3rem auto
     width 30rem
+    &:first-child
+      margin 1rem auto
 
 .content
   grid-area content
@@ -96,17 +109,18 @@ li
   width 40rem
 
 .container__form
-  margin 0 auto
-  max-width 30rem
-  padding 2rem 0
+  margin 0 3rem
+  padding 2rem 6rem
+  height 40rem
 
 .form__group
   margin 0 auto
 
 .form__label
   display block
-  font-weight 500
-  margin 1rem auto
+  font-weight 600
+  margin 1.8rem auto
+  padding-bottom 0.4rem
   text-align left
   &--inline
     display inline-block
@@ -142,9 +156,12 @@ input[type=radio]
   &:active
   &:focus
     outline none
+
 .form__input--time
   border 0.1em solid darkGrey
   display inline-block
   margin 1rem 0 1rem 1rem
   width 12rem
 
+.form__group--button
+  margin 2rem 0 3rem 0
