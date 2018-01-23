@@ -201,15 +201,18 @@ class App extends Component {
     const capacityParams = this.state.capacityParams
     const availabilityParam = this.state.availabilityParam
 
+    // Send all room data and the selected floor, return filtered floors and store in filteredData
     filteredData = onFilterByFloor(floorParam, roomData)
-    console.log('finished byfloor', filteredData)
+    // Send the previously filtered data along with the feature params
     filteredData = onFilterByFeature(featureParams, filteredData)
-    console.log('finished byfeature', filteredData)
+    // Send the previously filtered data along with the capacity params
     filteredData = onFilterByCapacity(capacityParams, filteredData)
-    console.log('finished byCapacity', filteredData)
+    // Send the previously filtered data along with the availability
     filteredData = onFilterByAvailablity(availabilityParam, filteredData)
-    console.log('finished byAvail', filteredData)
+
+    // set state to the room data, passed through all filter functions
     this.setState({ filteredData: filteredData })
+    // reset filter variables stored in state
 		this.onResetFeatureParams()
 		this.onResetCapacityParams()
 		this.onResetFloorParams()
