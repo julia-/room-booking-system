@@ -1,3 +1,6 @@
+import moment from 'moment'
+import { formatTime, timeSelectOptions} from '../helpers/bookingForm'
+
 // Initial room filter parameters
 export const floorParams = [ {name: '8', value: false}, {name: '13', value: false}, {name: 'all', value: false}]
 
@@ -76,7 +79,13 @@ export const onFilterByAvailablity = (params, filteredData) => {
   return filteredData
 }
 
-export const onFilterByTime = (data, params, filteredData) => {
-  console.log(params)
+export const onFilterByTime = (date, params, filteredData) => {
+  const startTime = params[0]
+  const endTime = params[1]
+  const bookingDate = moment(date).format('Y M D').split(' ').map(item => parseInt(item, 10))
+  let startTimeDate = [ ...bookingDate, ...startTime]
+  let endTimeDate = [...bookingDate, ...endTime]
+
+  console.log(startTimeDate, endTimeDate)
   return filteredData
 }

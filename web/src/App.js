@@ -98,7 +98,7 @@ class App extends Component {
     // Check if there is a clash and, if not, save the new booking to the database
     try {
       makeBooking(
-        { startDate, endDate, businessUnit, purpose, roomId },
+        { startDate, endDate, businessUnit, purpose, roomId, recurringData },
         existingBookings
       )
         .then(updatedRoom => {
@@ -213,6 +213,7 @@ class App extends Component {
     const featureParams = this.state.filterParams
     const capacityParams = this.state.capacityParams
     const availabilityParam = this.state.availabilityParam
+    const timeFilterParams = this.state.timeFilterParams
     const date = this.state.currentDate
 
     // Send all room data and the selected floor, return filtered floors and store in filteredData
@@ -224,7 +225,7 @@ class App extends Component {
     // Send the previously filtered data along with the availability
     filteredData = onFilterByAvailablity(availabilityParam, filteredData)
     // Send the previously filtered data along with the selested time frame
-    filteredData = onFilterByTime(date, availabilityParam, filteredData)
+    filteredData = onFilterByTime(date, timeFilterParams, filteredData)
     // set state to the room data, passed through all filter functions
     this.setState({ filteredData: filteredData })
     // reset filter variables stored in state

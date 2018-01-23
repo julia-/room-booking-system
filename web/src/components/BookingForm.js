@@ -16,6 +16,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
     let recurringData = []
     if (type !== "none") {
       recurringData = [ date, type] 
+      recurringData[0][1] = recurringData[0][1] - 1
     } else {
         recurringData = []
     }
@@ -53,8 +54,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
         let recurringData = handleRecurringData(recurringType, recurringEnd)
         const purpose = formData.purpose.value
         const description = formData.description.value
-        // onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId, recurringData })
-        console.log(recurringData)
+        onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId, recurringData })
       }}
     >
       <h2>{roomData.name}</h2>
