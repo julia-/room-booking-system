@@ -6,7 +6,7 @@ const BookingFormTable = props => (
   <table className="table--booking">
     <thead>
       <tr className="table__row table__row--header">
-        <th colSpan="2" className="table__cell--header table__cell--level table__cell--align-left">{moment(props.calendarDate).format('MMMM Do YYYY')}</th>
+        <th colSpan="2" className="table__cell--header table__cell--level header__heading header__heading--column">{moment(props.calendarDate).format('MMMM Do YYYY')}</th>
       </tr>
       <tr scope="col" className="table__row table__row--subheader">
         <th className="table__cell--header table__cell--align-left">Time</th>
@@ -52,7 +52,7 @@ const BookingFormTable = props => (
       </tr>
       <tr className="table__row--full">
         <th scope="row">12pm</th>
-          <ColumnCell 
+          <ColumnCell
             date={props.date}
             bookings={props.roomData.bookings}
             hour={12}
@@ -61,7 +61,7 @@ const BookingFormTable = props => (
       </tr>
       <tr className="table__row--full">
         <th scope="row">1pm</th>
-          <ColumnCell 
+          <ColumnCell
             date={props.date}
             bookings={props.roomData.bookings}
             hour={13}

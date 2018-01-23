@@ -1,59 +1,30 @@
-.wrapper--booking
+.form__grid
   display grid
-  grid-template-columns 1fr
-  grid-template-rows 1fr auto auto// header body
-  // &__content--booking
-  //   display grid
-  //   grid-gap 1rem
-  //   grid-template-columns 1fr 2fr
-  //   grid-template-rows 1fr auto auto
-  //   max-width 95%
-  //   margin 0 auto
-
-.content__nested
-  display grid
-  grid-gap 2rem
-  grid-template-columns 1fr 2fr 2fr
-  margin 2rem
+  grid-gap 1rem
+  grid-template-columns 1fr auto auto
+  grid-template-rows 1fr auto
+  grid-column 1 / 2
+  grid-row 2
+  margin 2rem auto
 
 .content__calendar
   grid-column 1
-  grid-row 3
+  grid-row 1
 
 .content__table
   grid-column 2
-  grid-row 3
-
-.content__form
-  background lightGrey
-  grid-column 3
-  grid-row 3
-  padding 4rem
-
-.container__main
-  background lightGrey
-  color darkGrey
-  margin 10rem auto
-  padding 3rem
+  grid-row 1
   width 40rem
 
-.container__form
-  padding 2rem 0
-  margin 0 auto
-  max-width 30rem
-
-.form__group
-  margin 0 auto
-
-.form__label
-  display block
-  font-weight 500
-  margin 1rem auto
-  text-align left
-  &--inline
-    display inline-block
-    padding-left 1rem
-    margin 0.3rem auto
+.content__form
+  background offWhite
+  -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  grid-column 3
+  grid-row 1
+  padding 0 4rem
+  width 40rem
 
 .form__input
   display block
@@ -84,33 +55,25 @@ input[type=radio]
   &:active
   &:focus
     outline none
+
 .form__input--time
   border 0.1em solid darkGrey
   display inline-block
   margin 1rem 0 1rem 1rem
   width 12rem
 
-// Calendar
-
-.rdtToday
-  &::before
-    border-bottom 7px solid brightRed
-
-.rdtActive
-  background brightRed
-  color #fff
-  &:hover
-    background lightGrey
-    color darkGrey
-
 // Make a booking form
 
 .form__input--select
-  border 1px solid darkGrey
   background #fff
-  width 20rem
-  height 3rem
+  border 1px solid darkGrey
+  display block
+  height 4.4rem
+  margin-top 0.4rem
+  width 100%
 
 .form__input--textarea
+  border 1px solid darkGrey
   height 10rem
+  margin-top 0.4rem
   width 100%

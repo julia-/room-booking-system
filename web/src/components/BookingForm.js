@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import BookingFormTable from './BookingFormTable'
 import Datetime from 'react-datetime'
 import moment from 'moment'
+import {Link} from 'react-router-dom'
 import Button from './Button'
 import { formatTime, timeSelectOptions} from '../helpers/bookingForm'
 
@@ -19,11 +20,11 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
   }
 
   return (
-    <div className="wrapper__content--booking">
+    <Fragment>
       <div className="header__page">
         <h2 className="header__heading header__heading--sub">Level {roomData.floor} | {roomData.name}</h2>
       </div>
-      <form className="content__nested form" onSubmit={event => {
+      <form className="form__grid form" onSubmit={event => {
           event.preventDefault()
           // Extract date array from current date in state
           const dateArray = moment(date)
@@ -49,13 +50,11 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
         <div className="content__calendar">
           <Datetime dateFormat="YYYY-MM-DD" timeFormat={false} input={false} utc={true} isValidDate={valid} onChange={event => handleDate(event._d)} />
         </div>
-
         <div className="content__table">
           <BookingFormTable roomData={roomData} date={date} onShowBooking={onShowBooking} />
         </div>
-
         <div className="content__form">
-          <h3>Make a Booking</h3>
+          <h3 className="header__heading header__heading--column">Make a Booking</h3>
           <div className="form__group">
             <label className="form__label">
               {'Start Time'}
@@ -67,8 +66,8 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             </label>
           </div>
           <div className="form__group">
-            <label className="form__label form__label--inline">
-              {'End Time: '}
+            <label className="form__label">
+              {'End Time'}
               <select name="endTime" className="form__input--select">
                 {timeSelectOptions.map(option => {
                   return option
@@ -77,7 +76,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             </label>
           </div>
           <div className="form__group">
-            <label className="form__label form__label--inline">
+            <label className="form__label">
               {'Business Unit'}
               <select name="business" defaultValue="Business Unit 1" className="form__input--select">
                 <option value="Business Unit 1">Business Unit 1</option>
@@ -89,7 +88,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             </label>
           </div>
           <div className="form__group">
-            <label className="form__label form__label--inline">
+            <label className="form__label">
               {'Purpose'}
               <select name="purpose" defaultValue="Scheduled Class" className="form__input--select">
                 <option value="Scheduled Class">Scheduled Class</option>
@@ -104,10 +103,13 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
               <input type="textarea" name="description" className="form__input--textarea" />
             </label>
           </div>
-          <Button className="button" text={'Submit'} />
+          <div className="form__group--button">
+            <Button className="button button--inline" text={'Submit'} />
+            <Link to="/bookings" className="button button--inline button--alternative" >Go back</Link>
+          </div>
         </div>
       </form>
-    </div>
+    </Fragment>
   )
 }
 
