@@ -1,7 +1,7 @@
 import React from 'react'
 
 // the <option> elements for the startTime and endTime <select> dropdowns
-export const timeSelectOptions = [      
+export const timeSelectOptions = [
   <option value="8:00">8:00am</option>,
   <option value="8:30">8:30am</option>,
   <option value="9:00">9:00am</option>,
@@ -27,7 +27,8 @@ export const timeSelectOptions = [
   <option value="19:00">7:00pm</option>,
   <option value="19:30">7:30pm</option>,
   <option value="20:00">8:00pm</option>,
-  <option value="20:30">8:30pm</option>
+  <option value="20:30">8:30pm</option>,
+  <option value="20:30">9:00pm</option>
 ]
 
 // formats the time extracted from the time inputs into an array, eg 8:30 => [8, 30]
