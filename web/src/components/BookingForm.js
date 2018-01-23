@@ -6,8 +6,20 @@ import { formatTime, timeSelectOptions} from '../helpers/bookingForm'
 
 
 function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onShowBooking }) {
+  // Disable sunday (day 0) on the calendar as an booking option
   const valid = function(current) {
     return current.day() !== 0
+  }
+
+  // Format the recurring data into an array
+  const handleRecurringData = (type, date) => {
+    let recurringData = []
+    if (type !== "none") {
+      recurringData = [ date, type] 
+    } else {
+        recurringData = []
+    }
+    return recurringData
   }
 
   // Array used for handleData function
@@ -34,19 +46,15 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
         // endDate data
         const endTime = formatTime(formData.endTime.value)
         const endDate = [...dateArray, ...endTime]
-
+        // Booking specifics
         const businessUnit = formData.business.value
         const recurringEnd = [parseInt(formData.year.value), parseInt(formData.month.value), parseInt(formData.day.value)]
         const recurringType = formData.recurring.value 
-        let recurringData = []
-        // check to see if there is recurring booking data
-        if (recurringType !== "none") {
-          recurringData = [ recurringEnd, recurringType] } else {
-            recurringData = []
-          }
+        let recurringData = handleRecurringData(recurringType, recurringEnd)
         const purpose = formData.purpose.value
         const description = formData.description.value
-        onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId, recurringData })
+        // onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId, recurringData })
+        console.log(recurringData)
       }}
     >
       <h2>{roomData.name}</h2>
@@ -105,15 +113,15 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
           <div className="time-selector">
           <label>
             {'Recurring End Year:'}
-            <input name="year"/>
+            <input name="year" type="number"/>
           </label>
           <label>
             {'Recurring End Month:'}
-            <input name="month"/>
+            <input name="month" type="number"/>
           </label>
           <label>
             {'Recurring End Day:'}
-            <input name="day"/>
+            <input name="day" type="number"/>
           </label>
           </div>
           <label>
