@@ -36,15 +36,11 @@ export function makeBooking(data, existingBookings) {
     }
   })
 
-  // Check whether the new booking times are for past times
-  let pastDate = false
+  // Ensure the new booking is valid (i.e. the start time is before the end time, and the booking is for a future time)
+  let validDate = newBookingStart < newBookingEnd && newBookingStart > new Date().getTime()
 
-  if (newBookingStart < new Date().getTime()) {
-    return pastDate = true
-  }
-  
   // Save the booking to the database and return the booking if there are no clashes and the new booking time is not in the past
-  if (!bookingClash && !pastDate) {
+  if (!bookingClash && validDate) {
     return api.put(`/rooms/${data.roomId}`, {
       bookingStart: bookingStart,
       bookingEnd: bookingEnd,
