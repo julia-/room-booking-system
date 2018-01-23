@@ -1,5 +1,6 @@
 import React from 'react'
 import BookingElement from './BookingElement'
+import Avatar from '../assets/avatar.png' 
 
 function MyBookings({
   user,
@@ -8,7 +9,10 @@ function MyBookings({
 }) {
   return (
     <div className="my-bookings-container">
-      <h2>Bookings for: {user}</h2>
+      <div className="my-booking-user-info">
+        <div className="avatar"></div>
+        <h2>{user}</h2>
+      </div>
       <div className="user-booking-container">
         { !!userBookings ?
           (
