@@ -47,8 +47,7 @@ class App extends Component {
     filteredData: null,
     checked: null,
     currentRoom: null,
-    error: null,
-    checked: { macLab: false, pcLab: false, tv: false, opWalls: false, whiteboard: false, projector: false }
+    error: null
   }
 
   // Pass supplied email & password to the signIn function, returns the users token
