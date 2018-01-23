@@ -1,9 +1,12 @@
 // Table - Make a Bookin view
 .table--booking
-  color darkGrey
+  background offWhite
   border 0.1rem solid mediumGrey
   border-collapse collapse !important
   border-spacing 0 0 !important
+  -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
   margin 0 auto
   padding 0
   width 34rem
@@ -12,13 +15,9 @@
   th
     border 0.1rem solid mediumGrey
 
-.table__cell
-  padding 0
-  line-height 0
-
 .table__row
   &--full
-    height 6rem
+    padding 2rem 0
     border 0.1rem solid mediumGrey
     td
       border 0.1rem solid mediumGrey

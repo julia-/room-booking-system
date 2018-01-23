@@ -1,23 +1,23 @@
 // Day View - Room Table Display
 .table
+  background offWhite
+  border 0.1rem solid mediumGrey
+  border-collapse collapse !important
+  border-spacing 0 0 !important
   color darkGrey
-  border 1px solid mediumGrey
-  border-collapse collapse
-  margin 3rem 1rem
+  -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  margin 1rem
   padding 0
-  width 880px
+  width 100%
   // table-layout fixed
   &__body
     tr
       &:first-child
         border-top none
-      // &:last-child
-      //   border-bottom 2px solid darkGrey
-      // &:last-child > td
-      //   border-bottom 2px solid darkGrey
   &__cell
     padding 0
-    line-height 0
     &--align-left
       text-align left
     &--level
@@ -27,39 +27,30 @@
   &__row
     &:hover
       background lightGrey
-  &__row
+      border 0.1rem solid mediumGrey
+      -webkit-box-shadow 2px 2px 5px 0px rgba(206,206,206,1)
+      -moz-box-shadow 2px 2px 5px 0px rgba(206,206,206,1)
+      box-shadow 2px 2px 5px 0px rgba(206,206,206,1)
     td
-      border 1px solid mediumGrey
-      // &:first-child
-      //   border-left 2px solid mediumGrey
-      // &:last-child
-      //   border-right 2px solid mediumGrey
+      border 0.1rem solid mediumGrey
   &__row
     th
       border 1px solid mediumGrey
-      padding 1.2rem
-      // &:first-child
-      //   border-left 2px solid mediumGrey
-      // &:last-child
-      //   border-right 2px solid mediumGrey
-  &__row--header
-    background mediumGrey
-    // border 2px solid mediumGrey
-    margin 0 auto
-    padding 0
-    &:hover
+      padding 1rem
+      &:first-child
+        padding 1.6rem
+    &--header
       background mediumGrey
-    //   border 2px solid mediumGrey
-    // th
-    //   &:first-child
-    //     border-left 2px solid mediumGrey
-    //   &:last-child
-    //     border-right 2px solid mediumGrey
-  &__row--subheader
-    background lightGrey
-    // border 2px solid mediumGrey
-    // &:hover
-    //   border 2px solid mediumGrey
+      margin 0 auto
+      padding 0
+      &:hover
+        background mediumGrey
+    &--subheader
+      background lightGrey
+      &:hover
+        -webkit-box-shadow unset
+        -moz-box-shadow unset
+        box-shadow unset
   &__data--asset
     font-family proxima
     font-size 1.4rem
@@ -75,11 +66,11 @@
       color darkGrey
 
 // Business Unit Booking Styling
-.table_cell--booked
+.table__cell--booked // Styling for timeslots that have been booked
   cursor pointer
   display block
-  padding 2rem
-  width 85%
+  padding 3rem
+  width 60%
 
 .table__cell--business-unit-1
   background businessUnit1
@@ -89,14 +80,14 @@
     cursor pointer
     display block
     float left
-    padding 2rem 0
+    padding 3rem 0
     width 50%
   &.table__cell--second-half-hour
     background businessUnit1
     cursor pointer
     display block
     float right
-    padding 2rem 0
+    padding 3rem 0
     width 50%
 
 .table__cell--business-unit-2
@@ -107,14 +98,14 @@
     cursor pointer
     display block
     float left
-    padding 2rem 0
+    padding 3rem 0
     width 50%
   &.table__cell--second-half-hour
     background businessUnit2
     cursor pointer
     display block
     float right
-    padding 2rem 0
+    padding 3rem 0
     width 50%
 
 .table__cell--business-unit-3
@@ -125,14 +116,14 @@
     cursor pointer
     display block
     float left
-    padding 2rem 0
+    padding 3rem 0
     width 50%
   &.table__cell--second-half-hour
     background businessUnit3
     cursor pointer
     display block
     float right
-    padding 2rem 0
+    padding 3rem 0
     width 50%
 
 .table__cell--business-unit-4
@@ -143,14 +134,14 @@
     cursor pointer
     display block
     float left
-    padding 2rem 0
+    padding 3rem 0
     width 50%
   &.table__cell--second-half-hour
     background businessUnit4
     cursor pointer
     display block
     float right
-    padding 2rem 0
+    padding 3rem 0
     width 50%
 
 .table__cell--business-unit-5
@@ -161,12 +152,12 @@
     cursor pointer
     display block
     float left
-    padding 2rem 0
+    padding 3rem 0
     width 50%
   &.table__cell--second-half-hour
     background businessUnit5
     cursor pointer
     display block
     float right
-    padding 2rem 0
+    padding 3rem 0
     width 50%
