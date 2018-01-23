@@ -49,7 +49,9 @@ export function makeBooking(data, existingBookings) {
       bookingStart: bookingStart,
       bookingEnd: bookingEnd,
       businessUnit: data.businessUnit,
-      purpose: data.purpose
+      purpose: data.purpose,
+      roomId: data.roomId,
+      recurring: data.recurringData
     })
       .then(res => res.data)
       .catch(err => console.error(err))

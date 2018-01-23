@@ -7,8 +7,21 @@ import Button from './Button'
 import { formatTime, startTimeSelectOptions, endTimeSelectOptions } from '../helpers/bookingForm'
 
 function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onShowBooking, calendarDate }) {
+  // Disable sunday (day 0) on the calendar as an booking option
   const valid = function(current) {
     return current.day() !== 0
+  }
+
+  // Format the recurring data into an array
+  const handleRecurringData = (type, date) => {
+    let recurringData = []
+    if (type !== "none") {
+      recurringData = [ date, type] 
+      recurringData[0][1] = recurringData[0][1] - 1
+    } else {
+        recurringData = []
+    }
+    return recurringData
   }
 
   // Array used for handleData function
@@ -31,24 +44,34 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             .format('Y M D')
             .split(' ')
             .map(item => parseInt(item, 10))
-          dateArray[1] = dateArray[1] - 1
-          // Data from input
-          const formData = event.target.elements
-          const roomId = roomData._id
-          // startDate data
-          const startTime = formatTime(formData.startTime.value)
-          const startDate = [...dateArray, ...startTime]
-          // endDate data
-          const endTime = formatTime(formData.endTime.value)
-          const endDate = [...dateArray, ...endTime]
-
-          const businessUnit = formData.business.value
-          const purpose = formData.purpose.value
-          const description = formData.description.value
-          onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId })
+            dateArray[1] = dateArray[1] - 1
+            // Data from input
+            const formData = event.target.elements
+            const roomId = roomData._id
+            // startDate data
+            const startTime = formatTime(formData.startTime.value)
+            const startDate = [...dateArray, ...startTime]
+            // endDate data
+            const endTime = formatTime(formData.endTime.value)
+            const endDate = [...dateArray, ...endTime]
+            // Booking specifics
+            const businessUnit = formData.business.value
+            const recurringEnd = [parseInt(formData.year.value), parseInt(formData.month.value), parseInt(formData.day.value)]
+            const recurringType = formData.recurring.value 
+            let recurringData = handleRecurringData(recurringType, recurringEnd)
+            const purpose = formData.purpose.value
+            const description = formData.description.value
+          onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId, recurringData })
         }}>
         <div className="content__calendar">
-          <Datetime dateFormat="YYYY-MM-DD" timeFormat={false} input={false} utc={true} isValidDate={valid} onChange={event => handleDate(event._d)} />
+          <Datetime
+            dateFormat="YYYY-MM-DD"
+            timeFormat={false}
+            input={false}
+            utc={true}
+            isValidDate={valid}
+            onChange={event => handleDate(event._d)}
+        />
         </div>
         <div className="content__table">
           <BookingFormTable roomData={roomData} date={date} onShowBooking={onShowBooking} />
@@ -86,6 +109,36 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
                 <option value="Business Unit 5">Business Unit 5</option>
               </select>
             </label>
+          </div>
+          <div className="form__group">
+            <label className="form__label">
+              {'Recurring'}
+              <select name="recurring" defaultValue="none">
+                <option value="none">Non recurring</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </label>
+          </div>
+          <div className="form__group">
+            <label className="form__label">
+              {'Recurring End Year'}
+              <input name="year" type="number"/>
+            </label>
+          </div>
+          <div className="form__group">
+            <label className="form__label">
+            {'Recurring End Month'}
+            <input name="month" type="number"/>
+          </label>
+          </div>
+          <div className="form__group">
+            <label className="form__label">
+              {'Recurring End Day'}
+              <input name="day" type="number"/>
+            </label>
+          </div>
           </div>
           <div className="form__group">
             <label className="form__label">

@@ -30,7 +30,7 @@ import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
 import RoomSelector from './components/RoomSelector'
 import Calendar from './components/Calendar'
 import BookingModal from './components/BookingModal'
-import { filterParams, capacityParams } from './helpers/filters'
+import { floorParams, filterParams, capacityParams, onFilterByFloor, onFilterByFeature, onFilterByCapacity, onFilterByAvailablity, onFilterByTime } from './helpers/filters'
 import { initialRoom } from './helpers/rooms'
 
 class App extends Component {
@@ -44,6 +44,7 @@ class App extends Component {
     capacityParams: capacityParams,
     floorParam: null,
     availabilityParam: null,
+    timeFilterParams: [],
     filteredData: null,
     checked: null,
     currentRoom: null,
@@ -90,14 +91,14 @@ class App extends Component {
   }
 
   // Makes a booking by updating the database and the React state
-  onMakeBooking = ({ startDate, endDate, businessUnit, purpose, roomId }) => {
+  onMakeBooking = ({ startDate, endDate, businessUnit, purpose, roomId, recurringData }) => {
     const bookingData = { startDate, endDate, businessUnit, purpose, roomId }
     const existingBookings = this.state.currentRoom.bookings
 
     // Check if there is a clash and, if not, save the new booking to the database
     try {
       makeBooking(
-        { startDate, endDate, businessUnit, purpose, roomId },
+        { startDate, endDate, businessUnit, purpose, roomId, recurringData },
         existingBookings
       )
         .then(updatedRoom => {
@@ -134,9 +135,37 @@ class App extends Component {
     this.setState({ currentRoom: room })
   }
 
+  onResetFloorParams = () => {
+		this.setState({floorParam: null})
+	}
+
+	onResetAvailabilityParam = () => {
+		this.setState({availabilityParam: null})
+	}
+
+  onResetFeatureParams = () => {
+    let filterParams = this.state.filterParams
+    filterParams.forEach(param => param.value = false)
+    this.setState({filterParams: filterParams})
+  }
+
+  onResetCapacityParams = () => {
+    let capacityParams = this.state.capacityParams
+    capacityParams.forEach(param => param.value = false)
+    this.setState({capacityParams: capacityParams})
+  }
+
+  onResetFilterParams = () => {
+    this.onResetFeatureParams()
+		this.onResetCapacityParams()
+		this.onResetFloorParams()
+		this.onResetAvailabilityParam()
+  }
+
   onResetFilteredData = () => {
     const roomData = this.state.roomData
     this.setState({ filteredData: roomData })
+    this.render()
   }
 
   // setting the feature filter parameters
@@ -149,8 +178,6 @@ class App extends Component {
     featureParam.value = !featureParam.value
     // Set state with the updated filter parameters
     this.setState({ filterParams: filterParams })
-    // filter the filtered roomData again with the updated filter parameters
-    // this.onFilterByFeature(filterParams)
   }
 
   // setting the capacity filter parameters
@@ -163,87 +190,46 @@ class App extends Component {
     capacityParam.value = !capacityParam.value
     // Set state with the updated capacity parameters
     this.setState({ capacityParams: capacityParams })
-    // filter the filtered roomData again with the updated capacity parameters
-    // this.onFilterByCapacity(capacityParams)
-    console.log('cap params', this.state.capacityParams)
-    // this.onFilterByCapacity(capacityParams)
   }
 
   onSetFloorParam = value => {
-    this.setState({ floorParam: value })
+		this.setState({ floorParam: value })
   }
 
   onSetAvailabilityParam = availability => {
     this.setState({ availabilityParam: availability })
   }
 
+  onSetTimeFilterParams = (params, index) => {
+    let timeFilterParams = this.state.timeFilterParams
+    timeFilterParams[index] = params
+    this.setState({timeFilterParams: timeFilterParams})
+  }
+
   onFilterAll = (floor, availability) => {
-    const roomData = this.state.roomData
+    let roomData = this.state.roomData
     let filteredData = []
+    const floorParam = this.state.floorParam
+    const featureParams = this.state.filterParams
+    const capacityParams = this.state.capacityParams
+    const availabilityParam = this.state.availabilityParam
+    const timeFilterParams = this.state.timeFilterParams
+    const date = this.state.currentDate
 
-    const onFilterByFloor = () => {
-      const value = this.state.floorParam
-      if (value === 'all') {
-        filteredData = roomData
-      } else {
-        filteredData = roomData.filter(room => room.floor === value)
-      }
-      return filteredData
-    }
-
-    const onFilterByFeature = () => {
-      const featureParams = this.state.filterParams
-      featureParams.forEach(feature => {
-        if (feature.name === 'macLab' && feature.value === true) {
-          filteredData = roomData.filter(room => room.assets.macLab === true)
-        } else if (feature.name === 'pcLab' && feature.value === true) {
-          filteredData = roomData.filter(room => room.assets.pcLab === true)
-        } else if (feature.name === 'tv' && feature.value === true) {
-          filteredData = roomData.filter(room => room.assets.tv === true)
-        } else if (feature.name === 'opWall' && feature.value === true) {
-          filteredData = roomData.filter(room => room.assets.opWalls === true)
-        } else if (feature.name === 'whiteboard' && feature.value === true) {
-          filteredData = roomData.filter(
-            room => room.assets.whiteboard === true
-          )
-        } else if (feature.name === 'projector' && feature.value === true) {
-          filteredData = roomData.filter(room => room.assets.projector === true)
-        }
-      })
-      return filteredData
-    }
-
-    const onFilterByCapacity = () => {
-      const capacityParams = this.state.capacityParams
-      capacityParams.forEach(capacity => {
-        if (capacity.value === true)
-          filteredData.push(
-            ...roomData.filter(room => room.capacity === capacity.capacity)
-          )
-      })
-      return filteredData
-    }
-
-    //  filter out occupied rooms
-    const onFilterByAvailablity = () => {
-      const availability = this.state.availabilityParam
-      if (availability === 'fullyAvail') {
-        filteredData = roomData.filter(room => room.bookings.length === 0)
-      } else if (availability === 'partAvail') {
-        filteredData = roomData.filter(room => room.bookings.length > 0)
-      } else if (availability === 'fullBooked') {
-        filteredData =
-          !roomData.filter(room => room.bookings.length > 0) &&
-          !roomData.filter(room => room.bookings.length === 0)
-      }
-      return filteredData
-    }
-
-    onFilterByFloor()
-    onFilterByFeature()
-    onFilterByCapacity()
-    onFilterByAvailablity()
+    // Send all room data and the selected floor, return filtered floors and store in filteredData
+    filteredData = onFilterByFloor(floorParam, roomData)
+    // Send the previously filtered data along with the feature params
+    filteredData = onFilterByFeature(featureParams, filteredData)
+    // Send the previously filtered data along with the capacity params
+    filteredData = onFilterByCapacity(capacityParams, filteredData)
+    // Send the previously filtered data along with the availability
+    filteredData = onFilterByAvailablity(availabilityParam, filteredData)
+    // Send the previously filtered data along with the selested time frame
+    filteredData = onFilterByTime(date, timeFilterParams, filteredData)
+    // set state to the room data, passed through all filter functions
     this.setState({ filteredData: filteredData })
+    // reset filter variables stored in state
+    this.onResetFilterParams()
   }
 
   // ***Need to add to the state***
@@ -283,8 +269,6 @@ class App extends Component {
       })
     })
     this.setState({ userBookings: myBookings })
-    // console.log('state:', this.state.userBookings)
-    // console.log('myBookings:', myBookings)
   }
 
   render() {
@@ -295,7 +279,11 @@ class App extends Component {
       roomData,
       calendarDate,
       selectedBooking,
-      filteredData
+      filteredData,
+      filterParams,
+			capacityParams,
+			floorParam,
+			availabilityParam
     } = this.state
     const signedIn = !!decodedToken
     const signOut = this.onSignOut
@@ -355,6 +343,13 @@ class App extends Component {
                                   this.onSetAvailabilityParam
                                 }
                                 onFilterAll={this.onFilterAll}
+                                onResetFilterParams={this.onResetFilterParams}
+                                filterParams={filterParams}
+                                capacityParams={capacityParams}
+                                floorParam={floorParam}
+                                availabilityParam={availabilityParam}
+                                onSetTimeFilterParams={this.onSetTimeFilterParams}
+                                date={calendarDate}
                               />
                             </div>
                             <div className="sidebar__box">

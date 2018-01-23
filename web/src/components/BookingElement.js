@@ -17,11 +17,15 @@ function BookingElement({
 
   return (
     <div className="booking">
-      <p><span style={spanStyle}>{bookingData.businessUnit}</span></p>
-      <p>{bookingData.roomId}</p>
+      <div className="booking-top">
+        <h3><span style={spanStyle}>{bookingData.businessUnit}</span></h3> | 
+        <h3>{' '}{bookingData.purpose}</h3>
+      </div>
       <p style={whiteStyle} >{moment(startTime).format('DD-MM-YYYY')}</p>
+      <p>Duration: {bookingData.duration}hrs</p>
       {/* <div className="delete">Delete</div> */}
-      <button onClick={ () => onDeleteBooking(bookingData.roomId, bookingData._id)}>Delete</button>
+      {console.log(bookingData)}
+      <button className="custom-button filter-button" onClick={ () => onDeleteBooking(bookingData.roomId, bookingData._id)}>Delete</button>
     </div>
   )
 }
