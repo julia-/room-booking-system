@@ -91,7 +91,7 @@ class App extends Component {
   }
 
   // Makes a booking by updating the database and the React state
-  onMakeBooking = ({ startDate, endDate, businessUnit, purpose, roomId }) => {
+  onMakeBooking = ({ startDate, endDate, businessUnit, purpose, roomId, recurringData }) => {
     const bookingData = { startDate, endDate, businessUnit, purpose, roomId }
     const existingBookings = this.state.currentRoom.bookings
 

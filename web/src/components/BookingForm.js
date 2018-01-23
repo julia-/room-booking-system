@@ -36,9 +36,17 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
         const endDate = [...dateArray, ...endTime]
 
         const businessUnit = formData.business.value
+        const recurringEnd = [parseInt(formData.year.value), parseInt(formData.month.value), parseInt(formData.day.value)]
+        const recurringType = formData.recurring.value 
+        let recurringData = []
+        // check to see if there is recurring booking data
+        if (recurringType !== "none") {
+          recurringData = [ recurringEnd, recurringType] } else {
+            recurringData = []
+          }
         const purpose = formData.purpose.value
         const description = formData.description.value
-        onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId })
+        onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId, recurringData })
       }}
     >
       <h2>{roomData.name}</h2>
@@ -85,7 +93,29 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
               <option value="Business Unit 5">Business Unit 5</option>
             </select>
           </label>
-
+          <label>
+            {'Recurring:'}
+            <select name="recurring" defaultValue="none">
+              <option value="none">non recurring</option>
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+          </label>
+          <div className="time-selector">
+          <label>
+            {'Recurring End Year:'}
+            <input name="year"/>
+          </label>
+          <label>
+            {'Recurring End Month:'}
+            <input name="month"/>
+          </label>
+          <label>
+            {'Recurring End Day:'}
+            <input name="day"/>
+          </label>
+          </div>
           <label>
             {'Purpose:'}
             <select name="purpose" defaultValue="Scheduled Class">
