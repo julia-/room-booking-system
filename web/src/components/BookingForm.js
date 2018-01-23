@@ -4,7 +4,7 @@ import Datetime from 'react-datetime'
 import moment from 'moment'
 import {Link} from 'react-router-dom'
 import Button from './Button'
-import { formatTime, timeSelectOptions} from '../helpers/bookingForm'
+import { formatTime, startTimeSelectOptions, endTimeSelectOptions } from '../helpers/bookingForm'
 
 function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onShowBooking, calendarDate }) {
   const valid = function(current) {
@@ -59,7 +59,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             <label className="form__label">
               {'Start Time'}
               <select name="startTime" className="form__input--select">
-                {timeSelectOptions.map(option => {
+                {startTimeSelectOptions.map(option => {
                   return option
                 })}
               </select>
@@ -69,7 +69,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             <label className="form__label">
               {'End Time'}
               <select name="endTime" className="form__input--select">
-                {timeSelectOptions.map(option => {
+                {endTimeSelectOptions.map(option => {
                   return option
                 })}
               </select>
