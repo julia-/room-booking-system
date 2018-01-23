@@ -60,7 +60,7 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
         }
       }
     },
-    { new: true }
+    { new: true, runValidators: true, context: 'query' }
   )
     .then(room => {
       res.status(201).json(room)
