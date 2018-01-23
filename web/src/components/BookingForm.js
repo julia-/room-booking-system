@@ -16,6 +16,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
     let recurringData = []
     if (type !== "none") {
       recurringData = [ date, type] 
+      recurringData[0][1] = recurringData[0][1] - 1
     } else {
         recurringData = []
     }
