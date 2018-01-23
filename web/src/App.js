@@ -103,7 +103,7 @@ class App extends Component {
       )
         .then(updatedRoom => {
           // If the new booking is successfully saved to the database
-          alert(`${updatedRoom.name} sucessfully booked.`)
+          alert(`${updatedRoom.name} successfully booked.`)
           updateStateRoom(this, updatedRoom, this.loadMyBookings, this.onResetFilteredData)
       })
     } catch (err) {
