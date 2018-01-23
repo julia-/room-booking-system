@@ -9,7 +9,7 @@ const bookingSchema = new Schema({
   bookingEnd: Date,
   startHour: Number,
   duration: Number,
-  recurring: { type: Boolean, default: false },
+  recurring: [],
   businessUnit: { type: String, required: true },
   purpose: { type: String, required: true },
   roomId: { type: Schema.ObjectId, ref: 'Room' }
