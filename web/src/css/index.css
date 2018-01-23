@@ -212,8 +212,17 @@ li {
   background: rgb(71, 179, 233);
   border-radius: 5px;
   padding: 5px;
-  width: 250px;
+  width: 700px;
   margin: 5px;
+}
+
+.booking-top {
+  padding: 5px;
+  border-bottom: 1px solid white;
+}
+
+.booking-top h3 {
+  display: inline;
 }
 
 .filter-element {

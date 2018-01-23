@@ -1,19 +1,21 @@
 import React from 'react'
+import moment from 'moment'
+import { formatTime, timeSelectOptions} from '../helpers/bookingForm'
 
 function FilterElement({
   onSetFloorParam,
   onToggleFeature,
   onToggleCapacity,
   onSetAvailabilityParam,
-  onFilterAll,
-  onResetFeatureParams,
-  onResetCapacityParams,
+  onResetFilterParams,
   filterParams,
   capacityParams,
   floorParam,
-  availabilityParam
+  availabilityParam,
+  onFilterAll,
+  onSetTimeFilterParams,
+  date
 }) {
-  const features = ['macLab', 'pcLab', 'tv']
 
   return (
     <form className="filter-element" >
@@ -96,22 +98,24 @@ function FilterElement({
         </div>
         <div className="time-selector">
           <label>
-              {'From: '}
-              <input type="time" name="startTime" min="00:00" max="23:00" />
-            </label>
-          
-            <label>
-              {'To: '}
-              <input type="time" name="endTime" min="00:00" max="23:00" />
-            </label>
-          </div>
-          <div className="filter-button-container">
-            <div onClick={ () => onFilterAll()} className='custom-button filter-button'>Filter</div>
-            <div onClick={ () => {
-              onResetFeatureParams()
-              onResetCapacityParams()
-            }} 
-                 className='custom-button reset-button'>Reset</div>
+            {'Start Time: '}
+            <select name="startTime" 
+            onChange={(event) => onSetTimeFilterParams(formatTime(event.target.value), 0)}>
+              {timeSelectOptions.map(option => {return option})}
+            </select>
+          </label>
+
+          <label>
+            {'End Time: '}
+            <select name="endTime" onChange={(event) => onSetTimeFilterParams(formatTime(event.target.value), 1)}>
+              {timeSelectOptions.map(option => {return option})}
+            </select>
+          </label>
+        </div>
+        <div className="filter-button-container">
+          <div onClick={ () => onFilterAll()} className='custom-button filter-button'>Filter</div>
+          <div onClick={ () => onResetFilterParams()}
+            className='custom-button reset-button'>Reset</div>
           </div>
     </form>
   )

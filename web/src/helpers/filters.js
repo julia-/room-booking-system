@@ -20,6 +20,7 @@ export const capacityParams = [
 
 // Filtering Fucntions
 
+// Filter roomData by floor
 export  const onFilterByFloor = (param, filteredData) => {
   if (param === 'all') {
     return filteredData
@@ -28,6 +29,7 @@ export  const onFilterByFloor = (param, filteredData) => {
   }
 }
 
+// Filter data by feature
 export const onFilterByFeature = (params, filteredData) => {
   params.forEach(feature => {
     if (feature.name === 'macLab' && feature.value === true) {
@@ -45,6 +47,7 @@ export const onFilterByFeature = (params, filteredData) => {
   return filteredData
 }
 
+// Filter data by capacity
 export const onFilterByCapacity = (params, filteredData) => {
   let roomsByCapacity = []
   params.forEach(capacity => {
@@ -52,10 +55,14 @@ export const onFilterByCapacity = (params, filteredData) => {
       roomsByCapacity.push(...filteredData.filter(room => room.capacity === capacity.capacity))
     }
   })
-  console.log('fd', roomsByCapacity)
-  return roomsByCapacity
+  if (roomsByCapacity.length > 0) {
+    return roomsByCapacity
+  } else {
+    return filteredData
+  }
 }
 
+// Filter data by availability
 export const onFilterByAvailablity = (params, filteredData) => {
   if (params === 'fullyAvail') {
     filteredData = filteredData.filter(room => room.bookings.length === 0)
@@ -66,6 +73,10 @@ export const onFilterByAvailablity = (params, filteredData) => {
       !filteredData.filter(room => room.bookings.length > 0) &&
       !filteredData.filter(room => room.bookings.length === 0)
   }
-  console.log('before return', filteredData)
+  return filteredData
+}
+
+export const onFilterByTime = (data, params, filteredData) => {
+  console.log(params)
   return filteredData
 }
