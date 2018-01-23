@@ -76,7 +76,7 @@ export const onFilterByAvailablity = (params, filteredData) => {
   return filteredData
 }
 
-export const onFilterByTime = (params, filteredData) => {
+export const onFilterByTime = (data, params, filteredData) => {
   console.log(params)
   return filteredData
 }
