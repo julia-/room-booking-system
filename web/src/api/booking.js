@@ -54,7 +54,7 @@ export function makeBooking(data, existingBookings) {
       recurring: data.recurringData
     })
       .then(res => res.data)
-      .catch(err => console.error(err))
+      .catch(err => alert(err.response.data.error.message.match(/error:.+/i)[0]))
   }
 }
 

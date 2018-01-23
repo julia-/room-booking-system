@@ -106,7 +106,6 @@ class App extends Component {
           alert(`${updatedRoom.name} successfully booked.`)
           updateStateRoom(this, updatedRoom, this.loadMyBookings, this.onResetFilteredData)
         })
-        .catch(error => alert(error.message))
     } catch (err) {
       // If there is a booking clash and the booking could not be saved
       alert(
