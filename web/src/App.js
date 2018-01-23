@@ -11,6 +11,7 @@ import moment from 'moment'
 import BookingForm from './components/BookingForm'
 import Button from './components/Button'
 import FilterElement from './components/FilterElement'
+import Footer from './components/Footer'
 import Key from './components/Key'
 import MyBookings from './components/MyBookings'
 import NavBar from './components/NavBar'
@@ -308,8 +309,7 @@ class App extends Component {
     return (
       <Router>
         <div id="app" className="App">
-          <div>
-            <div className="container--main">
+          <Fragment>
               {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
               <Switch>
                 <Route path="/" exact render={() => (!!decodedToken && signedIn ?
@@ -388,15 +388,15 @@ class App extends Component {
                         !!roomData &&
                         !!currentRoom && (
                           <div className="wrapper">
-                            <div className="header header__nav header--flex">
+                            <header className="header header__nav header--flex">
                               <h1 className="header__heading header__heading--main">Company Name Here</h1>
                               <NavBar
                                 signOut={signOut}
                                 loadMyBookings={loadMyBookings}
                                 user={signedIn ? decodedToken.sub : null}
                               />
-                            </div>
-                            <div className="wrapper--content">
+                            </header>
+                            <div className="wrapper__content">
                               <BookingForm
                                 user={decodedToken.email}
                                 roomData={currentRoom}
@@ -406,12 +406,12 @@ class App extends Component {
                                 onShowBooking={this.onShowBooking}
                                 calendarDate={calendarDate}
                               />
+                            </div>
                             <BookingModal
                               selectedBooking={selectedBooking}
                               onCloseBooking={this.onCloseBooking}
                               onDeleteBooking={onDeleteBooking}
                             />
-                          </div>
                         </div>
                       )}
                     </Fragment>
@@ -445,9 +445,8 @@ class App extends Component {
                       {' '}
                       Page Not Found: {location.pathname}{' '}
                     </h2>} />
-              </Switch>
-            </div>
-          </div>
+            </Switch>
+          </Fragment>
         </div>
       </Router>
     )
