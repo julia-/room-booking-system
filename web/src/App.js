@@ -98,7 +98,7 @@ class App extends Component {
     // Check if there is a clash and, if not, save the new booking to the database
     try {
       makeBooking(
-        { startDate, endDate, businessUnit, purpose, roomId },
+        { startDate, endDate, businessUnit, purpose, roomId, recurringData },
         existingBookings
       )
         .then(updatedRoom => {
