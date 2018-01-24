@@ -44,7 +44,6 @@ class App extends Component {
     capacityParams: capacityParams,
     floorParam: null,
     availabilityParam: null,
-    timeFilterParams: [],
     filteredData: null,
     checked: null,
     currentRoom: null,
@@ -212,12 +211,6 @@ class App extends Component {
     this.setState({ availabilityParam: availability })
   }
 
-  onSetTimeFilterParams = (params, index) => {
-    let timeFilterParams = this.state.timeFilterParams
-    timeFilterParams[index] = params
-    this.setState({timeFilterParams: timeFilterParams})
-  }
-
   onFilterAll = (floor, availability) => {
     let roomData = this.state.roomData
     let filteredData = []
@@ -225,7 +218,6 @@ class App extends Component {
     const featureParams = this.state.filterParams
     const capacityParams = this.state.capacityParams
     const availabilityParam = this.state.availabilityParam
-    const timeFilterParams = this.state.timeFilterParams
     const date = this.state.currentDate
 
     // Send all room data and the selected floor, return filtered floors and store in filteredData
@@ -236,15 +228,12 @@ class App extends Component {
     filteredData = onFilterByCapacity(capacityParams, filteredData)
     // Send the previously filtered data along with the availability
     filteredData = onFilterByAvailablity(availabilityParam, filteredData)
-    // Send the previously filtered data along with the selested time frame
-    // filteredData = onFilterByTime(date, timeFilterParams, filteredData)
     // set state to the room data, passed through all filter functions
     this.setState({ filteredData: filteredData })
     // reset filter variables stored in state
     this.onResetFilterParams()
   }
 
-  // ***Need to add to the state***
   // get today's bookings for all rooms
   oneSetCurrentDateBookings = () => {
     const currentDate = moment().format('DD-MM-YYYY')

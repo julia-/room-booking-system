@@ -74,7 +74,7 @@
   grid-column: 3;
   grid-row: 1;
   padding: 0 4rem;
-  width: 40rem;
+  width: 30rem;
 }
 .form__input {
   display: block;
@@ -121,11 +121,22 @@ input[type=radio] {
   margin-top: 0.4rem;
   width: 100%;
 }
+.form__input--date {
+  border: 1px solid #1c1c11;
+  display: block;
+  height: 4.4rem;
+  margin-top: 0.4rem;
+  width: 27rem;
+}
 .form__input--textarea {
   border: 1px solid #1c1c11;
   height: 10rem;
   margin-top: 0.4rem;
-  width: 100%;
+  width: 27rem;
+  display: block;
+  resize: none;
+  font-size: 1.8rem;
+  padding: 5px;
 }
 .button {
   background: #ed1c24;
@@ -747,7 +758,6 @@ input[type=radio] {
   padding: 20px;
   margin: 50px auto;
   width: 1000px;
-  border-radius: 15px;
   -webkit-box-shadow: 0px 3px 15px rgba(4,5,10,0.2);
           box-shadow: 0px 3px 15px rgba(4,5,10,0.2);
   background: #fafafa;
@@ -770,7 +780,6 @@ input[type=radio] {
 }
 .booking {
   background: #fff;
-  border-radius: 5px;
   border: 0.5px solid #d3d3d3;
   width: 900px;
   margin: 5px;
@@ -779,13 +788,13 @@ input[type=radio] {
   display: flex;
 }
 .booking-left {
-  width: 350px;
+  width: 400px;
   padding: 5px 20px;
   text-align: left;
   color: #5f4646;
 }
 .booking-middle {
-  padding-top: 10px;
+  padding-top: 30px;
   text-align: left;
   line-height: 0.8em;
   width: 300px;
@@ -793,7 +802,7 @@ input[type=radio] {
 }
 .booking-right {
   width: 200px;
-  padding-top: 40px;
+  padding-top: 60px;
 }
 .form__heading--filter {
   margin: 0.8rem 0;

@@ -14,7 +14,6 @@ function FilterElement({
   floorParam,
   availabilityParam,
   onFilterAll,
-  onSetTimeFilterParams,
   date
 }) {
 
@@ -97,25 +96,6 @@ function FilterElement({
             <div className="form_group">
               <input type="radio" id="fullyBooked" value="fullBooked" name="availability" className="form__input--radio" checked={availabilityParam === 'fullBooked' ? true : false} />
               <label for="fullyBooked" className="form__label form__label--inline">Fully Booked</label>
-            </div>
-          </div>
-          <h4 className="form__heading form__heading--filter">Time</h4>
-          <div className="form__container--time">
-            <div className="form_group">
-              <label className="form__label form__label--inline">
-                {'Start Time'}
-                <select name="startTime" onChange={(event) => onSetTimeFilterParams(formatTime(event.target.value), 0)}>
-                   {startTimeSelectOptions.map(option => {return option})}
-                </select>
-              </label>
-            </div>
-            <div className="form_group">
-              <label className="form__label form__label--inline">
-                {'End Time'}
-                <select name="endTime" onChange={(event) => onSetTimeFilterParams(formatTime(event.target.value), 1)}>
-                  {endTimeSelectOptions.map(option => {return option})}
-                </select>
-              </label>
             </div>
           </div>
           <div className="form__group--button">

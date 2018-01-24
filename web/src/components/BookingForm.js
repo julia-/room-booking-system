@@ -89,7 +89,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
           <div className="form__group">
             <label className="form__label">
               {'Start Time'}
-              <select name="startTime" className="form__input--select">
+              <select name="startTime" className="form__input">
                 {startTimeSelectOptions.map(option => {
                   return option
                 })}
@@ -99,7 +99,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
           <div className="form__group">
             <label className="form__label">
               {'End Time'}
-              <select name="endTime" className="form__input--select">
+              <select name="endTime" className="form__input">
                 {endTimeSelectOptions.map(option => {
                   return option
                 })}
@@ -109,7 +109,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
           <div className="form__group">
             <label className="form__label">
               {'Business Unit'}
-              <select name="business" defaultValue="Business Unit 1" className="form__input--select">
+              <select name="business" defaultValue="Business Unit 1" className="form__input">
                 <option value="Business Unit 1">Business Unit 1</option>
                 <option value="Business Unit 2">Business Unit 2</option>
                 <option value="Business Unit 3">Business Unit 3</option>
@@ -131,12 +131,12 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
           </div>
           <label className="form__label">
             {'Recurring End Date'}
-            <input type="date" name="recurringEndDate" disabled={disableRecurring} className="form__input"/>
+            <input type="date" name="recurringEndDate" disabled={disableRecurring} className="form__input--date"/>
           </label>
           <div className="form__group">
             <label className="form__label">
               {'Purpose'}
-              <select name="purpose" defaultValue="Scheduled Class" className="form__input--select">
+              <select name="purpose" defaultValue="Scheduled Class" className="form__input">
                 <option value="Scheduled Class">Scheduled Class</option>
                 <option value="Special Event">Special Event</option>
                 <option value="Ad-hoc Event">Ad-hoc Event</option>
@@ -145,8 +145,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
           </div>
           <div className="form__group">
             <label className="form__label">
-              {'Description'}
-              <input type="textarea" name="description" className="form__input--textarea" />
+              {'Description'}<textarea type="textarea" name="description" className="form__input--textarea"></textarea>
             </label>
           </div>
           <div className="form__group--button">
