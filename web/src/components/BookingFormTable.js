@@ -6,7 +6,7 @@ const BookingFormTable = props => (
   <table className="table--booking">
     <thead>
       <tr className="table__row table__row--header">
-        <th colSpan="2" className="table__cell--header table__cell--level header__heading header__heading--column">{moment(props.calendarDate).format('MMMM Do YYYY')}</th>
+        <th colSpan="2" className="table__cell--header table__cell--level header__heading header__heading--column">{moment(props.date).format('MMMM Do YYYY')}</th>
       </tr>
       <tr scope="col" className="table__row table__row--subheader">
         <th className="table__cell--header table__cell--align-left">Time</th>
