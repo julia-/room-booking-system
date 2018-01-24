@@ -1,4 +1,4 @@
-.time-selector label {
+/* .time-selector label {
   display: block;
   margin: 15px;
   text-align: center;
@@ -12,7 +12,7 @@
 select {
   display: block;
   margin: 10px auto;
-}
+} */
 
 /* form {
   padding: 20px;
@@ -30,54 +30,54 @@ select {
   margin: 10px auto;
 } */
 
-.booking-container {
+/* .booking-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   width: 1900px;
   margin: 10px auto;
-}
+} */
 
-.room-selector {
+/* .room-selector {
   width: 400px;
   margin: 10px auto;
   padding: 10px;
   border: 0.5px solid lightgray;
   border-radius: 10px;
-}
-
+} */
+/* 
 .date-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* width: 480px; */
+  width: 480px;
   margin: 20px auto;
-}
+} */
 
-.date-selector {
+/* .date-selector {
   margin: 10px;
   padding: 10px;
   width: 200px;
 }
 
 .right-container {
-  /* display: flex; */
+  display: flex;
   border: 1px solid lightgray;
   border-radius: 15px;
   margin: 10px;
   padding: 10px;
-}
+} */
 
-.left-container {
-  /* border: 1px solid red; */
+/* .left-container {
+  border: 1px solid red;
   margin: 10px;
 }
 
 .middle-container {
-  /* border: 1px solid red; */
+  border: 1px solid red;
   margin: 10px;
-}
-
+} */
+/* 
 .room-table {
   border: 2px solid #CECECE;
   border-collapse: collapse;
@@ -91,25 +91,25 @@ select {
   background: #F4F4F4;
   border: 2px solid #CECECE;
   height: 4rem;
-}
+} */
 
-.room-table .body-row td {
+/* .room-table .body-row td {
   height: 8rem;
   padding: 0;
   margin: 0;
   cursor: pointer;
-}
+} */
 
-.room-table .bookings-column {
+/* .room-table .bookings-column {
   width: 80%;
 }
 
 .room-table .left-column {
   width: 20%;
   border-right: 2px solid #CECECE;
-}
+} */
 
-.room-table .body-row table {
+/* .room-table .body-row table {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -119,9 +119,9 @@ select {
 
 .room-table .body-row table .sub-cell-divider {
   border-bottom: 2px solid #F4F4F4;
-}
+} */
 
-.room-table .body-row table .sub-cell {
+/* .room-table .body-row table .sub-cell {
   height: 3rem;
 }
 
@@ -147,18 +147,6 @@ select {
 
 .room-table .business-unit-5 {
   background-color: lightpink;
-}
-
-nav {
-  box-sizing: border-box;
-  overflow: auto;
-  position: relative;
-  top: 0;
-  padding: 5px 50px;
-  width: 100%;
-  z-index: 999;
-  background:#1E8BC3;
-  color:#fff;
 }
 
 a {
@@ -193,8 +181,9 @@ li {
   margin-right: 10px;
   border: 0.5px solid lightgray;
   border-radius: 10px;
-}
+} */
 
+/*
 .filter-element {
   width: 200px;
   margin: 10px auto;
@@ -241,13 +230,12 @@ li {
  
   justify-content: center;
   align-items: center;
-}
+} */
 
 /* .sign-in-form {
   margin-top: 10%;
 } */
-
+/* 
 .left-panel {
   margin-top: 20px;
-}
-
+} */

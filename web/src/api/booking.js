@@ -36,15 +36,15 @@ export function makeBooking(data, existingBookings) {
     }
   })
 
-  // Check whether the new booking times are for past times
-  let pastDate = false
+  // Ensure the new booking is valid (i.e. the start time is before the end time, and the booking is for a future time)
+  let validDate = newBookingStart < newBookingEnd && newBookingStart > new Date().getTime()
 
-  if (newBookingStart < new Date().getTime()) {
-    return pastDate = true
-  }
-  
+  // If a recurring booking as been selected, ensure the end date is after the start date
+  let validRecurring = (data.recurringData.length > 0) ? 
+    dateUTC(data.recurringData[0]).getTime() > newBookingEnd : true
+
   // Save the booking to the database and return the booking if there are no clashes and the new booking time is not in the past
-  if (!bookingClash && !pastDate) {
+  if (!bookingClash && validDate && validRecurring) {
     return api.put(`/rooms/${data.roomId}`, {
       bookingStart: bookingStart,
       bookingEnd: bookingEnd,
@@ -54,7 +54,7 @@ export function makeBooking(data, existingBookings) {
       recurring: data.recurringData
     })
       .then(res => res.data)
-      .catch(err => console.error(err))
+      .catch(err => alert(err.response.data.error.message.match(/error:.+/i)[0]))
   }
 }
 

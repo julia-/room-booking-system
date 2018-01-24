@@ -1,0 +1,131 @@
+.rdt
+  background offWhite
+  -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  font-size 1.6rem
+  width 30rem
+
+.rdt thead th
+  padding 0.6rem
+
+.rdtPicker
+  background offWhite
+  color darkGrey
+  margin 0 auto
+  padding 2rem 0
+  width 28rem
+
+.rdtPicker table
+  margin 0 auto
+
+.rdtPicker th
+.rdtPicker td
+  height 2rem
+  padding 0.6rem
+  text-align center
+
+.rdtPicker td
+  cursor pointer
+
+.rdtSwitch
+  font-family proxima
+  font-size 2rem
+  font-weight 700
+
+.rdtTimeToggle
+.rdtDay
+.rdtHour
+.rdtMinute
+.rdtSecond
+  font-weight 400
+  &:hover
+    background darkGrey
+    color #fff
+    cursor pointer
+    font-weight 500
+
+.rdtOld
+.rdtNew
+  color #a5a5a5
+
+.rdtToday
+  position relative
+
+.rdtToday:before
+  border-bottom 0.7rem solid brightRed
+  border-left 0.7rem solid transparent
+  bottom 0.4rem
+  content ''
+  display inline-block
+  position absolute
+  right 0.4rem
+
+.rdtActive
+  background brightRed
+  color #fff
+  &:hover
+    background darkGrey
+    color #fff
+
+.rdtActive.rdtToday
+  &::before
+    border-bottom-color #fff
+
+th.rdtDisabled
+td.rdtDisabled
+span.rdtDisabled
+  background none
+  color mediumGrey
+  cursor not-allowed
+  &:hover
+    background none
+    color mediumGrey
+    cursor not-allowed
+
+span.rdtOld
+  color mediumGrey
+
+th.dow
+  font-family proxima
+  font-weight 600
+  width 2rem
+
+// .rdtDay
+//   width 2rem
+
+th.rdtNext,
+th.rdtPrev
+  font-size 2.2rem
+  vertical-align top
+
+rdtPrev span,
+rdtNext span
+  display block
+  -webkit-touch-callout none /* iOS Safari */
+  -webkit-user-select none   /* Chrome/Safari/Opera */
+  -khtml-user-select none    /* Konqueror */
+  -moz-user-select none      /* Firefox */
+  -ms-user-select none       /* Internet Explorer/Edge */
+  user-select none
+
+.rdtPicker thead tr:first-child th
+  cursor pointer
+  &:hover
+    background lightGrey
+    color darkGrey
+
+td.rdtMonth
+td.rdtYear
+  cursor pointer
+  font-size 1.8rem
+  height 5rem
+  width 2rem
+  &:hover
+    background lightGrey
+    color darkGrey
+    font-weight 500
+
+.rdtToday
+  &::before
+    border-bottom 7px solid brightRed
