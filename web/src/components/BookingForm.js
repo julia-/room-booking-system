@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import Button from './Button'
 import { formatTime, startTimeSelectOptions, endTimeSelectOptions } from '../helpers/bookingForm'
 
-function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onShowBooking, calendarDate, disableRecurring, onToggleRecurring }) {
+function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onShowBooking, disableRecurring, onToggleRecurring }) {
   // Disable sunday (day 0) on the calendar as an booking option
   const valid = function(current) {
     return current.day() !== 0

@@ -405,7 +405,6 @@ class App extends Component {
                                 updateCalendar={setCalendarDate}
                                 onShowBooking={this.onShowBooking}
                                 onToggleRecurring={this.onToggleRecurring}
-                                calendarDate={calendarDate}
                               />
                             </div>
                               <BookingModal
