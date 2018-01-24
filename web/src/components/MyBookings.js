@@ -12,7 +12,7 @@ function MyBookings({
   return (
     <div className="my-bookings-container">
       <div className="my-booking-user-info">
-        <div className="avatar"></div>
+        <div className="avatar"><img src={Avatar}/></div>
         <h2>{user}</h2>
       </div>
       <div className="user-booking-container">
