@@ -5,15 +5,12 @@ import Button from './Button'
 import { findRoomInfo } from '../helpers/bookingForm.js'
 
 const BookingModal = props => {
-  
   const deleteBooking = () => {
-    props.onDeleteBooking(props.selectedBooking.roomId, props.selectedBooking._id)
+    const roomID = props.selectedBooking.roomId
+    const bookingID = props.selectedBooking._id
+    props.onDeleteBooking(roomID, bookingID)
     props.onCloseBooking()
   }
-  
-  // const roomId = props.selectedBooking.roomId
-  // const roomInfo = findRoomInfo(props.selectedBooking.roomId, props.roomData)
-
   return (
     <ReactModal
       isOpen={!!props.selectedBooking}
@@ -27,20 +24,21 @@ const BookingModal = props => {
       className="modal"
     >
       <h3 className="modal__title">Booking Details</h3>
-     
       {!!props.selectedBooking && (
         <div className="modal__boday">
-          <p> {findRoomInfo(props.selectedBooking.roomId, props.roomData).name}{' : Level '}
-          {findRoomInfo(props.selectedBooking.roomId, props.roomData).floor}
-            {`, ${momentTimezone
-              .tz(props.selectedBooking['bookingStart'], 'Australia/Melbourne')
-              .format('h.mma')} to ${momentTimezone
-              .tz(props.selectedBooking['bookingEnd'], 'Australia/Melbourne')
+          <p className="modal__paragraph">{findRoomInfo(props.selectedBooking.roomId, props.roomData).name}{', Level '}
+          {findRoomInfo(props.selectedBooking.roomId, props.roomData).floor}</p>
+          <p className="modal__paragraph">{`${momentTimezone
+              .tz(props.selectedBooking['bookingStart'], 'Australia/Sydney')
+            .format('h.mma')} to ${momentTimezone
+              .tz(props.selectedBooking['bookingEnd'], 'Australia/Sydney')
               .format('h.mma')}`}
+            <p className="modal__paragraph">{`${momentTimezone.tz(props.selectedBooking['bookingStart'], 'Australia/Sydney').format('MMMM Do, YYYY')} to ${momentTimezone.tz(props.selectedBooking['bookingEnd'], 'Australia/Sydney').format('MMMM Do, YYYY')}`}
           </p>
-          <p>{props.selectedBooking['businessUnit']}</p>
-          <p>{props.selectedBooking['purpose']}</p>
-          <p>Description</p>
+          </p>
+          <p className="modal__paragraph"><strong>Business Unit </strong>{props.selectedBooking['businessUnit']}</p>
+          <p className="modal__paragraph"><strong>Purpose </strong>{props.selectedBooking['purpose']}</p>
+          <p className="modal__paragraph"><strong>Description </strong>{props.selectedBooking['description']}</p>
         </div>
       )}
       <a href={`mailto:${props.user}`} className="button">Contact</a>
@@ -49,7 +47,7 @@ const BookingModal = props => {
         text={`Delete`}
       />
       <Button
-        className="button__close"
+        className="button__close button--alternative"
         onClick={props.onCloseBooking}
         text={`Close`}
       />
