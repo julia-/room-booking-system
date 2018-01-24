@@ -743,7 +743,6 @@ input[type=radio] {
   margin: 1rem 0;
   width: 30.6rem;
 }
-
 .my-bookings-container {
   padding: 20px;
   margin: 50px auto;
@@ -751,7 +750,7 @@ input[type=radio] {
   border-radius: 15px;
   -webkit-box-shadow: 0px 3px 15px rgba(4,5,10,0.2);
           box-shadow: 0px 3px 15px rgba(4,5,10,0.2);
-  background: offWhite;
+  background: #fafafa;
 }
 .user-booking-container {
   width: 900px;

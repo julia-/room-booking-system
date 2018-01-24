@@ -139,7 +139,6 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
               <input name="day" type="number"/>
             </label>
           </div>
-          </div>
           <div className="form__group">
             <label className="form__label">
               {'Purpose'}
@@ -160,6 +159,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             <Button className="button button--inline" text={'Submit'} />
             <Link to="/bookings" className="button button--inline button--alternative" >Go back</Link>
           </div>
+        </div>
       </form>
     </Fragment>
   )
