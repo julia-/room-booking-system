@@ -6,10 +6,18 @@ import {Link} from 'react-router-dom'
 import Button from './Button'
 import { formatTime, startTimeSelectOptions, endTimeSelectOptions } from '../helpers/bookingForm'
 
-function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onShowBooking, calendarDate }) {
+function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onShowBooking, calendarDate, disableRecurring, onToggleRecurring }) {
   // Disable sunday (day 0) on the calendar as an booking option
   const valid = function(current) {
     return current.day() !== 0
+  }
+
+  const handleEndDate = (dateArray) => {
+    let recurringEndDate = []
+    dateArray.forEach(item => {
+      recurringEndDate.push(parseInt(item))
+    })
+    return recurringEndDate
   }
 
   // Format the recurring data into an array
@@ -56,12 +64,13 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             const endDate = [...dateArray, ...endTime]
             // Booking specifics
             const businessUnit = formData.business.value
-            const recurringEnd = [parseInt(formData.year.value), parseInt(formData.month.value), parseInt(formData.day.value)]
+            let recurringEnd = handleEndDate(formData.recurringEndDate.value.split('-'))
             const recurringType = formData.recurring.value 
             let recurringData = handleRecurringData(recurringType, recurringEnd)
             const purpose = formData.purpose.value
             const description = formData.description.value
-          onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId, recurringData })
+          // onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId, recurringData })
+          console.log(recurringData)
         }}>
         <div className="content__calendar">
           <Datetime
@@ -113,7 +122,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
           <div className="form__group">
             <label className="form__label">
               {'Recurring'}
-              <select name="recurring" defaultValue="none">
+              <select name="recurring" defaultValue="none" onChange={ (event) => onToggleRecurring(event.target.value)} className="form__input">
                 <option value="none">Non recurring</option>
                 <option value="daily">Daily</option>
                 <option value="weekly">Weekly</option>
@@ -121,24 +130,10 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
               </select>
             </label>
           </div>
-          <div className="form__group">
-            <label className="form__label">
-              {'Recurring End Year'}
-              <input name="year" type="number"/>
-            </label>
-          </div>
-          <div className="form__group">
-            <label className="form__label">
-            {'Recurring End Month'}
-            <input name="month" type="number"/>
+          <label className="form__label">
+            {'Recurring End Date'}
+            <input type="date" name="recurringEndDate" disabled={disableRecurring} className="form__input"/>
           </label>
-          </div>
-          <div className="form__group">
-            <label className="form__label">
-              {'Recurring End Day'}
-              <input name="day" type="number"/>
-            </label>
-          </div>
           <div className="form__group">
             <label className="form__label">
               {'Purpose'}

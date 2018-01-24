@@ -48,7 +48,8 @@ class App extends Component {
     filteredData: null,
     checked: null,
     currentRoom: null,
-    error: null
+    error: null,
+    disableRecurring: true
   }
 
   // Pass supplied email & password to the signIn function, returns the users token
@@ -192,6 +193,17 @@ class App extends Component {
     this.setState({ capacityParams: capacityParams })
   }
 
+  // changing the boolean value for the display attribute for the recurring date input
+  onToggleRecurring = (value) => {
+    let disableRecurring
+    if (value === 'none') {
+      disableRecurring = true
+    } else {
+      disableRecurring = false
+    }
+    this.setState({disableRecurring: disableRecurring})
+  }
+
   onSetFloorParam = value => {
 		this.setState({ floorParam: value })
   }
@@ -283,7 +295,8 @@ class App extends Component {
       filterParams,
 			capacityParams,
 			floorParam,
-			availabilityParam
+      availabilityParam,
+      disableRecurring
     } = this.state
     const signedIn = !!decodedToken
     const signOut = this.onSignOut
@@ -399,8 +412,10 @@ class App extends Component {
                                 roomData={currentRoom}
                                 onMakeBooking={this.onMakeBooking}
                                 date={calendarDate}
+                                disableRecurring={disableRecurring}
                                 updateCalendar={setCalendarDate}
                                 onShowBooking={this.onShowBooking}
+                                onToggleRecurring={this.onToggleRecurring}
                                 calendarDate={calendarDate}
                               />
                             </div>
