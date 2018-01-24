@@ -1,0 +1,79 @@
+.form__grid
+  display grid
+  grid-gap 1rem
+  grid-template-columns 1fr auto auto
+  grid-template-rows 1fr auto
+  grid-column 1 / 2
+  grid-row 2
+  margin 2rem auto
+
+.content__calendar
+  grid-column 1
+  grid-row 1
+
+.content__table
+  grid-column 2
+  grid-row 1
+  width 40rem
+
+.content__form
+  background offWhite
+  -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  grid-column 3
+  grid-row 1
+  padding 0 4rem
+  width 40rem
+
+.form__input
+  display block
+  font-size 1.6rem
+  margin 0.6rem 0 2rem 0
+  padding 1rem 1.6rem
+  width 27rem
+
+input[type=checkbox]
+  box-shadow none
+  height 1.6rem
+  width 1.6rem
+
+input[type=radio]
+  box-shadow none
+  height 1.6rem
+  width 1.6rem
+
+.button__form--submit
+.button--google
+  margin 1rem 0
+  width 30.6rem
+
+.form__heading--filter
+  margin 0.8rem 0
+
+.form__input
+  &:active
+  &:focus
+    outline none
+
+.form__input--time
+  border 0.1em solid darkGrey
+  display inline-block
+  margin 1rem 0 1rem 1rem
+  width 12rem
+
+// Make a booking form
+
+.form__input--select
+  background #fff
+  border 1px solid darkGrey
+  display block
+  height 4.4rem
+  margin-top 0.4rem
+  width 100%
+
+.form__input--textarea
+  border 1px solid darkGrey
+  height 10rem
+  margin-top 0.4rem
+  width 100%

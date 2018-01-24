@@ -1,6 +1,5 @@
 import React from 'react'
 import Datetime from 'react-datetime'
-import moment from 'moment'
 
 const validDate = current => current.day() !== 0
 

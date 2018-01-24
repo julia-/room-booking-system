@@ -1,3 +1,4 @@
+@import url("https://use.typekit.net/jkj6uwy.css")
 @require './_*.styl'
 @require './*/_*.styl'
 
@@ -5,8 +6,100 @@ html
   font-size 62.5%
 
 body
-  font-family raleway
+  background lightGrey
+  font-family proxima
   font-size 1.6rem
+  padding 0
+  margin 0 auto
+  min-width 100%
+  -moz-osx-font-smoothing grayscale
+
+a
+  cursor pointer
+  padding 2rem
+  text-decoration none
+
+ul
+  margin 0 auto
+  padding 0
+  list-style-type none
+
+li
+  display inline-block
+
+.wrapper
+  display grid
+  grid-gap 1rem
+  grid-template-columns 1fr 2fr
+  grid-template-rows 1fr auto auto
+  min-width 90rem
+  width 100%
+
+.wrapper__content
+  display grid
+  grid-gap 1rem
+  grid-template-columns 1fr auto
+  grid-template-rows 1fr auto
+  min-width 80%
+  margin 0 3rem
+
+.header
+  background darkGrey
+  -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  grid-area header
+  grid-column 1 / -1
+  grid-row 1
+  width 100%
+  height 10rem
+  &--flex
+    display flex
+    justify-content space-between
+    align-items center
+  &__page
+    grid-column 1 / -1
+    grid-row 1
+  &__heading
+    font-family raleway
+    &--main
+      color lightGrey
+      font-size 3rem
+      font-weight 600
+      margin 0 3rem
+    &--sub
+      border-bottom 0.2rem solid darkGrey
+      font-size 2.6rem
+      font-weight 700
+      padding 1rem 0
+      margin 2.2rem 0 4.2rem 0
+    &--sidebar
+      font-size 2.4rem
+    &--column
+      font-size 2.4rem
+      text-align center
+
+.sidebar
+  grid-area sidebar
+  grid-column 1
+  grid-row 3
+  &__box
+    background offWhite
+    -webkit-box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
+    -moz-box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
+    box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
+    margin 3rem auto
+    width 30rem
+    &:first-child
+      margin 1rem auto
+
+.content
+  grid-area content
+  grid-column 2
+  grid-row 3
+
+.footer
+  grid-area footer
 
 .container__main
   background lightGrey
@@ -16,18 +109,23 @@ body
   width 40rem
 
 .container__form
-  padding 2rem 0
-  margin 0 auto
-  max-width 30rem
+  margin 0 3rem
+  padding 2rem 6rem
+  height 40rem
 
 .form__group
   margin 0 auto
 
 .form__label
   display block
-  font-weight 500
-  margin 1rem auto
+  font-weight 600
+  margin 1.8rem auto
+  padding-bottom 0.4rem
   text-align left
+  &--inline
+    display inline-block
+    padding-left 1rem
+    margin 0.3rem auto
 
 .form__input
   display block
@@ -36,7 +134,34 @@ body
   padding 1rem 1.6rem
   width 27rem
 
+input[type=checkbox]
+  box-shadow none
+  height 1.6rem
+  width 1.6rem
+
+input[type=radio]
+  box-shadow none
+  height 1.6rem
+  width 1.6rem
+
 .button__form--submit
 .button--google
   margin 1rem 0
   width 30.6rem
+
+.form__heading--filter
+  margin 0.8rem 0
+
+.form__input
+  &:active
+  &:focus
+    outline none
+
+.form__input--time
+  border 0.1em solid darkGrey
+  display inline-block
+  margin 1rem 0 1rem 1rem
+  width 12rem
+
+.form__group--button
+  margin 2rem 0 3rem 0

@@ -14,10 +14,10 @@ const rowMapper = (dayHours, props) => {
     // If the data for that hour is a number (not a booking object), there is no booking
     // Add a <td> element that indicates the time slot is available
     if (typeof bookingData == 'number') {
-      tableRow.push(<td className="available">
+      tableRow.push(<td className="table__cell--available">
           <Link to="/createbooking" onClick={() => {
               props.onSetRoom(props.room._id)
-            }}>
+        }} className="table__link--available">
             &nbsp;
           </Link>
         </td>)
@@ -28,7 +28,7 @@ const rowMapper = (dayHours, props) => {
         <td className={`table__cell`}>
           <span
             onClick={() => props.onShowBooking(bookingData)}
-            className={`table__cell--${bookingData.businessUnit // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
+            className={`table__cell--booked table__cell--${bookingData.businessUnit // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
               .replace(/ /g, '-')
               .toLowerCase()}
             ${bookingData.firstHalfHour ? 'table__cell--first-half-hour' : ''}
@@ -48,18 +48,16 @@ const rowMapper = (dayHours, props) => {
 const RoomRow = props => (
   <tr className="table__row">
     <th scope="row" className="table__cell--align-left">
-      <Link to="/createbooking" onClick={() => props.onSetRoom(props.room._id)}>{props.room.name}</Link>
-    </th>
-    <td className="table__data--asset">
+      <Link to="/createbooking" onClick={() => props.onSetRoom(props.room._id)} className="table__link">{props.room.name}</Link>
+      <ul >
       {Object.keys(props.room.assets).map(
         asset =>
           props.room.assets[asset] && (
-            <span key={asset} onClick={props.onShowBooking}>
-              {formatAssetName(asset)}
-            </span>
-          )
-      )}
-    </td>
+            <li key={asset} onClick={props.onShowBooking} className="table__data--asset">{formatAssetName(asset)}</li>
+            )
+          )}
+      </ul>
+    </th>
     {rowMapper(
       bookingArray(dailyBookings(props.date, props.bookings)),
       props
