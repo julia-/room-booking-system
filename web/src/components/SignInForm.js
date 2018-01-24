@@ -2,7 +2,7 @@ import React from 'react'
 
 function SignInForm({ onSignIn }) {
   return (
-    <form className="form"
+    <form className="form--signin"
       onSubmit={event => {
         event.preventDefault()
         const elements = event.target.elements
