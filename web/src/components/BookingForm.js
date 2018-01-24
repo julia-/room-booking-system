@@ -145,8 +145,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
           </div>
           <div className="form__group">
             <label className="form__label">
-              {'Description'}
-              <input type="textarea" name="description" className="form__input--textarea" />
+              {'Description'}<textarea type="textarea" name="description" className="form__input--textarea"></textarea>
             </label>
           </div>
           <div className="form__group--button">

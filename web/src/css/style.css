@@ -134,6 +134,9 @@ input[type=radio] {
   margin-top: 0.4rem;
   width: 27rem;
   display: block;
+  resize: none;
+  font-size: 1.8rem;
+  padding: 5px;
 }
 .button {
   background: #ed1c24;
