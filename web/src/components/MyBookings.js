@@ -5,8 +5,10 @@ import Avatar from '../assets/avatar.png'
 function MyBookings({
   user,
   userBookings,
-  onDeleteBooking
+  onDeleteBooking,
+  roomData
 }) {
+
   return (
     <div className="my-bookings-container">
       <div className="my-booking-user-info">
@@ -19,6 +21,7 @@ function MyBookings({
             Object.keys(userBookings).map(key => 
               <BookingElement 
               key={key} 
+              roomData={roomData}
               bookingData={userBookings[key]}
               onDeleteBooking={onDeleteBooking}
               />)

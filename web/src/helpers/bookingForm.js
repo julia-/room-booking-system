@@ -37,5 +37,14 @@ export const formatTime = (time) => {
   return formatedTimeArray
 }
 
-// export default formatTime
+// Find the Room and floor number from the booking ID
+export const findRoomInfo = (roomId, roomData) => {
+  let roomInfo
+  roomData.forEach(room => {
+    if (room._id === roomId) {
+      roomInfo = room
+    }
+  })
+  return roomInfo
+}
 
