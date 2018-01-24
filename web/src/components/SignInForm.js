@@ -2,7 +2,7 @@ import React from 'react'
 
 function SignInForm({ onSignIn }) {
   return (
-    <form
+    <form className="form"
       onSubmit={event => {
         event.preventDefault()
         const elements = event.target.elements
@@ -12,13 +12,13 @@ function SignInForm({ onSignIn }) {
       }}
     >
       <div className="form__group">
-        <label className="form__label">
+        <label className="form__label form__label--padding">
           {'Email'}
           <input type="email" name="email" className="form__input" />
         </label>
       </div>
       <div className="form__group">
-        <label className="form__label">
+        <label className="form__label form__label--padding">
           {'Password'}
           <input type="password" name="password" className="form__input" />
         </label>

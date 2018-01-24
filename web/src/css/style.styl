@@ -35,6 +35,21 @@ li
   min-width 90rem
   width 100%
 
+.wrapper__form
+  background offWhite
+  -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  display grid
+  grid-gap 1rem
+  grid-template-columns 1fr
+  grid-template-rows auto auto auto auto
+  margin 4rem auto
+  color darkGrey
+  padding 3rem
+  width 40rem
+  height auto
+
 .wrapper__content
   display grid
   grid-gap 1rem
@@ -71,8 +86,15 @@ li
       border-bottom 0.2rem solid darkGrey
       font-size 2.6rem
       font-weight 700
-      padding 1rem 0
       margin 2.2rem 0 4.2rem 0
+      padding 1rem 0
+    &--sub--alt
+      border-bottom 0.2rem solid darkGrey
+      font-size 2.6rem
+      font-weight 700
+      padding 2rem 0 1rem 0
+      margin 0 auto
+      width 30rem
     &--sidebar
       font-size 2.4rem
     &--column
@@ -101,31 +123,27 @@ li
 .footer
   grid-area footer
 
-.container__main
-  background lightGrey
-  color darkGrey
-  margin 10rem auto
-  padding 3rem
-  width 40rem
-
-.container__form
-  margin 0 3rem
-  padding 2rem 6rem
-  height 40rem
+.form
+  margin 1rem auto
+  width 30rem
 
 .form__group
   margin 0 auto
 
 .form__label
   display block
+  font-size 1.8rem
   font-weight 600
   margin 1.8rem auto
   padding-bottom 0.4rem
   text-align left
   &--inline
     display inline-block
+    font-size 1.6rem
     padding-left 1rem
     margin 0.3rem auto
+  &--padding
+    padding-bottom 0
 
 .form__input
   display block
@@ -145,51 +163,47 @@ input[type=radio]
   width 1.6rem
 
 .button__form--submit
-.button--google
   margin 1rem 0
   width 30.6rem
 
-.my-bookings-container 
+.button--google
+  margin 3rem auto
+
+.my-bookings-container
   padding: 20px
   margin: 50px auto
   width: 1000px
   box-shadow: 0px 3px 15px rgba(4, 5, 10, 0.2)
   background: offWhite
 
-
-.user-booking-container 
+.user-booking-container
   width: 900px
   margin: 10px auto
 
-
-.my-booking-user-info 
+.my-booking-user-info
   text-align: right
   line-height: 0.8em
   margin: 20px 35px
   padding: 10px
 
-
-.avatar 
+.avatar
   border: 1px solid lightgray
   width: 100px
   height: 120px
   margin-left: 89%
 
-
-.booking 
+.booking
   background: #fff
   border: 0.5px solid lightgray
   width: 900px
   margin: 5px
   display: flex
 
-
 .booking-left 
   width: 400px
   padding: 5px 20px
   text-align: left
   color: rgb(95, 70, 70)
-
 
 .booking-middle 
   padding-top: 30px
@@ -198,8 +212,7 @@ input[type=radio]
   width: 300px
   display: inline
 
-
-.booking-right 
+.booking-right
   width: 200px
   padding-top: 60px
 

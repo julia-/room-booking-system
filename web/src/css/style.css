@@ -624,6 +624,20 @@ li {
   min-width: 90rem;
   width: 100%;
 }
+.wrapper__form {
+  background: #fafafa;
+  -webkit-box-shadow: 0px 2px 5px 0px #cecece;
+  box-shadow: 0px 2px 5px 0px #cecece;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto auto;
+  margin: 4rem auto;
+  color: #1c1c11;
+  padding: 3rem;
+  width: 40rem;
+  height: auto;
+}
 .wrapper__content {
   display: grid;
   grid-gap: 1rem;
@@ -670,8 +684,16 @@ li {
   border-bottom: 0.2rem solid #1c1c11;
   font-size: 2.6rem;
   font-weight: 700;
-  padding: 1rem 0;
   margin: 2.2rem 0 4.2rem 0;
+  padding: 1rem 0;
+}
+.header__heading--sub--alt {
+  border-bottom: 0.2rem solid #1c1c11;
+  font-size: 2.6rem;
+  font-weight: 700;
+  padding: 2rem 0 1rem 0;
+  margin: 0 auto;
+  width: 30rem;
 }
 .header__heading--sidebar {
   font-size: 2.4rem;
@@ -703,23 +725,16 @@ li {
 .footer {
   grid-area: footer;
 }
-.container__main {
-  background: #f4f4f4;
-  color: #1c1c11;
-  margin: 10rem auto;
-  padding: 3rem;
-  width: 40rem;
-}
-.container__form {
-  margin: 0 3rem;
-  padding: 2rem 6rem;
-  height: 40rem;
+.form {
+  margin: 1rem auto;
+  width: 30rem;
 }
 .form__group {
   margin: 0 auto;
 }
 .form__label {
   display: block;
+  font-size: 1.8rem;
   font-weight: 600;
   margin: 1.8rem auto;
   padding-bottom: 0.4rem;
@@ -727,8 +742,12 @@ li {
 }
 .form__label--inline {
   display: inline-block;
+  font-size: 1.6rem;
   padding-left: 1rem;
   margin: 0.3rem auto;
+}
+.form__label--padding {
+  padding-bottom: 0;
 }
 .form__input {
   display: block;
@@ -749,10 +768,12 @@ input[type=radio] {
   height: 1.6rem;
   width: 1.6rem;
 }
-.button__form--submit,
-.button--google {
+.button__form--submit {
   margin: 1rem 0;
   width: 30.6rem;
+}
+.button--google {
+  margin: 3rem auto;
 }
 .my-bookings-container {
   padding: 20px;
