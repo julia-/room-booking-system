@@ -45,7 +45,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
       <div className="header__page">
         <h2 className="header__heading header__heading--sub">Level {roomData.floor} | {roomData.name}</h2>
       </div>
-      <form className="form__grid form" onSubmit={event => {
+      <form className="form__grid form--booking" onSubmit={event => {
           event.preventDefault()
           // Extract date array from current date in state
           const dateArray = moment(date)
@@ -86,10 +86,10 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
         </div>
         <div className="content__form">
           <h3 className="header__heading header__heading--column">Make a Booking</h3>
-          <div className="form__group">
-            <label className="form__label">
-              {'Start Time'}
-              <select name="startTime" className="form__input">
+          <div className="form__group form__group--margin-top">
+            <label className="form__label form__label--booking">
+              {'Start time'}
+              <select name="startTime" className="form__input form__input--select">
                 {startTimeSelectOptions.map(option => {
                   return option
                 })}
@@ -97,9 +97,9 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             </label>
           </div>
           <div className="form__group">
-            <label className="form__label">
-              {'End Time'}
-              <select name="endTime" className="form__input">
+            <label className="form__label form__label--booking">
+              {'End time'}
+              <select name="endTime" className="form__input form__input--select">
                 {endTimeSelectOptions.map(option => {
                   return option
                 })}
@@ -107,9 +107,9 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             </label>
           </div>
           <div className="form__group">
-            <label className="form__label">
+            <label className="form__label form__label--booking">
               {'Business Unit'}
-              <select name="business" defaultValue="Business Unit 1" className="form__input">
+              <select name="business" defaultValue="Business Unit 1" className="form__input form__input--select">
                 <option value="Business Unit 1">Business Unit 1</option>
                 <option value="Business Unit 2">Business Unit 2</option>
                 <option value="Business Unit 3">Business Unit 3</option>
@@ -119,38 +119,41 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             </label>
           </div>
           <div className="form__group">
-            <label className="form__label">
+            <label className="form__label form__label--booking">
               {'Recurring'}
-              <select name="recurring" defaultValue="none" onChange={ (event) => onToggleRecurring(event.target.value)} className="form__input">
-                <option value="none">Non recurring</option>
-                <option value="daily">Daily</option>
-                <option value="weekly">Weekly</option>
-                <option value="monthly">Monthly</option>
-              </select>
+              <span>
+                <select name="recurring" defaultValue="none" onChange={(event) => onToggleRecurring(event.target.value)} className="form__input form__input--select">
+                  <option value="none">Non recurring</option>
+                  <option value="daily">Daily</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="monthly">Monthly</option>
+                </select>
+              </span>
             </label>
           </div>
-          <label className="form__label">
-            {'Recurring End Date'}
+          <label className="form__label form__label--booking">
+            {'Recurring end date'}
             <input type="date" name="recurringEndDate" disabled={disableRecurring} className="form__input--date"/>
           </label>
           <div className="form__group">
-            <label className="form__label">
+            <label className="form__label form__label--booking">
               {'Purpose'}
-              <select name="purpose" defaultValue="Scheduled Class" className="form__input">
-                <option value="Scheduled Class">Scheduled Class</option>
-                <option value="Special Event">Special Event</option>
-                <option value="Ad-hoc Event">Ad-hoc Event</option>
+              <select name="purpose" defaultValue="Scheduled class" className="form__input form__input--select">
+                <option value="Scheduled Class">Scheduled class</option>
+                <option value="Special Event">Special event</option>
+                <option value="Ad-hoc Event">Ad-hoc event</option>
               </select>
             </label>
           </div>
           <div className="form__group">
-            <label className="form__label">
-              {'Description'}<textarea type="textarea" name="description" className="form__input--textarea"></textarea>
+            <label className="form__label form__label--booking">
+              {'Description'}
+              <textarea type="textarea" name="description" className="form__input--textarea"></textarea>
             </label>
           </div>
           <div className="form__group--button">
-            <Button className="button button--inline" text={'Submit'} />
-            <Link to="/bookings" className="button button--inline button--alternative" >Go back</Link>
+            <Button className="button button__form--booking" text={'Submit'} />
+            <Link to="/bookings" className="button button--alternative button__form--booking" >View availability</Link>
           </div>
         </div>
       </form>
