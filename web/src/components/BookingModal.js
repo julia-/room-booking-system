@@ -43,10 +43,7 @@ const BookingModal = props => {
           <p>Description</p>
         </div>
       )}
-      <Button
-        onClick={props.onCloseBooking}
-        text={`Contact`}
-      />
+      <a href={`mailto:${props.user}`} className="button">Contact</a>
       <Button
         onClick={props.onCloseBooking}
         text={`Update`}

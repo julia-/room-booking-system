@@ -357,6 +357,7 @@ class App extends Component {
                               onCloseBooking={this.onCloseBooking}
                               onDeleteBooking={onDeleteBooking}
                               roomData={roomData}
+                              user={decodedToken.email}
                             />
                           </Fragment>
                         )}
@@ -388,6 +389,7 @@ class App extends Component {
                                 onCloseBooking={this.onCloseBooking}
                                 onDeleteBooking={onDeleteBooking}
                                 roomData={roomData}
+                                user={decodedToken.email}
                               />
                             </Fragment>
                           )}
