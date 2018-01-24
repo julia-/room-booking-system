@@ -69,8 +69,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             let recurringData = handleRecurringData(recurringType, recurringEnd)
             const purpose = formData.purpose.value
             const description = formData.description.value
-          // onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId, recurringData })
-          console.log(recurringData)
+          onMakeBooking({ startDate, endDate, businessUnit, purpose, roomId, recurringData })
         }}>
         <div className="content__calendar">
           <Datetime
