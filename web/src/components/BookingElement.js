@@ -11,27 +11,26 @@ function BookingElement({
 }) {
 
   const roomInfo = findRoomInfo(bookingData.roomId, roomData)
-  const startTime = momentTimezone.tz(bookingData.bookingStart, 'Australia/Melbourne').format('h.mma')
-  const endTime = momentTimezone.tz(bookingData.bookingEnd, 'Australia/Melbourne').format('h.mma')
-  
+  const startTime = momentTimezone.tz(bookingData.bookingStart, 'Australia/Sydney').format('h.mma')
+  const endTime = momentTimezone.tz(bookingData.bookingEnd, 'Australia/Sydney').format('h.mma')
+
   return (
-    <div className="booking">
-      <div className="booking-left">
-        <h2>{moment(bookingData.bookingStart).format('dddd, MMMM Do YYYY')}</h2>
-        <h3>{bookingData.businessUnit}</h3>
-        <h3>{bookingData.purpose}</h3>
+    <div className="booking__box">
+      <div className="booking__innerbox--left">
+        <h3 className="header__heading--sub--alt header__heading--small">{moment(bookingData.bookingStart).format('dddd, MMMM Do YYYY')}</h3>
+        <p>{bookingData.businessUnit}</p>
+        <p>{bookingData.purpose}</p>
       </div>
-      <div className="booking-middle">
-        <p>From: {startTime} to {endTime}</p>
-        <p>Duration: {bookingData.duration}hrs</p>
-        <p>Floor {roomInfo.floor} : {roomInfo.name}</p>
+      <div className="booking__innerbox--middle">
+        <p>From {startTime} to {endTime}</p>
+        <p>Duration {bookingData.duration}hrs</p>
+        <p>Level {roomInfo.floor}, {roomInfo.name}</p>
       </div>
-      <div className="booking-right">
-        <Button 
+      <div className="booking__innerbox--right">
+        <Button
           onClick={() => onDeleteBooking(bookingData.roomId, bookingData._id)}
           text={`Delete`}
         />
-        
       </div>
     </div>
   )
