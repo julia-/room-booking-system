@@ -71,7 +71,7 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
       .catch(error => {
         res.status(400).json({ error })
       })
-      
+
   // If the booking is a recurring daily or weekly booking
   } else if (req.body.recurring[1] === 'daily' || (req.body.recurring[1] === 'weekly')) {
     
@@ -88,7 +88,8 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
     let bookingDateTracker = moment(firstBooking.bookingStart)
     
     // A Moment.js date object for the final booking date in the recurring booking range - set to one hour ahead of the first booking - to calculate the number of days or weeks between the first and last bookings when rounded down
-    let lastBookingDate = moment(firstBooking.recurring[0], bookingDateTracker.hour() + 1)
+    let lastBookingDate = moment(firstBooking.recurring[0])
+    lastBookingDate.hour(bookingDateTracker.hour() + 1)
     
     // The number of subsequent bookings in the recurring booking date range 
     let bookingsInRange = req.body.recurring[1] === 'daily' ? 
@@ -97,7 +98,7 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
 
     // Set the units which will be added to the bookingDateTracker - days or weeks
     let units = req.body.recurring[1] === 'daily' ? 'd' : 'w'
-
+    
     // Each loop will represent a potential booking in this range 
     for (let i = 0; i < bookingsInRange; i++) {
       
