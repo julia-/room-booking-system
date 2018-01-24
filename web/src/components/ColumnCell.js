@@ -27,7 +27,7 @@ const ColumnCell = props => {
           <tbody>
           <tr className="table__row--no-border table__row--border-bottom">
               <td
-                onClick={() => props.onShowBooking(bookingData)} className={`table__cell--${bookingData.businessUnit
+            onClick={() => props.onShowBooking(bookingData)} className={`table__cell--${bookingData.businessUnit
                   .replace(/ /g, '-')
                 .toLowerCase()} table__cell--subcell`
                 }
@@ -50,7 +50,7 @@ const ColumnCell = props => {
               <td className="table__cell--subcell available">Available</td>
             </tr>
             <tr className="table__row--no-border">
-              <td onClick={() => props.onShowBooking(bookingData)} className={`table__cell--${bookingData.businessUnit
+          <td onClick={() => props.onShowBooking(bookingData)} className={`table__cell--${bookingData.businessUnit
                   .replace(/ /g, '-')
                   .toLowerCase()} table__cell--subcell`
                 }
