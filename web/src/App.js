@@ -310,7 +310,7 @@ class App extends Component {
                       </div>
                       <SignInForm onSignIn={this.onSignIn} />
                       <h3 className="header__heading header__heading--sub--alt">Or sign in with Google</h3>
-                      <Button onClick={this.onBeginGoogleSignIn} className="button button--google" text={'Sign in with Google'} />
+                      <Button onClick={this.onBeginGoogleSignIn} className="button button__form--google" text={'Sign in with Google'} />
                     </div>
                   )
                 )} />
@@ -432,7 +432,7 @@ class App extends Component {
                                 user={signedIn ? decodedToken.sub : null}
                               />
                             </div>
-                            <div className="wrapper__content">
+                            <div className="wrapper__content--bookings">
                               <div className="header__page">
                                 <h2 className="header__heading header__heading--sub">My Bookings</h2>
                               </div>
