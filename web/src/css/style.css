@@ -17,6 +17,7 @@
   border: 0.1rem solid #cecece;
 }
 .table__row--full {
+  height: 6rem;
   padding: 2rem 0;
   border: 0.1rem solid #cecece;
 }
