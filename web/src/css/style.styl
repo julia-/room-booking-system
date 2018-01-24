@@ -30,7 +30,7 @@ li
 .wrapper
   display grid
   grid-gap 1rem
-  grid-template-columns 1fr 2fr
+  grid-template-columns auto
   grid-template-rows 1fr auto auto
   min-width 90rem
   width 100%
@@ -57,6 +57,25 @@ li
   grid-template-rows 1fr auto
   min-width 80%
   margin 0 3rem
+
+.wrapper__content--bookings
+  display grid
+  grid-gap 1rem
+  grid-template-columns auto
+  grid-template-rows 1fr auto
+  margin 3rem
+
+.wrapper__bookings
+  background offWhite
+  -webkit-box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
+  -moz-box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
+  box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
+  display grid
+  grid-gap 1rem
+  grid-template-columns auto 1fr
+  grid-template-rows auto
+  grid-column 1
+  grid-row 2
 
 .header
   background darkGrey
@@ -100,6 +119,10 @@ li
     &--column
       font-size 2.4rem
       text-align center
+    &--small
+        font-size 1.8rem
+        margin 0 0
+        width 28rem
 
 .sidebar
   grid-area sidebar
@@ -123,12 +146,24 @@ li
 .footer
   grid-area footer
 
-.form
+.modal__paragraph
+  line-height 1.05
+  padding 0
+// Form Styles
+
+.form--booking // make a Booking
+  margin 1rem auto
+
+.form--signin // sign in
   margin 1rem auto
   width 30rem
 
-.form__group
+.form__group // group label and input
   margin 0 auto
+  &--button // button group
+    margin 2rem 0 3rem 0
+  &--margin-top
+    margin-top 3rem
 
 .form__label
   display block
@@ -144,6 +179,11 @@ li
     margin 0.3rem auto
   &--padding
     padding-bottom 0
+  &--booking
+    font-size 1.6rem
+    padding 0
+  // &--margin-top
+  //   margin-top 3rem
 
 .form__input
   display block
@@ -151,6 +191,67 @@ li
   margin 0.6rem 0 2rem 0
   padding 1rem 1.6rem
   width 27rem
+  &:active
+  &:focus
+    outline none
+  &--time
+    border 0.1em solid darkGrey
+    display inline-block
+    margin 1rem 0 1rem 1rem
+    width 12rem
+  &--select // https://codepen.io/vkjgr/pen/VYMeXp
+    background offWhite
+    border 0.1rem solid semiDarkGrey
+    display block
+    font-size 1.4rem
+    margin 0.5rem auto
+    padding 0.8rem 3.8rem 0.8rem 1rem
+    width 100%
+    -webkit-appearance none
+    -moz-appearance none
+    appearance none
+    background-image:
+      linear-gradient(45deg, transparent 50%, semiDarkGrey 50%),
+      linear-gradient(135deg, semiDarkGrey 50%, transparent 50%),
+      linear-gradient(to right, semiDarkGrey, semiDarkGrey)
+    background-position:
+      calc(100% - 20px) calc(1em + 2px),
+      calc(100% - 15px) calc(1em + 2px),
+      calc(100% - 2.5em) 0.5em
+    background-size:
+      5px 5px,
+      5px 5px,
+      1px 1.5em
+    background-repeat no-repeat
+    &:-moz-focusring
+      color transparent
+      text-shadow 0 0 0 darkGrey
+  &--date
+    background lightGrey
+    border 0.1rem solid semiDarkGrey
+    box-sizing border-box
+    color darkGrey
+    display block
+    font-family raleway
+    font-size 1.4rem
+    height 3.8rem
+    margin-top 0.4rem
+    padding 0 1rem
+    width 100%
+  &--textarea
+    border 0.1rem solid semiDarkGrey
+    display block
+    font-family raleway
+    font-size 1.8rem
+    height 6rem
+    margin-top 0.4rem
+    padding 0.5rem 0
+    resize none
+    width 100%
+
+input
+  &:focus
+    outline none
 
 input[type=checkbox]
   box-shadow none
@@ -162,74 +263,65 @@ input[type=radio]
   height 1.6rem
   width 1.6rem
 
-.button__form--submit
-  margin 1rem 0
-  width 30.6rem
-
-.button--google
-  margin 3rem auto
-
-.my-bookings-container
-  padding: 20px
-  margin: 50px auto
-  width: 1000px
-  box-shadow: 0px 3px 15px rgba(4, 5, 10, 0.2)
-  background: offWhite
-
-.user-booking-container
-  width: 900px
-  margin: 10px auto
-
-.my-booking-user-info
-  text-align: right
-  line-height: 0.8em
-  margin: 20px 35px
-  padding: 10px
-
-.avatar
-  border: 1px solid lightgray
-  width: 100px
-  height: 120px
-  margin-left: 89%
-
-.booking
-  background: #fff
-  border: 0.5px solid lightgray
-  width: 900px
-  margin: 5px
-  display: flex
-
-.booking-left 
-  width: 400px
-  padding: 5px 20px
-  text-align: left
-  color: rgb(95, 70, 70)
-
-.booking-middle 
-  padding-top: 30px
-  text-align: left
-  line-height: 0.8em
-  width: 300px
-  display: inline
-
-.booking-right
-  width: 200px
-  padding-top: 60px
-
 .form__heading--filter
   margin 0.8rem 0
 
-.form__input
-  &:active
-  &:focus
-    outline none
+.button__form
+  &--submit
+    margin 1rem 0
+    width 30.6rem
+  &--google
+    margin 3rem auto
+    width 30.6rem
+  &--booking
+    display inline-block
+    font-size 1.4rem
+    margin 0.8rem 0
+    padding 1.6rem 0
+    text-align center
+    width 100%
+    &:last-child
+      margin-top 1.4rem
 
-.form__input--time
-  border 0.1em solid darkGrey
-  display inline-block
-  margin 1rem 0 1rem 1rem
-  width 12rem
+.booking__user-info
+  grid-column 2
+  grid-row 1
+  line-height 1rem
+  margin 2rem 3.5rem
+  padding 1rem
+  text-align center
 
-.form__group--button
-  margin 2rem 0 3rem 0
+.avatar
+  border 0.1rem solid lightgray
+  width 10rem
+  height 12rem
+  text-align right
+  margin 3.4rem auto
+
+.booking__box
+  grid-column 1
+  grid-row 1
+  background lightGrey
+  display flex
+  border 0.1rem solid mediumGrey
+  margin 5rem
+  width 100%
+
+.booking__innerbox--left
+  color darkGrey
+  padding 0.5rem 2rem
+  text-align left
+  width 40%
+
+.booking__innerbox--middle
+  line-height 0.8em
+  margin 3rem auto
+  padding-top 3rem
+  text-align left
+  width 40%
+
+.booking__innerbox--right
+  margin 3rem auto
+  padding-top 4.4rem
+  width 20%
 
