@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from './Button'
 import moment from 'moment'
-import { formatTime, timeSelectOptions} from '../helpers/bookingForm'
+import { formatTime, startTimeSelectOptions, endTimeSelectOptions } from '../helpers/bookingForm'
 
 function FilterElement({
   onSetFloorParam,
@@ -105,7 +105,7 @@ function FilterElement({
               <label className="form__label form__label--inline">
                 {'Start Time'}
                 <select name="startTime" onChange={(event) => onSetTimeFilterParams(formatTime(event.target.value), 0)}>
-                   {timeSelectOptions.map(option => {return option})}
+                   {startTimeSelectOptions.map(option => {return option})}
                 </select>
               </label>
             </div>
@@ -113,7 +113,7 @@ function FilterElement({
               <label className="form__label form__label--inline">
                 {'End Time'}
                 <select name="endTime" onChange={(event) => onSetTimeFilterParams(formatTime(event.target.value), 1)}>
-                  {timeSelectOptions.map(option => {return option})}
+                  {endTimeSelectOptions.map(option => {return option})}
                 </select>
               </label>
             </div>
