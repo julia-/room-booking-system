@@ -79,13 +79,13 @@ export const onFilterByAvailablity = (params, filteredData) => {
   return filteredData
 }
 
-export const onFilterByTime = (date, params, filteredData) => {
-  const startTime = params[0]
-  const endTime = params[1]
-  const bookingDate = moment(date).format('Y M D').split(' ').map(item => parseInt(item, 10))
-  let startTimeDate = [ ...bookingDate, ...startTime]
-  let endTimeDate = [...bookingDate, ...endTime]
+// export const onFilterByTime = (date, params, filteredData) => {
+//   const startTime = params[0]
+//   const endTime = params[1]
+//   const bookingDate = moment(date).format('Y M D').split(' ').map(item => parseInt(item, 10))
+//   let startTimeDate = [ ...bookingDate, ...startTime]
+//   let endTimeDate = [...bookingDate, ...endTime]
 
-  console.log(startTimeDate, endTimeDate)
-  return filteredData
-}
+//   console.log(startTimeDate, endTimeDate)
+//   return filteredData
+// }

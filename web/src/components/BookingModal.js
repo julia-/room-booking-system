@@ -2,6 +2,7 @@ import React from 'react'
 import ReactModal from 'react-modal'
 import momentTimezone from 'moment-timezone'
 import Button from './Button'
+import { findRoomInfo } from '../helpers/bookingForm.js'
 
 const BookingModal = props => {
   
@@ -9,6 +10,9 @@ const BookingModal = props => {
     props.onDeleteBooking(props.selectedBooking.roomId, props.selectedBooking._id)
     props.onCloseBooking()
   }
+  
+  // const roomId = props.selectedBooking.roomId
+  // const roomInfo = findRoomInfo(props.selectedBooking.roomId, props.roomData)
 
   return (
     <ReactModal
@@ -23,11 +27,12 @@ const BookingModal = props => {
       className="modal"
     >
       <h3 className="modal__title">Booking Details</h3>
-
+     
       {!!props.selectedBooking && (
         <div className="modal__boday">
-          <p>
-            {`Room, Floor: ${momentTimezone
+          <p> {findRoomInfo(props.selectedBooking.roomId, props.roomData).name}{' : Level '}
+          {findRoomInfo(props.selectedBooking.roomId, props.roomData).floor}
+            {`, ${momentTimezone
               .tz(props.selectedBooking['bookingStart'], 'Australia/Melbourne')
               .format('h.mma')} to ${momentTimezone
               .tz(props.selectedBooking['bookingEnd'], 'Australia/Melbourne')
@@ -38,10 +43,7 @@ const BookingModal = props => {
           <p>Description</p>
         </div>
       )}
-      <Button
-        onClick={props.onCloseBooking}
-        text={`Contact`}
-      />
+      <a href={`mailto:${props.user}`} className="button">Contact</a>
       <Button
         onClick={props.onCloseBooking}
         text={`Update`}
