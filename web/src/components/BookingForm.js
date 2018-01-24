@@ -160,7 +160,6 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             <Button className="button button--inline" text={'Submit'} />
             <Link to="/bookings" className="button button--inline button--alternative" >Go back</Link>
           </div>
-        </div>
       </form>
     </Fragment>
   )
