@@ -26,7 +26,7 @@ router.post('/rooms', requireJWT, (req, res) => {
     })
 })
 
-// Function to convert UTC JS Date object) to a Moment.js object in AEST
+// Function to convert UTC JS Date object to a Moment.js object in AEST
 const dateAEST = date => {
   return momentTimezone(date).tz('Australia/Sydney')
 }
@@ -85,10 +85,10 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
     let recurringBookings = [ firstBooking ]
     
     // A Moment.js object to track each date in the recurring range, initialised with the first date
-    let bookingDateTracker = moment(firstBooking.bookingStart)
+    let bookingDateTracker = momentTimezone(firstBooking.bookingStart).tz('Australia/Sydney')
     
     // A Moment.js date object for the final booking date in the recurring booking range - set to one hour ahead of the first booking - to calculate the number of days/weeks/months between the first and last bookings when rounded down
-    let lastBookingDate = moment(firstBooking.recurring[0])
+    let lastBookingDate = momentTimezone(firstBooking.recurring[0]).tz('Australia/Sydney')
     lastBookingDate.hour(bookingDateTracker.hour() + 1)
     
     // The number of subsequent bookings in the recurring booking date range 
@@ -115,7 +115,7 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
         let newBooking = Object.assign({}, firstBooking)
         
         // Calculate the end date/time of the new booking by adding the number of units to the first booking's end date/time
-        let firstBookingEndDate = moment(firstBooking.bookingEnd)
+        let firstBookingEndDate = momentTimezone(firstBooking.bookingEnd).tz('Australia/Sydney')
         let proposedBookingDateEnd = firstBookingEndDate.add(i + 1, units)
         
         // Update the new booking object's start and end dates
