@@ -87,7 +87,7 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
     // A Moment.js object to track each date in the recurring range, initialised with the first date
     let bookingDateTracker = moment(firstBooking.bookingStart)
     
-    // A Moment.js date object for the final booking date in the recurring booking range - set to one hour ahead of the first booking - to calculate the number of days or weeks between the first and last bookings when rounded down
+    // A Moment.js date object for the final booking date in the recurring booking range - set to one hour ahead of the first booking - to calculate the number of days/weeks/months between the first and last bookings when rounded down
     let lastBookingDate = moment(firstBooking.recurring[0])
     lastBookingDate.hour(bookingDateTracker.hour() + 1)
     
