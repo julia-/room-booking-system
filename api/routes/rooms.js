@@ -72,8 +72,8 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
         res.status(400).json({ error })
       })
 
-  // If the booking is a recurring daily or weekly booking
-  } else if (req.body.recurring[1] === 'daily' || (req.body.recurring[1] === 'weekly')) {
+  // If the booking is a recurring booking
+  } else {
     
     // The first booking in the recurring booking range
     let firstBooking = req.body
@@ -93,11 +93,14 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
     
     // The number of subsequent bookings in the recurring booking date range 
     let bookingsInRange = req.body.recurring[1] === 'daily' ? 
-      Math.floor(lastBookingDate.diff(bookingDateTracker, 'days', true)) :
-      Math.floor(lastBookingDate.diff(bookingDateTracker, 'weeks', true))
+                          Math.floor(lastBookingDate.diff(bookingDateTracker, 'days', true)) :
+                          req.body.recurring[1] === 'weekly' ?
+                          Math.floor(lastBookingDate.diff(bookingDateTracker, 'weeks', true)) :
+                          Math.floor(lastBookingDate.diff(bookingDateTracker, 'months', true))
 
-    // Set the units which will be added to the bookingDateTracker - days or weeks
-    let units = req.body.recurring[1] === 'daily' ? 'd' : 'w'
+    // Set the units which will be added to the bookingDateTracker - days, weeks or months
+    let units = req.body.recurring[1] === 'daily' ? 'd' : 
+                req.body.recurring[1] === 'weekly' ? 'w' : 'M'
     
     // Each loop will represent a potential booking in this range 
     for (let i = 0; i < bookingsInRange; i++) {
