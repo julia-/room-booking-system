@@ -731,6 +731,7 @@ li {
 }
 .form__label--inline {
   display: inline-block;
+  font-size: 1.6rem;
   padding-left: 1rem;
   margin: 0.3rem auto;
 }
