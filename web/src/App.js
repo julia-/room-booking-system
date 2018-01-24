@@ -315,16 +315,15 @@ class App extends Component {
               <Switch>
                 <Route path="/" exact render={() => (!!decodedToken && signedIn ?
                   (<Redirect to="/bookings" />) :
-                  (<div className="container__main">
-                    <h2>Sign in</h2>
-                    <div className="container__form">
+                  (<div className="wrapper__form">
+                      <div className="header__page">
+                        <h2 className="header__heading header__heading--sub--alt">Sign in with email</h2>
+                      </div>
                       <SignInForm onSignIn={this.onSignIn} />
-                    </div>
-                    <div className="container__google">
-                      <h3>Or sign in with Google</h3>
+                      <h3 className="header__heading header__heading--sub--alt">Or sign in with Google</h3>
                       <Button onClick={this.onBeginGoogleSignIn} className="button button--google" text={'Sign in with Google'} />
                     </div>
-                  </div>)
+                  )
                 )} />
 
                 <Route path="/bookings" exact render={requireAuth(() => (
