@@ -83,23 +83,20 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
     // An array containing the first booking and for all remaining bookings to be added to
     let recurringBookings = [ firstBooking ]
     
-    // The start date of the first booking
-    let firstBookingStartDate = moment(firstBooking.bookingStart)
+    // A moment object to track each date in the recurring range, initialised with the first date
+    let bookingDateTracker = moment(firstBooking.bookingStart)
     
     // A Moment date object for the final booking date in the recurring booking range
     let lastBookingDate = moment(firstBooking.recurring[0])
     
     // The number of days in the recurring booking date range
-    let daysInRange = lastBookingDate.diff(firstBookingStartDate, 'days', true)
-    
+    let daysInRange = lastBookingDate.diff(bookingDateTracker, 'days', true)
+
     // Each loop will represent a day (i.e. a potential booking) in this range 
     for (let i = 0; i < Math.ceil(daysInRange); i++) {
-
-      // The number of days between the day and the first booking
-      let days = i + 1
       
-      // Add these days to get the date of the proposed booking
-      let proposedBookingDateStart = firstBookingStartDate.add(days, 'd')
+      // Add one day to the booking tracker to get the date of the potential booking
+      let proposedBookingDateStart = bookingDateTracker.add(1, 'd')
     
       // Check whether this day is a weekday (no bookings on weekends)
       if (proposedBookingDateStart.day() !== 6 && proposedBookingDateStart.day() !== 0) {
@@ -109,7 +106,7 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
         
         // Calculate the end date of the new booking
         let firstBookingEndDate = moment(firstBooking.bookingEnd)
-        let proposedBookingDateEnd = firstBookingEndDate.add(days, 'd')
+        let proposedBookingDateEnd = firstBookingEndDate.add(i + 1, 'd')
         
         // Update the new booking object's start and end dates
         newBooking.bookingStart = proposedBookingDateStart.toDate()
@@ -119,6 +116,7 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
         recurringBookings.push(newBooking)
       }
     }
+    
 
     // Find the relevant room and save the bookings
     Room.findByIdAndUpdate(
@@ -127,7 +125,7 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
         $push: {
           bookings: {
             $each:
-              recurringBookings
+            recurringBookings
           }
         }
       },

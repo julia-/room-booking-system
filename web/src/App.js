@@ -103,13 +103,13 @@ class App extends Component {
       )
         .then(updatedRoom => {
           // If the new booking is successfully saved to the database
-          alert(`${updatedRoom.name} sucessfully booked.`)
+          alert(`${updatedRoom.name} successfully booked.`)
           updateStateRoom(this, updatedRoom, this.loadMyBookings, this.onResetFilteredData)
-      })
+        })
     } catch (err) {
       // If there is a booking clash and the booking could not be saved
       alert(
-        'Your booking could not be saved. Please ensure it does not clash with an existing booking and that it is not a past date.'
+        'Your booking could not be saved. Please ensure it does not clash with an existing booking and that it is a valid time in the future.'
       )
       console.log(err)
     }
