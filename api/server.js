@@ -13,7 +13,7 @@ const server = express()
 
 // Middleware
 server.use(bodyParser.json())
-server.use(cors())
+server.use(cors({ credentials: true }))
 server.use(authMiddleware.initialize)
 
 // Routes
