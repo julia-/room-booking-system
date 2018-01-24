@@ -27,7 +27,6 @@ import {
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
 import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
-import RoomSelector from './components/RoomSelector'
 import Calendar from './components/Calendar'
 import BookingModal from './components/BookingModal'
 import { floorParams, filterParams, capacityParams, onFilterByFloor, onFilterByFeature, onFilterByCapacity, onFilterByAvailablity } from './helpers/filters'
@@ -300,7 +299,6 @@ class App extends Component {
       <Router>
         <div id="app" className="App">
           <Fragment>
-              {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
               <Switch>
                 <Route path="/" exact render={() => (!!decodedToken && signedIn ?
                   (<Redirect to="/bookings" />) :
