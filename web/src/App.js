@@ -27,7 +27,6 @@ import {
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
 import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
-import RoomSelector from './components/RoomSelector'
 import Calendar from './components/Calendar'
 import BookingModal from './components/BookingModal'
 import { floorParams, filterParams, capacityParams, onFilterByFloor, onFilterByFeature, onFilterByCapacity, onFilterByAvailablity } from './helpers/filters'
@@ -42,7 +41,7 @@ class App extends Component {
     selectedBooking: null,
     filterParams: filterParams,
     capacityParams: capacityParams,
-    floorParam: null,
+    floorParam: 'all',
     availabilityParam: null,
     filteredData: null,
     checked: null,
@@ -104,7 +103,7 @@ class App extends Component {
         .then(updatedRoom => {
           // If the new booking is successfully saved to the database
           alert(`${updatedRoom.name} successfully booked.`)
-          updateStateRoom(this, updatedRoom, this.loadMyBookings, this.onResetFilteredData)
+          updateStateRoom(this, updatedRoom, this.loadMyBookings)
         })
     } catch (err) {
       // If there is a booking clash and the booking could not be saved
@@ -124,7 +123,6 @@ class App extends Component {
           this,
           updatedRoom,
           this.loadMyBookings,
-          this.onResetFilteredData
         )
       })
       .catch(error => console.error(error.message))
@@ -133,39 +131,6 @@ class App extends Component {
   setRoom = id => {
     const room = this.state.roomData.find(room => room._id === id)
     this.setState({ currentRoom: room })
-  }
-
-  onResetFloorParams = () => {
-		this.setState({floorParam: null})
-	}
-
-	onResetAvailabilityParam = () => {
-		this.setState({availabilityParam: null})
-	}
-
-  onResetFeatureParams = () => {
-    let filterParams = this.state.filterParams
-    filterParams.forEach(param => param.value = false)
-    this.setState({filterParams: filterParams})
-  }
-
-  onResetCapacityParams = () => {
-    let capacityParams = this.state.capacityParams
-    capacityParams.forEach(param => param.value = false)
-    this.setState({capacityParams: capacityParams})
-  }
-
-  onResetFilterParams = () => {
-    this.onResetFeatureParams()
-		this.onResetCapacityParams()
-		this.onResetFloorParams()
-		this.onResetAvailabilityParam()
-  }
-
-  onResetFilteredData = () => {
-    const roomData = this.state.roomData
-    this.setState({ filteredData: roomData })
-    this.render()
   }
 
   // setting the feature filter parameters
@@ -209,29 +174,6 @@ class App extends Component {
 
   onSetAvailabilityParam = availability => {
     this.setState({ availabilityParam: availability })
-  }
-
-  onFilterAll = (floor, availability) => {
-    let roomData = this.state.roomData
-    let filteredData = []
-    const floorParam = this.state.floorParam
-    const featureParams = this.state.filterParams
-    const capacityParams = this.state.capacityParams
-    const availabilityParam = this.state.availabilityParam
-    const date = this.state.currentDate
-
-    // Send all room data and the selected floor, return filtered floors and store in filteredData
-    filteredData = onFilterByFloor(floorParam, roomData)
-    // Send the previously filtered data along with the feature params
-    filteredData = onFilterByFeature(featureParams, filteredData)
-    // Send the previously filtered data along with the capacity params
-    filteredData = onFilterByCapacity(capacityParams, filteredData)
-    // Send the previously filtered data along with the availability
-    filteredData = onFilterByAvailablity(availabilityParam, filteredData)
-    // set state to the room data, passed through all filter functions
-    this.setState({ filteredData: filteredData })
-    // reset filter variables stored in state
-    this.onResetFilterParams()
   }
 
   // get today's bookings for all rooms
@@ -280,7 +222,6 @@ class App extends Component {
       roomData,
       calendarDate,
       selectedBooking,
-      filteredData,
       filterParams,
 			capacityParams,
 			floorParam,
@@ -292,6 +233,21 @@ class App extends Component {
     const loadMyBookings = this.loadMyBookings
     const onDeleteBooking = this.onDeleteBooking
     const setCalendarDate = this.setCalendarDate
+    
+    let filteredData = []
+    const featureParams = this.state.filterParams
+    const date = this.state.currentDate
+
+    if (!!roomData) {
+      // Send all room data and the selected floor, return filtered floors and store in filteredData
+      filteredData = onFilterByFloor(floorParam, roomData)
+      // Send the previously filtered data along with the feature params
+      filteredData = onFilterByFeature(featureParams, filteredData)
+      // Send the previously filtered data along with the capacity params
+      filteredData = onFilterByCapacity(capacityParams, filteredData)
+      // Send the previously filtered data along with the availability
+      filteredData = onFilterByAvailablity(availabilityParam, filteredData)
+    }
 
     const requireAuth = render => () =>
       signedIn ? render() : <Redirect to="/" />
@@ -300,7 +256,6 @@ class App extends Component {
       <Router>
         <div id="app" className="App">
           <Fragment>
-              {/* <RoomSelector setRoom={this.setRoom} roomData={currentRoom} /> */}
               <Switch>
                 <Route path="/" exact render={() => (!!decodedToken && signedIn ?
                   (<Redirect to="/bookings" />) :
@@ -343,8 +298,6 @@ class App extends Component {
                                 onSetAvailabilityParam={
                                   this.onSetAvailabilityParam
                                 }
-                                onFilterAll={this.onFilterAll}
-                                onResetFilterParams={this.onResetFilterParams}
                                 filterParams={filterParams}
                                 capacityParams={capacityParams}
                                 floorParam={floorParam}

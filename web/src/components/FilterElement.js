@@ -8,12 +8,10 @@ function FilterElement({
   onToggleFeature,
   onToggleCapacity,
   onSetAvailabilityParam,
-  onResetFilterParams,
+  floorParam,
   filterParams,
   capacityParams,
-  floorParam,
   availabilityParam,
-  onFilterAll,
   date
 }) {
 
@@ -97,10 +95,6 @@ function FilterElement({
               <input type="radio" id="fullyBooked" value="fullBooked" name="availability" className="form__input--radio" checked={availabilityParam === 'fullBooked' ? true : false} />
               <label for="fullyBooked" className="form__label form__label--inline">Fully Booked</label>
             </div>
-          </div>
-          <div className="form__group--button">
-            <Button onClick={() => onFilterAll()} className="button button--inline" text={'Filter'} />
-            <Button onClick={() => onResetFilterParams()} className="button button--inline button--alternative" text={'Reset'} />
           </div>
       </form>
     </div>
