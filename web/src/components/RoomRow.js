@@ -33,7 +33,7 @@ const rowMapper = (dayHours, props) => {
         bookingData[0] : bookingData[1]
 
       tableRow.push(
-        <table>
+        <table className="table--booking--split">
           <tbody>
             <tr>
               <td className={`table__cell`}>

@@ -16,6 +16,32 @@
 .table--booking th {
   border: 0.1rem solid #cecece;
 }
+.table--booking--split {
+  background: #fafafa;
+  border: none;
+  border-collapse: collapse !important;
+  border-spacing: 0 0 !important;
+  margin: 0 auto;
+  padding: 0;
+}
+.table--booking--split td {
+  text-align: center;
+}
+.table--booking--split th {
+  border: 0.1rem solid #cecece;
+}
+.table--booking--split .table__cell {
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+}
+.table--booking--split .table__cell span:first-child {
+  border-right: 0.1rem solid #cecece;
+}
+.table--booking--split .table__cell span:last-child {
+  border-left: 0.1rem solid #cecece;
+}
 .table__row--full {
   height: 6rem;
   padding: 2rem 0;
@@ -466,7 +492,7 @@ td.rdtYear:hover {
 }
 .table__cell--business-unit-1 {
   background: #70d6ff;
-  border-top: 1rem solid #70d6ff;
+  padding: 3rem 0;
   cursor: pointer;
 }
 .table__cell--business-unit-1.table__cell--first-half-hour {
@@ -474,7 +500,7 @@ td.rdtYear:hover {
   cursor: pointer;
   display: block;
   float: left;
-  padding: 2.8rem 0;
+  padding: 3rem 0;
   width: 50%;
 }
 .table__cell--business-unit-1.table__cell--second-half-hour {
@@ -482,12 +508,12 @@ td.rdtYear:hover {
   cursor: pointer;
   display: block;
   float: right;
-  padding: 2.8rem 0;
+  padding: 3rem 0;
   width: 50%;
 }
 .table__cell--business-unit-2 {
   background: #ffd670;
-  border-top: 1rem solid #ffd670;
+  padding: 3rem 0;
   cursor: pointer;
 }
 .table__cell--business-unit-2.table__cell--first-half-hour {
@@ -495,7 +521,7 @@ td.rdtYear:hover {
   cursor: pointer;
   display: block;
   float: left;
-  padding: 2.8rem 0;
+  padding: 3rem 0;
   width: 50%;
 }
 .table__cell--business-unit-2.table__cell--second-half-hour {
@@ -503,12 +529,12 @@ td.rdtYear:hover {
   cursor: pointer;
   display: block;
   float: right;
-  padding: 2.8rem 0;
+  padding: 3rem 0;
   width: 50%;
 }
 .table__cell--business-unit-3 {
   background: #ef709d;
-  border-top: 1rem solid #ef709d;
+  padding: 3rem 0;
   cursor: pointer;
 }
 .table__cell--business-unit-3.table__cell--first-half-hour {
@@ -516,7 +542,7 @@ td.rdtYear:hover {
   cursor: pointer;
   display: block;
   float: left;
-  padding: 2.8rem 0;
+  padding: 3rem 0;
   width: 50%;
 }
 .table__cell--business-unit-3.table__cell--second-half-hour {
@@ -524,7 +550,7 @@ td.rdtYear:hover {
   cursor: pointer;
   display: block;
   float: right;
-  padding: 2.8rem 0;
+  padding: 3rem 0;
   width: 50%;
 }
 .table__cell--business-unit-4 {
@@ -537,7 +563,7 @@ td.rdtYear:hover {
   cursor: pointer;
   display: block;
   float: left;
-  padding: 2.8rem 0;
+  padding: 3rem 0;
   width: 50%;
 }
 .table__cell--business-unit-4.table__cell--second-half-hour {
@@ -545,7 +571,7 @@ td.rdtYear:hover {
   cursor: pointer;
   display: block;
   float: right;
-  padding: 2.8rem 0;
+  padding: 3rem 0;
   width: 50%;
 }
 .table__cell--business-unit-5 {
@@ -558,7 +584,7 @@ td.rdtYear:hover {
   cursor: pointer;
   display: block;
   float: left;
-  padding: 2.8rem 0;
+  padding: 3rem 0;
   width: 50%;
 }
 .table__cell--business-unit-5.table__cell--second-half-hour {
@@ -566,7 +592,7 @@ td.rdtYear:hover {
   cursor: pointer;
   display: block;
   float: right;
-  padding: 2.8rem 0;
+  padding: 3rem 0;
   width: 50%;
 }
 html {
