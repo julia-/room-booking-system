@@ -26,7 +26,6 @@ A room booking system built with MongoDB, Express, Node.js and ReactJS.
   * [Requirements](#requirements)
   * [Technologies](#technologies)
 * [Challenges and final thoughts](#challenges-and-final-thoughts)
-* [Future developments](#future-developments)
 * [Team](#team)
 
 ## Getting started
@@ -243,7 +242,7 @@ Using Trello we began adding all tasks and delegating work between each member o
 #### Version 2
 ![Entity Relationship Diagram | Version 2](docs/RoomBookingSystem-ERD-v2.png)
 ## Design
-Our orignal design incorporated a more minimal interface, emphasising clarity.
+We designed the application to be an intuitive and simple, yet powerful way to navigate, analyse and create bookings. This ultimately enables the efficient use of resources.
 
 ### Wireframes
 
@@ -288,8 +287,6 @@ Our orignal design incorporated a more minimal interface, emphasising clarity.
 - Validations
 - Google OAuth + JWT
 - Working with dates and times
-### Final thoughts
-On reflection, although there were features that we unfortunately had to abandon, we are proud of what we could accomplish within the limited timeframe and our current skill level. 
 
 ## Future developments
 - Weekly and monthly views
