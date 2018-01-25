@@ -9,6 +9,8 @@ const ColumnCell = props => {
   // Add the day's bookings to a 24 hour array
   let dayHours = bookingArray(bookings)
 
+  console.log(dayHours)
+
   // Extract the corresponding data for a single hour from the 24 hour array
   let bookingData = dayHours[props.hour]
 
@@ -20,6 +22,42 @@ const ColumnCell = props => {
   if (typeof bookingData == 'number') {
     columnData = <td className="table__cell--available">Available</td>
 
+  // If the data for that hour is an array, this means there are two bookings to be rendered
+  } else if (Array.isArray(bookingData)) {
+    
+    // Determine which of the two bookings comes first and second
+    let firstBookingData = bookingData[0].firstHalfHour ?
+                            bookingData[0] : bookingData[1]
+
+    let secondBookingData = bookingData[0].secondHalfHour ?
+                            bookingData[0] : bookingData[1]
+
+    columnData =
+    <table className="table--nested">
+      <tbody>
+      <tr className="table__row--no-border table__row--border-bottom">
+          <td
+        onClick={() => props.onShowBooking(firstBookingData)} className={`table__cell--${firstBookingData.businessUnit
+              .replace(/ /g, '-')
+            .toLowerCase()} table__cell--subcell`
+            }
+          >
+            {firstBookingData.businessUnit}
+          </td>
+        </tr>
+        <tr className="table__row--no-border">
+          <td
+        onClick={() => props.onShowBooking(secondBookingData)} className={`table__cell--${secondBookingData.businessUnit
+              .replace(/ /g, '-')
+            .toLowerCase()} table__cell--subcell`
+            }
+          >
+            {secondBookingData.businessUnit}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
   // If there is a booking object, but only for the first half of the hour, return a nested table to split the table data for that cell into two rows.
   } else if (bookingData.firstHalfHour) {
     columnData =

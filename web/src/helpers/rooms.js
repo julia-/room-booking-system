@@ -64,7 +64,12 @@ const bookingArray = (filteredBookings) => {
       }
 
       // Add the booking object to the relevant hour in the 24 hour array
-      dayHours[i] = bookingData
+      // If there is already a booking in that hour, enter the second booking as the second item in an array
+      dayHours[i] = typeof dayHours[i] == 'number' ? 
+                      bookingData :
+                      [dayHours[i], bookingData]
+      
+      console.log(dayHours[i])
     }
   })
 
