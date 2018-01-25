@@ -1,6 +1,8 @@
 # Room Booking System
 A room booking system built with Node.js and Reactjs.
 
+![Logo](docs/logo.png)
+
 [Presentation](http://slides.com/juliaryan/room-booking-system/fullscreen)
 ## Table of Contents
 
@@ -118,6 +120,10 @@ From then we began thinking about what documents and fields would be needed for 
 
 Using Trello we began adding all tasks and delegating work between each member of the team.
 
+[Trello Board](https://trello.com/b/7Wo4BQjs)
+
+![Project Work Breakvbown](docs/project-work-breakdown.png)
+
 ### Audience
 - Management staff
 - Business unit representative
@@ -204,6 +210,7 @@ Using Trello we began adding all tasks and delegating work between each member o
 #### Version 2
 ![Entity Relationship Diagram | Version 2](docs/RoomBookingSystem-ERD-v2.png)
 ## Design
+Our orignal design incorporated a more minimal interface, emphasising 
 
 ### Wireframes
 #### Room View
@@ -239,12 +246,14 @@ Using Trello we began adding all tasks and delegating work between each member o
 - MomentTimezone.js
 - Stylus
 ## Challenges and final thoughts
+
 ### Challenges
 - Filtering
 - Validations
 - Google OAuth + JWT
 - Working with dates and times
 ### Final thoughts
+On reflection, although there were features that we unfortunately had to abandon, we are proud of what we could accomplish within the limited timeframe and our current skill level. 
 
 ## Future developments
 - Weekly and monthly views

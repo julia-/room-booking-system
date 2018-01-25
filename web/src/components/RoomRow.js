@@ -22,7 +22,48 @@ const rowMapper = (dayHours, props) => {
           </Link>
         </td>)
 
-      // If there is a booking object, add a <td> element with custom class name to enable stlying
+     // If the data is an array, there are two booking objects
+    } else if (Array.isArray(bookingData)){
+
+    // Determine which of the two bookings comes first and second
+    let firstBookingData = bookingData[0].firstHalfHour ?
+      bookingData[0] : bookingData[1]
+
+    let secondBookingData = bookingData[0].secondHalfHour ?
+        bookingData[0] : bookingData[1]
+
+      tableRow.push(
+        <table>
+          <tbody>
+            <tr>
+              <td className={`table__cell`}>
+                <span
+                  onClick={() => props.onShowBooking(firstBookingData)}
+                  className={`table__cell--booked table__cell--${firstBookingData.businessUnit // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
+                    .replace(/ /g, '-')
+                    .toLowerCase()}
+                  `}
+                >
+                  &nbsp;
+                </span>
+              </td>
+              <td className={`table__cell`}>
+                <span
+                  onClick={() => props.onShowBooking(secondBookingData)}
+                  className={`table__cell--booked table__cell--${secondBookingData.businessUnit // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
+                    .replace(/ /g, '-')
+                    .toLowerCase()}
+                  `}
+                >
+                  &nbsp;
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      )
+    
+    // If there is a booking object, add a <td> element with custom class name to enable stlying
     } else {
       tableRow.push(
         <td className={`table__cell`}>
