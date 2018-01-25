@@ -30,7 +30,7 @@ Room.create([
   {
     name: 'Room 4',
     floor: '8',
-    capacity: 24,
+    capacity: 24
   },
   {
     name: 'Room 5',
@@ -43,32 +43,32 @@ Room.create([
   {
     name: 'Room 6',
     floor: '8',
-    capacity: 18,
+    capacity: 18
   },
   {
     name: 'Room 7',
     floor: '8',
-    capacity: 18,
+    capacity: 18
   },
   {
     name: 'Room 8',
     floor: '8',
-    capacity: 18,
+    capacity: 18
   },
   {
     name: 'Room 9',
     floor: '8',
-    capacity: 18,
+    capacity: 18
   },
   {
     name: 'Room 10',
     floor: '8',
-    capacity: 18,
+    capacity: 18
   },
   {
     name: 'Room 11',
     floor: '8',
-    capacity: 18,
+    capacity: 18
   },
   {
     name: 'Room 12',
@@ -81,7 +81,7 @@ Room.create([
   {
     name: 'Room 13',
     floor: '8',
-    capacity: 18,
+    capacity: 18
   },
   {
     name: 'Room 14',
@@ -102,7 +102,27 @@ Room.create([
   {
     name: 'Studio 11',
     floor: '8',
-    capacity: 18,
+    capacity: 18
+  },
+  {
+    name: 'Studio 12',
+    floor: '8',
+    capacity: 18
+  },
+  {
+    name: 'Studio 13',
+    floor: '8',
+    capacity: 18
+  },
+  {
+    name: 'Studio 14',
+    floor: '8',
+    capacity: 18
+  },
+  {
+    name: 'Studio 15',
+    floor: '8',
+    capacity: 18
   },
   {
     name: 'Lab 01',
@@ -111,26 +131,6 @@ Room.create([
     assets: {
       macLab: true
     }
-  },
-  {
-    name: 'Studio 12',
-    floor: '8',
-    capacity: 18,
-  },
-  {
-    name: 'Studio 13',
-    floor: '8',
-    capacity: 18,
-  },
-  {
-    name: 'Studio 14',
-    floor: '8',
-    capacity: 18,
-  },
-  {
-    name: 'Studio 15',
-    floor: '8',
-    capacity: 18,
   },
   // Level 13
   {
@@ -201,17 +201,17 @@ Room.create([
   {
     name: 'Room 10',
     floor: '13',
-    capacity: 16,
+    capacity: 16
   },
   {
     name: 'Room 11',
     floor: '13',
-    capacity: 20,
+    capacity: 20
   },
   {
     name: 'Room 12',
     floor: '13',
-    capacity: 20,
+    capacity: 20
   },
   {
     name: 'Room 13',
@@ -236,7 +236,7 @@ Room.create([
     assets: {
       pcLab: true
     }
-  },  
+  },
   {
     name: 'Room 16',
     floor: '13',
@@ -248,12 +248,12 @@ Room.create([
   {
     name: 'Room 17',
     floor: '13',
-    capacity: 20,
+    capacity: 20
   },
   {
     name: 'Room 18',
     floor: '13',
-    capacity: 20,
+    capacity: 20
   },
   {
     name: 'Green Screen Room',
