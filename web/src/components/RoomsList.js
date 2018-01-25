@@ -1,5 +1,6 @@
 import React from 'react'
 import RoomRow from './RoomRow'
+import { levelEightSorter, levelThirteenSorter } from '../helpers/sorter'
 
 const RoomsList = props => (
   <table className="table">
@@ -58,29 +59,16 @@ const RoomsList = props => (
     </tr>
     <tbody className="table__body">
       {props.rooms &&
-        props.rooms
-          .filter(room => {
-            return room.floor === '8'
-          })
-          .sort((first, second) => {
-            const firstRoom = first.name.replace(/\d+/, '')
-            const secondRoom = second.name.replace(/\d+/, '')
-            if (firstRoom > secondRoom) {
-              return 1
-            } else {
-              return 0
-            }
-          })
-          .map(room => (
-            <RoomRow
-              key={room._id}
-              room={room}
-              bookings={room.bookings}
-              date={props.date === null ? new Date() : props.date}
-              onShowBooking={props.onShowBooking}
-              onSetRoom={props.onSetRoom}
-            />
-          ))}
+        levelEightSorter(props.rooms).map(room => (
+          <RoomRow
+            key={room._id}
+            room={room}
+            bookings={room.bookings}
+            date={props.date === null ? new Date() : props.date}
+            onShowBooking={props.onShowBooking}
+            onSetRoom={props.onSetRoom}
+          />
+        ))}
     </tbody>
     <tbody>
       <tr className="table__row table__row--header">
@@ -137,25 +125,16 @@ const RoomsList = props => (
         </th>
       </tr>
       {props.rooms &&
-        props.rooms
-          .sort((first, second) => {
-            const firstRoom = first.name.match(/\d+/, '')
-            const secondRoom = second.name.match(/\d+/, '')
-            return firstRoom - secondRoom
-          })
-          .filter(room => {
-            return room.floor === '13'
-          })
-          .map(room => (
-            <RoomRow
-              key={room._id}
-              room={room}
-              bookings={room.bookings}
-              date={props.date === null ? new Date() : props.date}
-              onSelectRoom={props.onSelectRoom}
-              onSetRoom={props.onSetRoom}
-            />
-          ))}
+        levelThirteenSorter(props.rooms).map(room => (
+          <RoomRow
+            key={room._id}
+            room={room}
+            bookings={room.bookings}
+            date={props.date === null ? new Date() : props.date}
+            onSelectRoom={props.onSelectRoom}
+            onSetRoom={props.onSetRoom}
+          />
+        ))}
     </tbody>
   </table>
 )

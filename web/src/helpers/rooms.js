@@ -68,8 +68,6 @@ const bookingArray = (filteredBookings) => {
       dayHours[i] = typeof dayHours[i] == 'number' ? 
                       bookingData :
                       [dayHours[i], bookingData]
-      
-      console.log(dayHours[i])
     }
   })
 

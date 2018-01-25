@@ -18,18 +18,25 @@
 // Table - Make a Bookin split view
 .table--booking--split
   background offWhite
-  border 0.1rem solid mediumGrey
+  border none
   border-collapse collapse !important
   border-spacing 0 0 !important
-  -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
-  -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
-  box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
   margin 0 auto
   padding 0
   td
     text-align center
   th
     border 0.1rem solid mediumGrey
+  .table__cell
+    border-top-width 0
+    border-right-width 0
+    border-bottom-width 0
+    border-left-width 0
+    span
+      &:first-child
+        border-right 0.1rem solid mediumGrey
+      &:last-child
+        border-left 0.1rem solid mediumGrey
 
 .table__row
   &--full
