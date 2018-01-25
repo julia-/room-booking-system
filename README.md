@@ -155,7 +155,7 @@ Using Trello we began adding all tasks and delegating work between each member o
 
 [Trello Board](https://trello.com/b/7Wo4BQjs)
 
-![Project Work Breakvbown](docs/project-work-breakdown.png)
+![Project Work Breakvbown](docs/RoomBookingSystem-ProjectWorkBreakdown.png)
 
 ### Audience
 - Management staff
