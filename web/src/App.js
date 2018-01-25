@@ -41,7 +41,7 @@ class App extends Component {
     selectedBooking: null,
     filterParams: filterParams,
     capacityParams: capacityParams,
-    floorParam: null,
+    floorParam: 'all',
     availabilityParam: null,
     filteredData: null,
     checked: null,
@@ -210,29 +210,6 @@ class App extends Component {
     this.setState({ availabilityParam: availability })
   }
 
-  onFilterAll = (floor, availability) => {
-    let roomData = this.state.roomData
-    let filteredData = []
-    const floorParam = this.state.floorParam
-    const featureParams = this.state.filterParams
-    const capacityParams = this.state.capacityParams
-    const availabilityParam = this.state.availabilityParam
-    const date = this.state.currentDate
-
-    // Send all room data and the selected floor, return filtered floors and store in filteredData
-    filteredData = onFilterByFloor(floorParam, roomData)
-    // Send the previously filtered data along with the feature params
-    filteredData = onFilterByFeature(featureParams, filteredData)
-    // Send the previously filtered data along with the capacity params
-    filteredData = onFilterByCapacity(capacityParams, filteredData)
-    // Send the previously filtered data along with the availability
-    filteredData = onFilterByAvailablity(availabilityParam, filteredData)
-    // set state to the room data, passed through all filter functions
-    this.setState({ filteredData: filteredData })
-    // reset filter variables stored in state
-    this.onResetFilterParams()
-  }
-
   // get today's bookings for all rooms
   oneSetCurrentDateBookings = () => {
     const currentDate = moment().format('DD-MM-YYYY')
@@ -279,7 +256,6 @@ class App extends Component {
       roomData,
       calendarDate,
       selectedBooking,
-      filteredData,
       filterParams,
 			capacityParams,
 			floorParam,
@@ -291,6 +267,21 @@ class App extends Component {
     const loadMyBookings = this.loadMyBookings
     const onDeleteBooking = this.onDeleteBooking
     const setCalendarDate = this.setCalendarDate
+    
+    let filteredData = []
+    const featureParams = this.state.filterParams
+    const date = this.state.currentDate
+
+    if (!!roomData) {
+      // Send all room data and the selected floor, return filtered floors and store in filteredData
+      filteredData = onFilterByFloor(floorParam, roomData)
+      // Send the previously filtered data along with the feature params
+      filteredData = onFilterByFeature(featureParams, filteredData)
+      // Send the previously filtered data along with the capacity params
+      filteredData = onFilterByCapacity(capacityParams, filteredData)
+      // Send the previously filtered data along with the availability
+      filteredData = onFilterByAvailablity(availabilityParam, filteredData)
+    }
 
     const requireAuth = render => () =>
       signedIn ? render() : <Redirect to="/" />

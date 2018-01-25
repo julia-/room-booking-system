@@ -21,7 +21,7 @@ export const capacityParams = [
   {capacity: 40, id: '40seats', value: false},
 ]
 
-// Filtering Fucntions
+// Filtering Functions
 
 // Filter roomData by floor
 export  const onFilterByFloor = (param, filteredData) => {
