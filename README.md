@@ -1,5 +1,5 @@
 # Room Booking System
-A room booking system built with Node.js and Reactjs.
+A room booking system built with MongoDB, Express, Node.js and ReactJS.
 
 ![Logo](docs/logo.png)
 
@@ -32,7 +32,11 @@ A room booking system built with Node.js and Reactjs.
 ## Getting started
 These instructions will get you a copy of the project up and running on your local machine for development purposes.
 ### Prerequisites
-#### Node.js
+#### Back-end:
+- MongoDB
+- Express
+- Node.js
+
 ```json
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -63,7 +67,8 @@ These instructions will get you a copy of the project up and running on your loc
     "prettier": "^1.10.2"
   }
 ```
-#### React.js
+#### Front-end:
+- React.js
 ```json
   "dependencies": {
     "axios": "^0.17.1",
