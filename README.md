@@ -25,7 +25,7 @@ A room booking system built with Node.js and Reactjs.
   * [Technologies](#technologies)
 * [Challenges and final thoughts](#challenges-and-final-thoughts)
 * [Future developments](#future-developments)
-* [Acknowledgments](#acknowledgments)
+* [Team](#team)
 
 ## Getting started
 These instructions will get you a copy of the project up and running on your local machine for development purposes.
