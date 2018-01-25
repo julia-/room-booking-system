@@ -210,7 +210,7 @@ Using Trello we began adding all tasks and delegating work between each member o
 #### Version 2
 ![Entity Relationship Diagram | Version 2](docs/RoomBookingSystem-ERD-v2.png)
 ## Design
-Our orignal design incorporated a more minimal interface, emphasising 
+Our orignal design incorporated a more minimal interface, emphasising clarity.
 
 ### Wireframes
 #### Room View
