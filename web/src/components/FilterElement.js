@@ -8,9 +8,9 @@ function FilterElement({
   onToggleFeature,
   onToggleCapacity,
   onSetAvailabilityParam,
+  floorParam,
   filterParams,
   capacityParams,
-  floorParam,
   availabilityParam,
   date
 }) {

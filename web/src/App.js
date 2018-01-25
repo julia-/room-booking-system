@@ -103,7 +103,7 @@ class App extends Component {
         .then(updatedRoom => {
           // If the new booking is successfully saved to the database
           alert(`${updatedRoom.name} successfully booked.`)
-          updateStateRoom(this, updatedRoom, this.loadMyBookings, this.onResetFilteredData)
+          updateStateRoom(this, updatedRoom, this.loadMyBookings)
         })
     } catch (err) {
       // If there is a booking clash and the booking could not be saved
@@ -123,7 +123,6 @@ class App extends Component {
           this,
           updatedRoom,
           this.loadMyBookings,
-          this.onResetFilteredData
         )
       })
       .catch(error => console.error(error.message))
@@ -132,39 +131,6 @@ class App extends Component {
   setRoom = id => {
     const room = this.state.roomData.find(room => room._id === id)
     this.setState({ currentRoom: room })
-  }
-
-  onResetFloorParams = () => {
-		this.setState({floorParam: null})
-	}
-
-	onResetAvailabilityParam = () => {
-		this.setState({availabilityParam: null})
-	}
-
-  onResetFeatureParams = () => {
-    let filterParams = this.state.filterParams
-    filterParams.forEach(param => param.value = false)
-    this.setState({filterParams: filterParams})
-  }
-
-  onResetCapacityParams = () => {
-    let capacityParams = this.state.capacityParams
-    capacityParams.forEach(param => param.value = false)
-    this.setState({capacityParams: capacityParams})
-  }
-
-  onResetFilterParams = () => {
-    this.onResetFeatureParams()
-		this.onResetCapacityParams()
-		this.onResetFloorParams()
-		this.onResetAvailabilityParam()
-  }
-
-  onResetFilteredData = () => {
-    const roomData = this.state.roomData
-    this.setState({ filteredData: roomData })
-    this.render()
   }
 
   // setting the feature filter parameters
@@ -332,8 +298,6 @@ class App extends Component {
                                 onSetAvailabilityParam={
                                   this.onSetAvailabilityParam
                                 }
-                                onFilterAll={this.onFilterAll}
-                                onResetFilterParams={this.onResetFilterParams}
                                 filterParams={filterParams}
                                 capacityParams={capacityParams}
                                 floorParam={floorParam}

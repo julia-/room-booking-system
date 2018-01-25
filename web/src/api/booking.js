@@ -64,7 +64,7 @@ export function deleteBooking(roomId, bookingId) {
     .then(res => res.data)
 }
 
-export function updateStateRoom(self, updatedRoom, loadMyBookings, onResetFilteredData) {
+export function updateStateRoom(self, updatedRoom, loadMyBookings) {
   self.setState((previousState) => {
     // Find the relevant room in React State and replace it with the new room data
     const updatedRoomData = previousState.roomData.map((room) => {
@@ -81,5 +81,4 @@ export function updateStateRoom(self, updatedRoom, loadMyBookings, onResetFilter
     }
   })
   loadMyBookings()
-  onResetFilteredData()
 }
