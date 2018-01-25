@@ -16,6 +16,22 @@
 .table--booking th {
   border: 0.1rem solid #cecece;
 }
+.table--booking--split {
+  background: #fafafa;
+  border: 0.1rem solid #cecece;
+  border-collapse: collapse !important;
+  border-spacing: 0 0 !important;
+  -webkit-box-shadow: 0px 2px 5px 0px #cecece;
+  box-shadow: 0px 2px 5px 0px #cecece;
+  margin: 0 auto;
+  padding: 0;
+}
+.table--booking--split td {
+  text-align: center;
+}
+.table--booking--split th {
+  border: 0.1rem solid #cecece;
+}
 .table__row--full {
   height: 6rem;
   padding: 2rem 0;
