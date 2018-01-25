@@ -30,6 +30,7 @@
 .table--booking--split th {
   border: 0.1rem solid #cecece;
 }
+
 .table--booking--split .table__cell {
   border-top-width: 0;
   border-right-width: 0;
@@ -42,6 +43,7 @@
 .table--booking--split .table__cell span:last-child {
   border-left: 0.1rem solid #cecece;
 }
+
 .table__row--full {
   height: 6rem;
   padding: 2rem 0;
