@@ -109,6 +109,8 @@ Seed the data
 yarn seed
 ```
 
+For Google OAuth you will need to register an application with Google. See [passport-google-oauth2](https://github.com/jaredhanson/passport-google-oauth2) for further instructions.
+
 Go to the `api` folder and start the server.
 ```
 cd api
