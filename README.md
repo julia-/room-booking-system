@@ -32,30 +32,56 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 #### Node.js
 ```json
-"dotenv": "^4.0.0",
-"eslint": "^4.15.0",
-"eslint-config-prettier": "^2.9.0",
-"eslint-config-standard": "^11.0.0-beta.0",
-"eslint-plugin-import": "^2.8.0",
-"eslint-plugin-node": "^5.2.1",
-"eslint-plugin-prettier": "^2.4.0",
-"eslint-plugin-promise": "^3.6.0",
-"eslint-plugin-standard": "^3.0.1",
-"nodemon": "^1.14.10",
-"now": "^9.2.7",
-"prettier": "^1.10.2"
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.0",
+    "moment": "^2.20.1",
+    "moment-timezone": "^0.5.14",
+    "mongoose": "^4.13.9",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-jwt": "^3.0.1",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.4.0"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0",
+    "eslint": "^4.15.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-prettier": "^2.4.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "nodemon": "^1.14.10",
+    "now": "^9.2.7",
+    "prettier": "^1.10.2"
+  }
 ```
 #### React.js
 ```json
-"autoprefixer-stylus": "^0.14.0",
-"concurrently": "^3.5.1",
-"stylus": "^0.54.5"
-"axios": "^0.17.1",
-"jwt-decode": "^2.2.0",
-"moment": "^2.20.1",
-"moment-timezone": "^0.5.14",
-"normalize.css": "^7.0.0",
-"query-string": "^5.0.1",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "jwt-decode": "^2.2.0",
+    "moment": "^2.20.1",
+    "moment-timezone": "^0.5.14",
+    "normalize.css": "^7.0.0",
+    "query-string": "^5.0.1",
+    "react": "^16.2.0",
+    "react-datetime": "^2.11.1",
+    "react-dom": "^16.2.0",
+    "react-modal": "^3.1.11",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.17"
+  },
+    "devDependencies": {
+    "autoprefixer-stylus": "^0.14.0",
+    "concurrently": "^3.5.1",
+    "stylus": "^0.54.5"
+  }
 ```
 ### Installation
 Clone the repo
@@ -206,14 +232,16 @@ Using Trello we began adding all tasks and delegating work between each member o
 ## Design
 
 ### Wireframes
+
+[View wireframes in Figma](https://www.figma.com/file/M5AfR3iuOLO437LBDP1p9IXX/Room-Booking-System-Final)
 #### Room View
 ![Desktop | Room View](docs/Desktop-RoomView.png)
 
 #### Booking View
 ![Desktop | Booking View](docs/Desktop-BookingView.png)
-[View wireframes in Figma](https://www.figma.com/file/M5AfR3iuOLO437LBDP1p9IXX/Room-Booking-System-Desktop)
+
 ### Prototype
-[View prototype in Figma](https://www.figma.com/proto/M5AfR3iuOLO437LBDP1p9IXX/Room-Booking-System-Desktop?scaling=contain&node-id=13%3A966)
+[View prototype in Figma](https://www.figma.com/proto/M5AfR3iuOLO437LBDP1p9IXX/Room-Booking-System-Final?scaling=contain&node-id=13%3A966)
 ## Development
 
 ### Requirements
@@ -232,6 +260,7 @@ Using Trello we began adding all tasks and delegating work between each member o
 
 ### Technologies
 - Node.js
+- Express
 - MongoDB
 - Mongoose
 - React.js
