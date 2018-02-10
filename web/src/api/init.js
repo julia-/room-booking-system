@@ -8,11 +8,6 @@ const api = axios.create({
   baseURL
 })
 
-// Create the google authentication URL
-export function makeGoogleAuthURL(path) {
-  return baseURL + path
-}
-
 export function setToken(token) {
   // saves token to local storage
   rememberToken(token)
