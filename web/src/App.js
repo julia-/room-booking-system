@@ -17,12 +17,12 @@ import MyBookings from './components/MyBookings'
 import NavBar from './components/NavBar'
 import RoomsList from './components/RoomsList'
 import SignInForm from './components/SignInForm'
+import SignUpForm from './components/SignUpForm'
 
 import {
   signIn,
   signOut,
-  googleSignIn,
-  googleDidSignInWithToken
+  signUp
 } from './api/auth'
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
@@ -50,23 +50,22 @@ class App extends Component {
     disableRecurring: true
   }
 
+  // Pass supplied first name, lastname, email & password to the signUp function, returns the user's token
+  onSignUp = ({ firstName, lastName, email, password }) => {
+    signUp({ firstName, lastName, email, password }).then(decodedToken => {
+      console.log('signed in', decodedToken)
+      this.setState({ decodedToken })
+      this.load()
+    })
+  }
+  
   // Pass supplied email & password to the signIn function, returns the users token
   onSignIn = ({ email, password }) => {
     signIn({ email, password }).then(decodedToken => {
       console.log('signed in', decodedToken)
       this.setState({ decodedToken })
+      this.load()
     })
-  }
-
-  onBeginGoogleSignIn = () => {
-    // Begin journey through Google auth process
-    googleSignIn()
-  }
-
-  onFinishGoogleSignIn = token => {
-    // Successfully return from journey with Google token
-    const decodedToken = googleDidSignInWithToken(token)
-    this.setState({ decodedToken })
   }
 
   // Removes the current token from local storage
@@ -264,8 +263,8 @@ class App extends Component {
                         <h2 className="header__heading header__heading--sub--alt">Sign in with email</h2>
                       </div>
                       <SignInForm onSignIn={this.onSignIn} />
-                      <h3 className="header__heading header__heading--sub--alt">Or sign in with Google</h3>
-                      <Button onClick={this.onBeginGoogleSignIn} className="button button__form--google" text={'Sign in with Google'} />
+                      <h3 className="header__heading header__heading--sub--alt">Don't have an account?</h3>
+                      <SignUpForm onSignUp={this.onSignUp} />
                     </div>
                   )
                 )} />
@@ -441,15 +440,11 @@ class App extends Component {
       })
   }
 
-  // When the App first renders
-  componentDidMount() {
-    this.load()
-    window.authenticateCallback = this.onFinishGoogleSignIn
-  }
+  // // When the App first renders
+  // componentDidMount() {
+  //   this.load()
+  // }
 
-  componentWillUnmount() {
-    delete window.authenticateCallback
-  }
 }
 
 export default App
