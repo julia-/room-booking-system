@@ -4,8 +4,7 @@ const {
   signIn,
   signInWithGoogle,
   redirectByGoogle,
-  signJWTForUser,
-  googleSignJWTRedirectToApp
+  signJWTForUser
 } = require('../middleware/auth')
 
 const router = new express.Router()
@@ -19,10 +18,6 @@ router.post('/auth', signIn, signJWTForUser)
 router.get('/auth/google', signInWithGoogle)
 
 // Callback after google has authenticated the user
-router.get(
-  '/auth/google/redirect',
-  redirectByGoogle,
-  googleSignJWTRedirectToApp
-)
+router.get('/auth/google/redirect', redirectByGoogle)
 
 module.exports = router
