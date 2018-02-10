@@ -1,6 +1,6 @@
 import React from 'react'
 import RoomRow from './RoomRow'
-import { levelEightSorter, levelThirteenSorter } from '../helpers/sorter'
+import { roomSorter } from '../helpers/sorter'
 
 const RoomsList = props => (
   <table className="table">
@@ -55,7 +55,7 @@ const RoomsList = props => (
     </tr>
     <tbody className="table__body">
       {props.rooms &&
-        levelEightSorter(props.rooms).map(room => (
+        roomSorter(props.rooms, '8').map(room => (
           <RoomRow
             key={room._id}
             room={room}
@@ -117,7 +117,7 @@ const RoomsList = props => (
     </tr>
     <tbody className="table__body">
       {props.rooms &&
-        levelThirteenSorter(props.rooms).map(room => (
+        roomSorter(props.rooms, '13').map(room => (
           <RoomRow
             key={room._id}
             room={room}
