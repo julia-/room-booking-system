@@ -43,24 +43,39 @@ passport.use(
       const email = profile.emails[0].value
       // check if user already exists in the database
       // create user record if not
-      User.findOneAndUpdate(
-        { email },
+      // User.findOneAndUpdate(
+      //   { email },
+      //   {
+      //     firstName: profile.name.givenName,
+      //     lastName: profile.name.familyName
+      //   },
+      //   {
+      //     new: true,
+      //     upsert: true,
+      //     runValidators: true
+      //   }
+      User.findOneOrCreate(
+        // find the user
+        { googleId: profile.id },
+        // if unfound, create user
         {
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName
-        },
-        {
-          new: true,
-          upsert: true,
-          runValidators: true
+          googleId: profile.id,
+          // accessToken gives user access to their google account
+          // refreshToken is for accessToken removal
+          googleTokens: {
+            accessToken: accessToken,
+            refreshToken: refreshToken
+          }
         }
       )
-        .then(currentUser => {
-          done(null, currentUser)
+        .then(user => {
+          if (!user) {
+            return done(null, false)
+          }
+          return done(null, user)
         })
         .catch(error => {
-          console.error('Error', error)
-          done(error, false)
+          return done(error, false)
         })
     }
   )
@@ -82,22 +97,22 @@ const signJWTForUser = (req, res) => {
   res.json({ token })
 }
 
-const googleSignJWTRedirectToApp = (req, res) => {
-  const user = req.user
-  const token = JWT.sign(
-    {
-      email: user.email
-    },
-    jwtSecret,
-    {
-      algorithm: jwtAlgorithm,
-      expiresIn: jwtExpiresIn,
-      subject: user._id.toString()
-    }
-  )
-  // Redirects to app with token from google auth process
-  res.redirect(`${process.env.APP_URL}/?token=${token}`)
-}
+// const googleSignJWTRedirectToApp = (req, res) => {
+//   const user = req.user
+//   const token = JWT.sign(
+//     {
+//       email: user.email
+//     },
+//     jwtSecret,
+//     {
+//       algorithm: jwtAlgorithm,
+//       expiresIn: jwtExpiresIn,
+//       subject: user._id.toString()
+//     }
+//   )
+//   // Redirects to app with token from google auth process
+//   res.redirect(`${process.env.APP_URL}/?token=${token}`)
+// }
 
 passport.use(
   new PassportJWT.Strategy(
@@ -127,13 +142,17 @@ module.exports = {
   signUp,
   signIn: passport.authenticate('local', { session: false }),
   signInWithGoogle: passport.authenticate('google', {
+    accessType: 'offline',
+    prompt: 'consent',
     session: false,
-    scope: ['profile', 'email']
+    scope: ['profile', 'email'],
+    failureRedirect: '/'
   }),
   redirectByGoogle: passport.authenticate('google', {
-    session: false
+    session: false,
+    failureRedirect: '/'
   }),
   requireJWT: passport.authenticate('jwt', { session: false }),
-  signJWTForUser,
-  googleSignJWTRedirectToApp
+  signJWTForUser
+  // googleSignJWTRedirectToApp
 }
