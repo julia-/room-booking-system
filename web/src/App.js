@@ -55,7 +55,6 @@ class App extends Component {
     signUp({ firstName, lastName, email, password }).then(decodedToken => {
       console.log('signed in', decodedToken)
       this.setState({ decodedToken })
-      this.load()
     })
   }
   
@@ -64,7 +63,6 @@ class App extends Component {
     signIn({ email, password }).then(decodedToken => {
       console.log('signed in', decodedToken)
       this.setState({ decodedToken })
-      this.load()
     })
   }
 
@@ -440,11 +438,20 @@ class App extends Component {
       })
   }
 
-  // // When the App first renders
-  // componentDidMount() {
-  //   this.load()
-  // }
+  // When the App first renders
+  componentDidMount() {
+    this.load()
+  }
 
+  // When state changes
+  componentDidUpdate(prevProps, prevState) {
+    // If just signed in, signed up, or signed out,
+    // then the token will have changed
+    if (this.state.decodedToken !== prevState.decodedToken) {
+      this.load()
+    }
+  }
+  
 }
 
 export default App
