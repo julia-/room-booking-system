@@ -61,7 +61,6 @@ class App extends Component {
   // Pass supplied email & password to the signIn function, returns the users token
   onSignIn = ({ email, password }) => {
     signIn({ email, password }).then(decodedToken => {
-      console.log('signed in', decodedToken)
       this.setState({ decodedToken })
     })
   }

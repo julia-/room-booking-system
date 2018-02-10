@@ -20,6 +20,11 @@ export function signIn({ email, password }) {
       setToken(token)
       return getDecodedToken()
     })
+    .catch(res => {
+      if (res.response.status === 400 || res.response.status === 401) {
+        alert("There was an error with your email or password. Please try again.")
+      }
+    })
 }
 
 export function signOut() {

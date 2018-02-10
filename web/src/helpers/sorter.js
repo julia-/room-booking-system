@@ -1,44 +1,42 @@
 import React from 'react'
 
-export const levelEightSorter = (roomList) => {
+export const roomSorter = (roomList, floorNumber) => {
   
-    let copiedList = roomList.slice(0)
-
-    let filteredList = copiedList.filter(room => {
-      return room.floor === '8'
-    })
+  let copiedList = roomList.slice(0)
   
-    let sortedList = filteredList.sort((first, second) => {
-      const firstRoom = first.name.replace(/\d+/, '')
-      const secondRoom = second.name.replace(/\d+/, '')
-      if (firstRoom > secondRoom) {
+  // filter list of rooms to those on the given floor
+  let filteredList = copiedList.filter(room => {
+    return room.floor === floorNumber
+  })
+  
+  // function to sort rooms numerically by their floor number
+  const numericalSort = roomList => { 
+    return roomList.sort((first, second) => {
+      const firstRoom = first.name.replace(/\D+/, '')
+      const secondRoom = second.name.replace(/\D+/, '')
+      if (parseInt(firstRoom) > parseInt(secondRoom)) {
         return 1
       } else {
         return 0
       }
     })
+  }
   
-    sortedList.push(filteredList.shift())
- 
-    return filteredList
-}
-
-export const levelThirteenSorter = (roomList) => {
-
-  let copiedList = roomList.slice(0)
-
-  let sortedList = copiedList.sort((first, second) => {
-    const firstRoom = first.name.match(/\d+/, '')
-    const secondRoom = second.name.match(/\d+/, '')
-    return firstRoom - secondRoom
-  })
-
-  let filteredList = sortedList.filter(room => {
-    return room.floor === '13'
-  })
-
-  filteredList.push(sortedList.shift())
-  filteredList.shift()
-
-  return filteredList
+  // numerically sort a new array with each room named 'Room'
+  let nameRoom = numericalSort(
+    filteredList.filter(room => room.name[0] === 'R')
+  )
+  
+  // numerically sort a new array with each room named 'Studio'
+  let nameStudio = numericalSort(
+    filteredList.filter(room => room.name[0] === 'S')
+  )
+  
+  // numerically sort a new array with all other named room types
+  let nameOther = numericalSort(
+    filteredList.filter(room => room.name[0] !== 'S' && room.name[0] !== 'R')
+  )
+  
+  // re-combine the sorted rooms, studios and others into a single array
+  return nameRoom.concat(nameStudio).concat(nameOther)
 }
