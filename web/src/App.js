@@ -55,6 +55,7 @@ class App extends Component {
     signUp({ firstName, lastName, email, password }).then(decodedToken => {
       console.log('signed in', decodedToken)
       this.setState({ decodedToken })
+      this.load()
     })
   }
   
@@ -62,7 +63,7 @@ class App extends Component {
   onSignIn = ({ email, password }) => {
     signIn({ email, password }).then(decodedToken => {
       console.log('signed in', decodedToken)
-      this.setState({ decodedToken })
+      this.setState({ decodedToken }) 
     })
   }
 
@@ -410,32 +411,25 @@ class App extends Component {
   }
 
   load() {
-    listRooms()
-      .then(rooms => {
-        this.setState({ roomData: rooms })
-      })
-      .catch(error => {
-        console.error('Error loading room data', error)
-        this.setState({ error })
-      })
-      .then(() => {
-        this.onResetFilteredData()
-      })
-      .catch(error => {
-        console.error('Error resetting filtered data', error)
-        this.setState({ error })
-      })
-      .then(() => {
-        this.loadMyBookings()
-      })
-      .catch(error => {
-        console.error('Error loading myBookings', error)
-        this.setState({ error })
-      })
-      .then(() => {
-        const room = this.state.roomData[0]
-        this.setRoom(room._id)
-      })
+    const { decodedToken } = this.state
+    const signedIn = !!decodedToken
+
+    if (signedIn) {
+      // load all of the rooms from the database
+      listRooms()
+        .then(rooms => {
+          this.setState({ roomData: rooms })
+          // load the current user's bookings
+          this.loadMyBookings()
+          // the state's current room defaults to first room
+          const room = this.state.roomData[0]
+          this.setRoom(room._id)
+        })
+        .catch(error => {
+          console.error('Error loading room data', error)
+          this.setState({ error })
+        })
+    }
   }
 
   // When the App first renders
@@ -451,7 +445,7 @@ class App extends Component {
       this.load()
     }
   }
-  
+
 }
 
 export default App
