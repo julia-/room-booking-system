@@ -220,8 +220,8 @@ class App extends Component {
       calendarDate,
       selectedBooking,
       filterParams,
-			capacityParams,
-			floorParam,
+      capacityParams,
+      floorParam,
       availabilityParam,
       disableRecurring
     } = this.state
@@ -230,7 +230,7 @@ class App extends Component {
     const loadMyBookings = this.loadMyBookings
     const onDeleteBooking = this.onDeleteBooking
     const setCalendarDate = this.setCalendarDate
-    
+
     let filteredData = []
     const featureParams = this.state.filterParams
     const date = this.state.currentDate
