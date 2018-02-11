@@ -10,6 +10,11 @@ const jwtExpiresIn = process.env.JWT_EXPIRES_IN
 passport.use(User.createStrategy())
 
 const signUp = (req, res, next) => {
+
+  if (!req.body.email || !req.body.password) {
+    res.status(400).send('No username or password provided.')
+  }
+
   const user = new User({
     email: req.body.email,
     firstName: req.body.firstName,
