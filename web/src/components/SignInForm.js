@@ -14,13 +14,13 @@ function SignInForm({ onSignIn }) {
       <div className="form__group">
         <label className="form__label form__label--padding">
           {'Email'}
-          <input type="email" name="email" className="form__input" />
+          <input type="email" name="email" className="form__input" required />
         </label>
       </div>
       <div className="form__group">
         <label className="form__label form__label--padding">
           {'Password'}
-          <input type="password" name="password" className="form__input" />
+          <input type="password" name="password" className="form__input" required />
         </label>
       </div>
       <button className="button button__form--submit">Sign in</button>
