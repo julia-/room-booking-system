@@ -221,13 +221,15 @@ class App extends Component {
       capacityParams,
       floorParam,
       availabilityParam,
-      disableRecurring
+      disableRecurring,
+      loading
     } = this.state
     const signedIn = !!decodedToken
     const signOut = this.onSignOut
     const loadMyBookings = this.loadMyBookings
     const onDeleteBooking = this.onDeleteBooking
     const setCalendarDate = this.setCalendarDate
+    const Loading = require('react-loading-animation')
 
     let filteredData = []
     const featureParams = this.state.filterParams
@@ -267,7 +269,12 @@ class App extends Component {
 
                 <Route path="/bookings" exact render={requireAuth(() => (
                   <Fragment>
-                    {!!decodedToken && !!roomData && (
+                    { !!decodedToken && !roomData && loading && (
+                      <div className="loading_animation">
+                        <Loading />
+                      </div>
+                    ) }
+                    {!!decodedToken && !!roomData && !loading && (
                       <div className="wrapper">
                         <div className="header header__nav header--flex">
                           <h1 className="header__heading header__heading--main">Company Name Here</h1>
@@ -412,6 +419,8 @@ class App extends Component {
     const signedIn = !!decodedToken
 
     if (signedIn) {
+      // display loading page
+      this.setState({ loading: true })
       // load all of the rooms from the database
       listRooms()
         .then(rooms => {
@@ -421,6 +430,8 @@ class App extends Component {
           // the state's current room defaults to first room
           const room = this.state.roomData[0]
           this.setRoom(room._id)
+          // toggle loading page off
+          this.setState({ loading: false })
         })
         .catch(error => {
           console.error('Error loading room data', error)
