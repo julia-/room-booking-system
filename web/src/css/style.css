@@ -936,3 +936,14 @@ input[type=radio] {
   padding-top: 4.4rem;
   width: 20%;
 }
+
+.loading_animation {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
