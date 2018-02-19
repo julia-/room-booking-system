@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { dailyBookings, bookingArray } from '../helpers/rooms'
 
 const ColumnCell = props => {
@@ -9,8 +9,6 @@ const ColumnCell = props => {
   // Add the day's bookings to a 24 hour array
   let dayHours = bookingArray(bookings)
 
-  console.log(dayHours)
-
   // Extract the corresponding data for a single hour from the 24 hour array
   let bookingData = dayHours[props.hour]
 
@@ -20,11 +18,11 @@ const ColumnCell = props => {
   // If the data for that hour is a number (not a booking object), there is no booking
   // Return a <td> element that indicates the time slot is available
   if (typeof bookingData == 'number') {
-    columnData = <td className="table__cell--available">Available</td>
+    columnData = <div className="table__cell--form table__cell--available">Available</div>
 
   // If the data for that hour is an array, this means there are two bookings to be rendered
   } else if (Array.isArray(bookingData)) {
-    
+
     // Determine which of the two bookings comes first and second
     let firstBookingData = bookingData[0].firstHalfHour ?
                             bookingData[0] : bookingData[1]
@@ -33,83 +31,92 @@ const ColumnCell = props => {
                             bookingData[0] : bookingData[1]
 
     columnData =
-    <table className="table--nested">
-      <tbody>
-      <tr className="table__row--no-border table__row--border-bottom">
-          <td
-        onClick={() => props.onShowBooking(firstBookingData)} className={`table__cell--${firstBookingData.businessUnit
+      <Fragment>
+        <div className="table__row--no-border table__row--border-bottom">
+          <div className="table__row--split-booking table__row--no-border">
+            <div
+            onClick={() => props.onShowBooking(firstBookingData)}
+            className={`table__cell--${firstBookingData.businessUnit
               .replace(/ /g, '-')
-            .toLowerCase()} table__cell--subcell`
+            .toLowerCase()} table__cell--split`
             }
           >
             {firstBookingData.businessUnit}
-          </td>
-        </tr>
-        <tr className="table__row--no-border">
-          <td
-        onClick={() => props.onShowBooking(secondBookingData)} className={`table__cell--${secondBookingData.businessUnit
+          </div>
+        </div>
+        <div className="table__row--split-booking table__row--no-border">
+          <div
+            onClick={() => props.onShowBooking(secondBookingData)}
+            className={`table__cell--${secondBookingData.businessUnit
               .replace(/ /g, '-')
-            .toLowerCase()} table__cell--subcell`
+            .toLowerCase()} table__cell--split`
             }
           >
             {secondBookingData.businessUnit}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
+          </div>
+        </div>
+        </div>
+      </Fragment>
+
   // If there is a booking object, but only for the first half of the hour, return a nested table to split the table data for that cell into two rows.
   } else if (bookingData.firstHalfHour) {
     columnData =
-        <table className="table--nested">
-          <tbody>
-          <tr className="table__row--no-border table__row--border-bottom">
-              <td
-            onClick={() => props.onShowBooking(bookingData)} className={`table__cell--${bookingData.businessUnit
-                  .replace(/ /g, '-')
-                .toLowerCase()} table__cell--subcell`
-                }
-              >
-                {bookingData.businessUnit}
-              </td>
-            </tr>
-            <tr className="table__row--no-border">
-              <td className="table__cell--subcell available">Available</td>
-            </tr>
-          </tbody>
-        </table>
+      <Fragment>
+        <div className="table__row--no-border table__row--border-bottom">
+          <div className="table__row--split-booking table__row--no-border">
+            <div
+              onClick={() => props.onShowBooking(bookingData)}
+              className={`table__cell--${bookingData.businessUnit
+                .replace(/ /g, '-')
+                .toLowerCase()} table__cell--split`
+              }
+            >
+              {bookingData.businessUnit}
+            </div>
+          </div>
+          <div className="table__row--split-booking table__row--no-border">
+            <div className="table__cell--split table__cell--available">
+              Available
+            </div>
+          </div>
+        </div>
+      </Fragment>
 
   // If there is a booking object, but only for the second half of the hour, return a nested table to split the table data for that cell into two rows
   } else if (bookingData.secondHalfHour) {
     columnData =
-        <table className="table--nested">
-          <tbody>
-          <tr className="table__row--no-border table__row--border-bottom">
-              <td className="table__cell--subcell available">Available</td>
-            </tr>
-            <tr className="table__row--no-border">
-          <td onClick={() => props.onShowBooking(bookingData)} className={`table__cell--${bookingData.businessUnit
-                  .replace(/ /g, '-')
-                  .toLowerCase()} table__cell--subcell`
-                }
-              >
-                {bookingData.businessUnit}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <Fragment>
+        <div className="table__row--no-border table__row--border-bottom">
+          <div className="table__row--split-booking table__row--no-border table__row--border-bottom">
+            <div className="table__cell--split table__cell--available">
+              Available
+            </div>
+          </div>
+          <div className="table__row--split-booking table__row--no-border table__row--border-bottom">
+            <div
+              onClick={() => props.onShowBooking(bookingData)}
+              className={`table__cell--${bookingData.businessUnit
+                .replace(/ /g, '-')
+                .toLowerCase()} table__cell--split`
+              }
+            >
+              {bookingData.businessUnit}
+            </div>
+          </div>
+        </div>
+      </Fragment>
 
-  // If there is a booking object for the full hour, return a single <td> cell
+  // If there is a booking object for the full hour, return a single cell
   } else {
     columnData =
-      <td
+      <div
         onClick={() => props.onShowBooking(bookingData)}
-      className={`table__cell--${bookingData.businessUnit
+        className={`table__cell--form table__cell--${bookingData.businessUnit
           .replace(/ /g, '-')
           .toLowerCase()}`
         }>
           {bookingData.businessUnit}
-      </td>
+      </div>
   }
   return columnData
 }
