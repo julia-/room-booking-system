@@ -1,181 +1,142 @@
 // Day View - Room Table Display
 .table
-  background offWhite
   border 0.1rem solid mediumGrey
   border-collapse collapse !important
   border-spacing 0 0 !important
-  color darkGrey
   -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
   -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
   box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
-  margin 1rem
-  padding 0
+  color darkGrey
+  display table
+  margin 1rem auto
+  max-height 100%
+  table-layout fixed
   width 100%
-  // table-layout fixed
+  &--nested
+    border none
+    -webkit-box-shadow unset
+    -moz-box-shadow unset
+    box-shadow unset
+    margin 0
+    width 100%
   &__body
-    tr
-      &:first-child
-        border-top none
-  &__cell
-    padding 0
-    &--align-left
-      text-align left
-    &--level
-      font-size 2.2rem
-    &--width
-      width 12rem
+    display table-row-group
   &__row
+    display table-row
+    border 0.1rem solid mediumGrey
+    height 6.8rem
     &:hover
       background lightGrey
       border 0.1rem solid mediumGrey
       -webkit-box-shadow 2px 2px 5px 0px rgba(206,206,206,1)
       -moz-box-shadow 2px 2px 5px 0px rgba(206,206,206,1)
       box-shadow 2px 2px 5px 0px rgba(206,206,206,1)
-    td
-      border 0.1rem solid mediumGrey
-  &__row
-    th
-      border 1px solid mediumGrey
-      padding 1rem
-      // &:first-child
-      //   padding 2rem
     &--header
-      background mediumGrey
+      font-size 2rem
+      font-weight bold
+      height 6rem
+      line-height 1.5
       margin 0 auto
-      padding 0
+    &--level
       &:hover
         background mediumGrey
+        border 0.1rem solid mediumGrey
+        -webkit-box-shadow unset
+        -moz-box-shadow unset
+        box-shadow unset
     &--subheader
       background lightGrey
+      font-weight bold
+      height 4rem
+      line-height 2.5
+      text-align center
       &:hover
         -webkit-box-shadow unset
         -moz-box-shadow unset
         box-shadow unset
-  &__data--asset
-    font-family proxima
-    font-size 1.4rem
-    font-weight 400
-    line-height 1
-    padding 0
+  &__cell
+    background offWhite
+    border 0.1rem solid mediumGrey
+    cursor pointer
+    display table-cell
+    height 8rem
+    // width 100%
+    &:hover
+      border none
+    &--column
+      padding 0 1rem
+      text-align left
+      vertical-align middle
+    &--booked // Styling for timeslots that have been booked
+      display block
+      height inherit
+      // width 100%
+    &--business-unit-1
+      background businessUnit1
+      cursor pointer
+      height inherit
+    &--business-unit-2
+      background businessUnit2
+      cursor pointer
+      height inherit
+    &--business-unit-3
+      background businessUnit3
+      cursor pointer
+      height inherit
+    &--business-unit-4
+      background businessUnit4
+      cursor pointer
+      height inherit
+    &--business-unit-5
+      background businessUnit5
+      cursor pointer
+      height inherit
+    &--header
+      border 0.1rem solid mediumGrey
+      display table-cell
+      font-weight 600
+    &--left
+      border-right 0.05rem solid mediumGrey
+      cursor pointer
+      display inline-block
+      height 100%
+      width calc((100% / 2) - 0.05rem)
+    &--level
+      background mediumGrey
+      display table-cell
+      font-size 2.2rem
+      padding 0 1rem
+      vertical-align middle
+    &--right
+      border-left 0.05rem solid mediumGrey
+      cursor pointer
+      display inline-block
+      height 100%
+      width calc((100% / 2) - 0.05rem)
+  &__column
+    padding 0 1rem
     text-align left
-  &__link
+    width 15%
+  &__data
+    &--asset // Assets in room
+      display block
+      font-family proxima
+      font-size 1.4rem
+      font-weight 400
+      line-height 1
+      text-align left
+  &__link // Room name
     color darkGrey
-    padding 0
+    font-weight bold
     &:hover
       border-bottom 0.2rem solid darkGrey
       color darkGrey
-
-// Business Unit Booking Styling
-.table__cell--booked // Styling for timeslots that have been booked
-  cursor pointer
-  display block
-  padding 2.8rem 0
-  width 100%
-
-.table
-  td
-    width 3rem
-    height 3rem
-
-.table
-  .table__row th
-    height 6rem
-
-.table
-  .table__row--subheader th
-    height 4rem
-
-.table__cell--business-unit-1
-  background businessUnit1
-  padding 3rem 0
-  cursor pointer
-  &.table__cell--first-half-hour
-    background businessUnit1
-    cursor pointer
-    display block
-    float left
-    padding 3rem 0
-    width 50%
-  &.table__cell--second-half-hour
-    background businessUnit1
-    cursor pointer
-    display block
-    float right
-    padding 3rem 0
-    width 50%
-
-.table__cell--business-unit-2
-  background businessUnit2
-  padding 3rem 0
-  cursor pointer
-  &.table__cell--first-half-hour
-    background businessUnit2
-    cursor pointer
-    display block
-    float left
-    padding 3rem 0
-    width 50%
-  &.table__cell--second-half-hour
-    background businessUnit2
-    cursor pointer
-    display block
-    float right
-    padding 3rem 0
-    width 50%
-
-.table__cell--business-unit-3
-  background businessUnit3
-  padding 3rem 0
-  cursor pointer
-  &.table__cell--first-half-hour
-    background businessUnit3
-    cursor pointer
-    display block
-    float left
-    padding 3rem 0
-    width 50%
-  &.table__cell--second-half-hour
-    background businessUnit3
-    cursor pointer
-    display block
-    float right
-    padding 3rem 0
-    width 50%
-
-.table__cell--business-unit-4
-  background businessUnit4
-  border-top 1rem solid businessUnit4
-  cursor pointer
-  &.table__cell--first-half-hour
-    background businessUnit4
-    cursor pointer
-    display block
-    float left
-    padding 3rem 0
-    width 50%
-  &.table__cell--second-half-hour
-    background businessUnit4
-    cursor pointer
-    display block
-    float right
-    padding 3rem 0
-    width 50%
-
-.table__cell--business-unit-5
-  background businessUnit5
-  border-top 1rem solid businessUnit5
-  cursor pointer
-  &.table__cell--first-half-hour
-    background businessUnit5
-    cursor pointer
-    display block
-    float left
-    padding 3rem 0
-    width 50%
-  &.table__cell--second-half-hour
-    background businessUnit5
-    cursor pointer
-    display block
-    float right
-    padding 3rem 0
-    width 50%
+    &--available // Available time slot - cell
+      color darkGrey
+      display inline-block
+      height 100%
+      padding 0
+      width 100%
+      &:hover
+        border none
+        text-decoration none
