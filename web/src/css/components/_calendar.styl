@@ -1,23 +1,27 @@
 .rdt
   background offWhite
+  // border-radius 0.4rem
   -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
   -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
   box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
   font-size 1.6rem
-  width 30rem
+  width 26rem
 
 .rdt thead th
   padding 0.6rem
 
 .rdtPicker
   background offWhite
+  // border-radius 0.4rem
   color darkGrey
   margin 0 auto
-  padding 2rem 0
-  width 28rem
+  padding 0.8rem 0 1.6rem 0
+  width 24rem
 
 .rdtPicker table
   margin 0 auto
+  border-collapse collapse !important
+  border-spacing 0 0 !important
 
 .rdtPicker th
 .rdtPicker td
@@ -30,8 +34,8 @@
 
 .rdtSwitch
   font-family proxima
-  font-size 2rem
-  font-weight 700
+  font-size 1.8rem
+  font-weight 600
 
 .rdtTimeToggle
 .rdtDay
@@ -47,7 +51,7 @@
 
 .rdtOld
 .rdtNew
-  color #a5a5a5
+  color mediumGrey
 
 .rdtToday
   position relative
@@ -86,21 +90,23 @@ span.rdtDisabled
 span.rdtOld
   color mediumGrey
 
-th.dow
+.dow // Days of the week
   font-family proxima
-  font-weight 600
+  font-weight 500
   width 2rem
 
-// .rdtDay
-//   width 2rem
+.rdtDay
+  border 0.01rem solid mediumGrey
+  margin 0
 
-th.rdtNext,
-th.rdtPrev
+.rdtNext
+.rdtPrev
   font-size 2.2rem
   vertical-align top
 
-rdtPrev span,
-rdtNext span
+.rdtPrev > span
+.rdtNext > span
+  color mediumGrey
   display block
   -webkit-touch-callout none /* iOS Safari */
   -webkit-user-select none   /* Chrome/Safari/Opera */
@@ -108,6 +114,9 @@ rdtNext span
   -moz-user-select none      /* Firefox */
   -ms-user-select none       /* Internet Explorer/Edge */
   user-select none
+  &:hover
+    background lightGrey
+    color darkGrey
 
 .rdtPicker thead tr:first-child th
   cursor pointer
