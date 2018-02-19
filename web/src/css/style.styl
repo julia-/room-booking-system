@@ -3,20 +3,22 @@
 @require './*/_*.styl'
 
 html
+  box-sizing border-box
   font-size 62.5%
+  margin 0
+  padding 0
 
 body
   background lightGrey
   font-family proxima
   font-size 1.6rem
-  padding 0
-  margin 0 auto
-  min-width 100%
   -moz-osx-font-smoothing grayscale
+  margin 0
+  padding 0
+  width 100%
 
 a
   cursor pointer
-  padding 2rem
   text-decoration none
 
 ul
@@ -31,8 +33,7 @@ li
   display grid
   grid-gap 1rem
   grid-template-columns auto
-  grid-template-rows 1fr auto auto
-  min-width 90rem
+  grid-template-rows 1fr auto
   width 100%
 
 .wrapper__form
@@ -40,30 +41,31 @@ li
   -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
   -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
   box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+  color darkGrey
   display grid
   grid-gap 1rem
   grid-template-columns 1fr
   grid-template-rows auto auto auto auto
-  margin 4rem auto
-  color darkGrey
+  height auto
+  margin 0 auto
   padding 3rem
   width 40rem
-  height auto
 
 .wrapper__content
   display grid
-  grid-gap 1rem
-  grid-template-columns 1fr auto
+  grid-column-gap 2%
+  grid-row-gap 0
+  grid-template-columns 24.5% 73.5%
   grid-template-rows 1fr auto
-  min-width 80%
-  margin 0 3rem
-
-.wrapper__content--bookings
-  display grid
-  grid-gap 1rem
-  grid-template-columns auto
-  grid-template-rows 1fr auto
-  margin 3rem
+  margin 0 auto
+  max-width 85%
+  padding-bottom 10rem
+  &--bookings
+    display grid
+    grid-gap 1rem
+    grid-template-columns auto
+    grid-template-rows 1fr auto
+    margin 3rem
 
 .wrapper__bookings
   background offWhite
@@ -85,14 +87,17 @@ li
   grid-area header
   grid-column 1 / -1
   grid-row 1
-  width 100%
   height 10rem
+  width 100%
   &--flex
+    align-items center
     display flex
     justify-content space-between
-    align-items center
   &__page
+    -ms-grid-column 1 / -1
     grid-column 1 / -1
+    grid-column-start 1
+    grid-column-end 3
     grid-row 1
   &__heading
     font-family raleway
@@ -115,7 +120,11 @@ li
       margin 0 auto
       width 30rem
     &--sidebar
-      font-size 2.4rem
+      font-family proxima
+      font-size 2rem
+      font-weight 600
+      margin 1rem 0
+      padding 0
     &--column
       font-size 2.4rem
       text-align center
@@ -127,21 +136,23 @@ li
 .sidebar
   grid-area sidebar
   grid-column 1
-  grid-row 3
+  grid-row 2
   &__box
     background offWhite
-    -webkit-box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
-    -moz-box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
-    box-shadow 1px 1px 5px 0px rgba(206,206,206,1)
+    border 0.05rem solid mediumGrey
+    border-radius 0.3rem
+    -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+    -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+    box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
     margin 3rem auto
-    width 30rem
+    width 26rem
     &:first-child
       margin 1rem auto
 
 .content
   grid-area content
   grid-column 2
-  grid-row 3
+  grid-row 2
 
 .footer
   grid-area footer
@@ -158,32 +169,32 @@ li
   margin 1rem auto
   width 30rem
 
-.form__group // group label and input
-  margin 0 auto
-  &--button // button group
-    margin 2rem 0 3rem 0
-  &--margin-top
-    margin-top 3rem
-
-.form__label
-  display block
-  font-size 1.8rem
-  font-weight 600
-  margin 1.8rem auto
-  padding-bottom 0.4rem
-  text-align left
-  &--inline
-    display inline-block
-    font-size 1.6rem
-    padding-left 1rem
-    margin 0.3rem auto
-  &--padding
-    padding-bottom 0
-  &--booking
-    font-size 1.6rem
-    padding 0
-  // &--margin-top
-  //   margin-top 3rem
+.form
+  &__group // group label and input
+    margin 0 auto
+    &--button // button group
+      margin 2rem 0 3rem 0
+    &--margin-top
+      margin-top 3rem
+  &__label
+    display block
+    font-size 1.8rem
+    font-weight 600
+    margin 1.8rem auto
+    padding-bottom 0.4rem
+    text-align left
+    &--inline
+      display inline-block
+      font-size 1.6rem
+      margin 0.3rem auto
+      padding-left 1rem
+    &--padding
+      padding-bottom 0
+    &--booking
+      font-size 1.6rem
+      padding 0
+    &--filter
+      font-weight normal
 
 .form__input
   display block
@@ -200,16 +211,10 @@ li
     margin 1rem 0 1rem 1rem
     width 12rem
   &--select // https://codepen.io/vkjgr/pen/VYMeXp
-    background offWhite
-    border 0.1rem solid semiDarkGrey
-    display block
-    font-size 1.4rem
-    margin 0.5rem auto
-    padding 0.8rem 3.8rem 0.8rem 1rem
-    width 100%
     -webkit-appearance none
     -moz-appearance none
     appearance none
+    background offWhite
     background-image:
       linear-gradient(45deg, transparent 50%, semiDarkGrey 50%),
       linear-gradient(135deg, semiDarkGrey 50%, transparent 50%),
@@ -226,6 +231,12 @@ li
     &:-moz-focusring
       color transparent
       text-shadow 0 0 0 darkGrey
+    border 0.1rem solid semiDarkGrey
+    display block
+    font-size 1.4rem
+    margin 0.5rem auto
+    padding 0.8rem 3.8rem 0.8rem 1rem
+    width 100%
   &--date
     background lightGrey
     border 0.1rem solid semiDarkGrey
@@ -293,35 +304,33 @@ input[type=radio]
 
 .avatar
   border 0.1rem solid lightgray
-  width 10rem
   height 12rem
-  text-align right
   margin 3.4rem auto
+  text-align right
+  width 10rem
 
 .booking__box
+  background lightGrey
+  border 0.1rem solid mediumGrey
+  display flex
   grid-column 1
   grid-row 1
-  background lightGrey
-  display flex
-  border 0.1rem solid mediumGrey
   margin 5rem
   width 100%
 
-.booking__innerbox--left
-  color darkGrey
-  padding 0.5rem 2rem
-  text-align left
-  width 40%
-
-.booking__innerbox--middle
-  line-height 0.8em
-  margin 3rem auto
-  padding-top 3rem
-  text-align left
-  width 40%
-
-.booking__innerbox--right
-  margin 3rem auto
-  padding-top 4.4rem
-  width 20%
-
+.booking__innerbox
+  &--left
+    color darkGrey
+    padding 0.5rem 2rem
+    text-align left
+    width 40%
+  &--middle
+    line-height 0.8em
+    margin 3rem auto
+    padding-top 3rem
+    text-align left
+    width 40%
+  &--right
+    margin 3rem auto
+    padding-top 4.4rem
+    width 20%
