@@ -1,35 +1,38 @@
-.form__grid
-  display grid
-  grid-gap 1rem
-  grid-template-columns min-content max-content max-content
-  grid-template-rows 1fr auto
-  grid-column 1 / 2
-  grid-row 2
-  margin 2rem auto
-  width 100%
+.form
+  &__grid
+    display grid
+    grid-column-gap 2%
+    grid-template-columns 24.5% 30% 41.5%
+    grid-template-rows 1fr auto
+    grid-column 1 / -1
+    grid-row 2
+    margin 2rem auto
+    width 100%
+  &__heading
+    &--filter
+      margin 0.8rem 0
+  &__input
+    &--time
+      border 0.1em solid darkGrey
+      display inline-block
+      margin 1rem 0 1rem 1rem
+      width 12rem
 
-.content__calendar
-  grid-column 1
-  grid-row 1
-  width 100%
-
-.content__table
-  grid-column 2
-  grid-row 1
-  min-width 40rem
-  width 100%
-
-.content__form
-  background offWhite
-  -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
-  -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
-  box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
-  grid-column 3
-  grid-row 1
-  // margin 0 2rem
-  min-width 20rem
-  padding 0 5.8rem
-  width 100%
+.content
+  &__calendar
+    grid-column 1
+    grid-row 1
+  &__table
+    grid-column 2
+    grid-row 1
+  &__form
+    background offWhite
+    -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+    -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+    box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+    grid-column 3
+    grid-row 1
+    padding 0 5.8rem
 
 input[type=checkbox]
   box-shadow none
@@ -40,13 +43,3 @@ input[type=radio]
   box-shadow none
   height 1.6rem
   width 1.6rem
-
-.form__heading--filter
-  margin 0.8rem 0
-
-.form__input--time
-  border 0.1em solid darkGrey
-  display inline-block
-  margin 1rem 0 1rem 1rem
-  width 12rem
-

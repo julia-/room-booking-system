@@ -1,76 +1,64 @@
-// Table - Make a Bookin view
-.table--booking
-  background offWhite
-  border 0.1rem solid mediumGrey
-  border-collapse collapse !important
-  border-spacing 0 0 !important
-  -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
-  -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
-  box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
-  margin 0 auto
-  padding 0
-  width 34rem
-  td
-    text-align center
-  th
+.table // make a booking view
+  &--booking
+    background offWhite
     border 0.1rem solid mediumGrey
-
-// Table - Make a Bookin split view
-.table--booking--split
-  background offWhite
-  border none
-  border-collapse collapse !important
-  border-spacing 0 0 !important
-  margin 0 auto
-  padding 0
-  td
+    border-collapse collapse !important
+    border-spacing 0 0 !important
+    -webkit-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+    -moz-box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+    box-shadow 0px 2px 5px 0px rgba(206,206,206,1)
+    color darkGrey
+    display table
+    margin 0 auto
+    max-height 100%
+    padding 0
+    table-layout fixed
     text-align center
-  th
-    border 0.1rem solid mediumGrey
-  .table__cell
+    width 100%
+  &__cell // make a booking split view
     border-top-width 0
     border-right-width 0
     border-bottom-width 0
     border-left-width 0
-    span
-      &:first-child
-        border-right 0.1rem solid mediumGrey
-      &:last-child
-        border-left 0.1rem solid mediumGrey
-
-.table__row
-  &--full
-    height 6rem
-    padding 2rem 0
-    border 0.1rem solid mediumGrey
-    td
+    &--form
+      background offWhite
       border 0.1rem solid mediumGrey
-
-// Nested table
-.table--nested
-  border-collapse collapse !important
-  border-spacing 0 0 !important
-  width 100%
-  tr
-    padding 0
-    margin 0
-
-// Nested table cells
-.table__cell
-  &--subcell // adjust height for when half hour bookings
-    height 2.9rem
-    padding 0
-    line-height 0
-    border-bottom-width 0
-    border-top-width 0
-
-.table__row--border-top
-  border-top 0.1rem solid mediumGrey
-
-.table__row--border-bottom
-  border-bottom 0.1rem solid mediumGrey
-
-.table__row--no-border
-  td
-    border none
-    padding 0
+      display table-cell
+      height 6rem
+      vertical-align middle
+    &--booking-split
+      background offWhite
+      border none
+      border-collapse collapse !important
+      border-spacing 0 0 !important
+      margin 0 auto
+      padding 0
+    &--split // adjust height for when half hour bookings
+      border-bottom-width 0
+      border-top-width 0
+      // display table-cell
+      height inherit
+      line-height 2
+      width 100%
+      vertical-align middle
+  &__column
+    &--form
+      width 25%
+  &__row
+    &--form
+      border 0.1rem solid mediumGrey
+      display table-row
+      height 6rem
+    &--border-bottom
+      border-bottom 0.1rem solid mediumGrey
+    &--border-top
+      border-top 0.1rem solid mediumGrey
+    &--full
+      height 6rem
+      padding 2rem 0
+      border 0.1rem solid mediumGrey
+    &--no-border
+      border none
+      padding 0
+    &--split-booking
+      height 3rem
