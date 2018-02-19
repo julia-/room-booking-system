@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import {Link} from 'react-router-dom'
 import { formatAssetName, dailyBookings, bookingArray } from '../helpers/rooms'
 
@@ -14,72 +14,111 @@ const rowMapper = (dayHours, props) => {
     // If the data for that hour is a number (not a booking object), there is no booking
     // Add a <td> element that indicates the time slot is available
     if (typeof bookingData == 'number') {
-      tableRow.push(<td className="table__cell--available">
-          <Link to="/createbooking" onClick={() => {
-              props.onSetRoom(props.room._id)
-        }} className="table__link--available">
+      tableRow.push(
+        <div className="table__cell table__cell--available">
+          <Link
+            to="/createbooking"
+            onClick={() => {props.onSetRoom(props.room._id)}}
+            className="table__link--available"
+          >
             &nbsp;
           </Link>
-        </td>)
+        </div>
+      )
 
      // If the data is an array, there are two booking objects
-    } else if (Array.isArray(bookingData)){
-
-    // Determine which of the two bookings comes first and second
-    let firstBookingData = bookingData[0].firstHalfHour ?
-      bookingData[0] : bookingData[1]
-
-    let secondBookingData = bookingData[0].secondHalfHour ?
-        bookingData[0] : bookingData[1]
+    } else if (Array.isArray(bookingData)) {
+      // Determine which of the two bookings comes first and second
+      let firstBookingData = bookingData[0].firstHalfHour ? bookingData[0] : bookingData[1]
+      let secondBookingData = bookingData[0].secondHalfHour ? bookingData[0] : bookingData[1]
 
       tableRow.push(
-        <table className="table--booking--split">
-          <tbody>
-            <tr>
-              <td className={`table__cell`}>
-                <span
-                  onClick={() => props.onShowBooking(firstBookingData)}
-                  className={`table__cell--booked table__cell--${firstBookingData.businessUnit // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
-                    .replace(/ /g, '-')
-                    .toLowerCase()}
-                  `}
-                >
-                  &nbsp;
-                </span>
-              </td>
-              <td className={`table__cell`}>
-                <span
-                  onClick={() => props.onShowBooking(secondBookingData)}
-                  className={`table__cell--booked table__cell--${secondBookingData.businessUnit // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
-                    .replace(/ /g, '-')
-                    .toLowerCase()}
-                  `}
-                >
-                  &nbsp;
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="table__cell">
+            <span
+              onClick={() => props.onShowBooking(firstBookingData)}
+              // Class name shows the business unit, and whether the cell should be fully shaded, or half (indicating a half-hour booking)
+            className={`table__cell--booked table__cell--left table__cell--${firstBookingData.businessUnit
+                .replace(/ /g, '-')
+                .toLowerCase()}
+                `}
+            >
+              &nbsp;
+            </span>
+            <span
+              onClick={() => props.onShowBooking(secondBookingData)}
+              // Class name shows the business unit, and whether the cell should be fully shaded, or half (indicating a half-hour booking)
+            className={`table__cell--booked table__cell--right table__cell--${secondBookingData.businessUnit
+                .replace(/ /g, '-')
+                .toLowerCase()}
+              `}
+            >
+              &nbsp;
+            </span>
+        </div>
       )
-    
     // If there is a booking object, add a <td> element with custom class name to enable stlying
-    } else {
+    } else if (bookingData.firstHalfHour) {
       tableRow.push(
-        <td className={`table__cell`}>
+        <div className="table__cell">
           <span
             onClick={() => props.onShowBooking(bookingData)}
-            className={`table__cell--booked table__cell--${bookingData.businessUnit // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
+            // Class name shows the business unit, and whether the cell should be fully shaded, or half (indicating a half-hour booking)
+            className={`table__cell--booked table__cell--left table__cell--${bookingData.businessUnit
               .replace(/ /g, '-')
-              .toLowerCase()}
-            ${bookingData.firstHalfHour ? 'table__cell--first-half-hour' : ''}
-            ${
-              bookingData.secondHalfHour ? 'table__cell--second-half-hour' : ''
-            }`}
+              .toLowerCase()}`}
           >
             &nbsp;
           </span>
-        </td>
+          <span className="table__cell--available table__cell--right">
+            <Link
+              to="/createbooking"
+              onClick={() => {props.onSetRoom(props.room._id)}} className="table__link--available"
+            >
+              &nbsp;
+            </Link>
+          </span>
+        </div>
+      )
+    } else if (bookingData.secondHalfHour) {
+      tableRow.push(
+        <div className="table__cell">
+          <span className="table__cell--available table__cell--left">
+            <Link
+              to="/createbooking"
+              onClick={() => {props.onSetRoom(props.room._id)}} className="table__link--available"
+            >
+              &nbsp;
+            </Link>
+          </span>
+          <span
+            onClick={() => props.onShowBooking(bookingData)}
+            // Class name shows the business unit, and whether the cell should be fully shaded, or half (indicating a half-hour booking)
+            className={`table__cell--booked table__cell--right
+              table__cell--${bookingData.businessUnit
+                .replace(/ /g, '-')
+                .toLowerCase()}
+              `}
+          >
+            &nbsp;
+          </span>
+        </div>
+      )
+    } else {
+      tableRow.push(
+        <div className="table__cell">
+          <span
+            onClick={() => props.onShowBooking(bookingData)}
+            // Class name shows the business unit, and whether the cell should be fully shaded, or half (indicating a half-hour booking)
+            className={`table__cell--booked table__cell--${bookingData.businessUnit
+              .replace(/ /g, '-')
+              .toLowerCase()}
+              ${bookingData.firstHalfHour ? 'table__cell--left' : ''}
+              ${bookingData.secondHalfHour ? 'table__cell--right' : ''}
+            `}
+          >
+            &nbsp;
+          </span>
+        </div>
       )
     }
   }
@@ -87,10 +126,16 @@ const rowMapper = (dayHours, props) => {
 }
 
 const RoomRow = props => (
-  <tr className="table__row">
-    <th scope="row" className="table__cell--align-left">
-      <Link to="/createbooking" onClick={() => props.onSetRoom(props.room._id)} className="table__link">{props.room.name}</Link>
-      <ul >
+  <div className="table__row">
+    <div className="table__cell table__cell--column">
+      <Link
+        to="/createbooking"
+        onClick={() => props.onSetRoom(props.room._id)}
+        className="table__link"
+      >
+        {props.room.name}
+      </Link>
+      <ul>
       {Object.keys(props.room.assets).map(
         asset =>
           props.room.assets[asset] && (
@@ -98,12 +143,12 @@ const RoomRow = props => (
             )
           )}
       </ul>
-    </th>
+    </div>
     {rowMapper(
       bookingArray(dailyBookings(props.date, props.bookings)),
       props
     )}
-  </tr>
+  </div>
 )
 
 export default RoomRow
