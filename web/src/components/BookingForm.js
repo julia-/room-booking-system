@@ -1,8 +1,8 @@
-import React, {Fragment} from 'react'
+import React, { Fragment } from 'react'
 import BookingFormTable from './BookingFormTable'
 import Datetime from 'react-datetime'
 import moment from 'moment'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Button from './Button'
 import { formatTime, startTimeSelectOptions, endTimeSelectOptions } from '../helpers/bookingForm'
 
@@ -153,7 +153,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
           </div>
           <div className="form__group--button">
             <Button className="button button__form--booking" text={'Submit'} />
-            <Link to="/bookings" className="button button--alternative button__form--booking" >View availability</Link>
+            <Link to="/bookings" className="button button--alternative button__form--booking" >View room availability</Link>
           </div>
         </div>
       </form>
