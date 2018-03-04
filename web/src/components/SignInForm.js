@@ -12,16 +12,12 @@ function SignInForm({ onSignIn }) {
       }}
     >
       <div className="form__group">
-        <label className="form__label form__label--padding">
-          {'Email'}
-          <input type="email" name="email" className="form__input" />
-        </label>
+        <label for="email" className="form__label form__label--padding">Email</label>
+        <input id="email" type="email" name="email" className="form__input" />
       </div>
       <div className="form__group">
-        <label className="form__label form__label--padding">
-          {'Password'}
-          <input type="password" name="password" className="form__input" />
-        </label>
+        <label for="password" className="form__label form__label--padding">Password</label>
+        <input id="password" type="password" name="password" className="form__input" />
       </div>
       <button className="button button__form--submit">Sign in</button>
     </form>
