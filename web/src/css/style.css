@@ -561,14 +561,18 @@ td.rdtYear:hover {
   text-decoration: none;
 }
 html {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
   font-size: 62.5%;
   margin: 0;
+  -webkit-margin-after: 0;
+  -webkit-margin-end: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-start: 0;
   padding: 0;
 }
 body {
   background: #f4f4f4;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   font-family: "proxima-nova", sans-serif;
   font-size: 1.6rem;
   -moz-osx-font-smoothing: grayscale;
@@ -596,18 +600,35 @@ li {
   width: 100%;
 }
 .wrapper__form {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr 3fr 1fr;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+}
+.grid__container--form {
   background: #fafafa;
   -webkit-box-shadow: 0px 2px 5px 0px #cecece;
   box-shadow: 0px 2px 5px 0px #cecece;
   color: #1c1c1c;
   display: grid;
   grid-gap: 1rem;
+  grid-row: 2;
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto auto auto;
-  height: auto;
-  margin: 0 auto;
-  padding: 3rem;
-  width: 40rem;
+  grid-template-rows: 1fr auto 1fr;
+  justify-self: center;
+  padding: 6rem 0;
+  width: 60%;
+}
+.grid__row {
+  min-width: 60%;
+  margin: 1rem auto;
+}
+.grid__row--link {
+  font-size: 1.8rem;
+  text-align: center;
 }
 .wrapper__content {
   display: grid;
@@ -685,9 +706,8 @@ li {
   border-bottom: 0.2rem solid #1c1c1c;
   font-size: 2.6rem;
   font-weight: 700;
-  padding: 2rem 0 1rem 0;
   margin: 0 auto;
-  width: 30rem;
+  width: 100%;
 }
 .header__heading--sidebar {
   font-family: "proxima-nova", sans-serif;
@@ -737,10 +757,6 @@ li {
 .form--booking {
   margin: 1rem auto;
 }
-.form--signin {
-  margin: 1rem auto;
-  width: 30rem;
-}
 .form__group {
   margin: 0 auto;
 }
@@ -754,7 +770,7 @@ li {
   display: block;
   font-size: 1.8rem;
   font-weight: 600;
-  margin: 1.8rem auto;
+  margin: 1rem 0 0.8rem 0;
   padding-bottom: 0.4rem;
   text-align: left;
 }
@@ -775,11 +791,12 @@ li {
   font-weight: normal;
 }
 .form__input {
+  border: 0.1rem solid #cecece;
   display: block;
   font-size: 1.6rem;
-  margin: 0.6rem 0 2rem 0;
-  padding: 1rem 1.6rem;
-  width: 27rem;
+  margin: 0 auto;
+  padding: 1.6rem 0.5rem;
+  width: 100%;
 }
 .form__input:active,
 .form__input:focus {
@@ -855,8 +872,8 @@ input[type=radio] {
   margin: 0.8rem 0;
 }
 .button__form--submit {
-  margin: 1rem 0;
-  width: 30.6rem;
+  margin: 1rem auto;
+  width: 100%;
 }
 .button__form--google {
   margin: 3rem auto;
