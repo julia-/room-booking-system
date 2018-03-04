@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { formatAssetName, dailyBookings, bookingArray } from '../helpers/rooms'
 
 // Accept the 24 hour dayHours array as the day's booking data for a room
@@ -12,7 +12,7 @@ const rowMapper = (dayHours, props) => {
     let bookingData = dayHours[i + 8]
 
     // If the data for that hour is a number (not a booking object), there is no booking
-    // Add a <td> element that indicates the time slot is available
+    // Adds a div element to indicate the time slot is available
     if (typeof bookingData == 'number') {
       tableRow.push(
         <div className="table__cell table__cell--available">
@@ -34,26 +34,26 @@ const rowMapper = (dayHours, props) => {
 
       tableRow.push(
         <div className="table__cell">
-            <span
-              onClick={() => props.onShowBooking(firstBookingData)}
-              // Class name shows the business unit, and whether the cell should be fully shaded, or half (indicating a half-hour booking)
+          <span
+            onClick={() => props.onShowBooking(firstBookingData)}
+            // Class name shows the business unit, and whether the cell should be fully shaded, or half (indicating a half-hour booking)
             className={`table__cell--booked table__cell--left table__cell--${firstBookingData.businessUnit
                 .replace(/ /g, '-')
                 .toLowerCase()}
                 `}
-            >
-              &nbsp;
-            </span>
-            <span
-              onClick={() => props.onShowBooking(secondBookingData)}
-              // Class name shows the business unit, and whether the cell should be fully shaded, or half (indicating a half-hour booking)
+          >
+            &nbsp;
+          </span>
+          <span
+            onClick={() => props.onShowBooking(secondBookingData)}
+            // Class name shows the business unit, and whether the cell should be fully shaded, or half (indicating a half-hour booking)
             className={`table__cell--booked table__cell--right table__cell--${secondBookingData.businessUnit
-                .replace(/ /g, '-')
-                .toLowerCase()}
-              `}
-            >
-              &nbsp;
-            </span>
+              .replace(/ /g, '-')
+              .toLowerCase()}
+            `}
+          >
+            &nbsp;
+          </span>
         </div>
       )
     // If there is a booking object, add a <td> element with custom class name to enable stlying
@@ -108,7 +108,7 @@ const rowMapper = (dayHours, props) => {
         <div className="table__cell">
           <span
             onClick={() => props.onShowBooking(bookingData)}
-            // Class name shows the business unit, and whether the cell should be fully shaded, or half (indicating a half-hour booking)
+            // Class name shows the business unit, and whether the cell should be completly or half shaded (indicating a half-hour booking)
             className={`table__cell--booked table__cell--${bookingData.businessUnit
               .replace(/ /g, '-')
               .toLowerCase()}
