@@ -19,12 +19,8 @@ const formatAssetName = asset => {
 
 // Accepts the search date in 'YYYY/MM/DD' format and all of a room's bookings and filters the array for bookings that match the search date
 const dailyBookings = (currentDate, roomBookings) => {
-  const filteredBookings = roomBookings.filter(
-    (
-      booking // Check if the booking is for the current date
-    ) =>
-      moment(booking.bookingStart).format('YYYY-MM-DD') ===
-      moment(currentDate).format('YYYY-MM-DD')
+  const filteredBookings = roomBookings.filter(booking => 
+    moment(booking.bookingStart).format('YYYY-MM-DD') === moment(currentDate).format('YYYY-MM-DD')
   )
   return filteredBookings
 }
@@ -35,7 +31,10 @@ const bookingArray = (filteredBookings) => {
   let dayHours = [...Array(24).keys()]
 
   filteredBookings.forEach(booking => {
-    let startTime = booking.startHour
+     let startTime = booking.bookingStart;
+     const dateTime = new Date(startTime);
+     startTime = dateTime.getHours();
+
     let duration = booking.duration
     let finalHour = startTime + duration
 

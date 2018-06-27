@@ -14,7 +14,7 @@ const rowMapper = (dayHours, props) => {
     // If the data for that hour is a number (not a booking object), there is no booking
     // Add a <td> element that indicates the time slot is available
     if (typeof bookingData == 'number') {
-      tableRow.push(<td className="table__cell--available">
+      tableRow.push(<td key={`rowMapper${i}`} className="table__cell--available">
           <Link to="/createbooking" onClick={() => {
               props.onSetRoom(props.room._id)
         }} className="table__link--available">
