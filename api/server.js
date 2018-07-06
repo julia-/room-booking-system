@@ -6,9 +6,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const authMiddleware = require('./middleware/auth')
-
 const config = require('./config')
-
 const server = express()
 
 // Middleware
@@ -25,8 +23,8 @@ server.use((error, req, res, next) => {
     error: {
       message: error.message
     }
-  })
-})
+  });
+});
 
 // Read port and host from the configuration file
 server.listen(config.port, config.host, error => {
