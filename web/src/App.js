@@ -138,6 +138,9 @@ class App extends Component {
     this.setState({ disableRecurring: disableRecurring })
   }
 
+  onSetFloorParam = value => {
+    this.setState({ floorParam: value })
+  }
   // get today's bookings for all rooms
   oneSetCurrentDateBookings = () => {
     const currentDate = moment().format('DD-MM-YYYY')
@@ -203,7 +206,7 @@ class App extends Component {
 
     if (!!roomData) {
 
-      // filteredData = onFilterByFloor(floorParam, roomData);
+      filteredData = onFilterByFloor(floorParam, roomData);
       // Send the previously filtered data along with the feature params
       filteredData = onFilterByFeature(featureParams, filteredData);
     }
