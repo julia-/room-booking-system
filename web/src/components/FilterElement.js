@@ -4,9 +4,7 @@ import moment from 'moment'
 import { formatTime, startTimeSelectOptions, endTimeSelectOptions } from '../helpers/bookingForm'
 
 const FilterElement = ({
-  onSetFloorParam,
   onToggleFeature,
-  floorParam,
   filterParams,
   //  date
 }) =>

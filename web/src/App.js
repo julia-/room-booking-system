@@ -17,11 +17,8 @@ import SignInForm from './components/SignInForm';
 import SignUpForm from './components/SignUpForm';
 import './css/style.css';
 import {
-  capacityParams,
   filterParams,
-  onFilterByCapacity,
   onFilterByFeature,
-  onFilterByFloor
 } from './helpers/filters';
 
 class App extends Component {
@@ -32,8 +29,6 @@ class App extends Component {
     calendarDate: new Date(),
     selectedBooking: null,
     filterParams: filterParams,
-    capacityParams: capacityParams,
-    floorParam: 'all',
     filteredData: null,
     checked: null,
     currentRoom: null,
@@ -127,17 +122,6 @@ class App extends Component {
     this.setState({ filterParams: filterParams })
   }
 
-  // setting the capacity filter parameters
-  onToggleCapacity = capacity => {
-    // Get the capacity parameters
-    let capacityParams = this.state.capacityParams
-    // Find the capacity parameter that matches the the passed parameter
-    let capacityParam = capacityParams.find(param => param.id === capacity)
-    // Toggle the value of the parameter, eg if false, set to true
-    capacityParam.value = !capacityParam.value
-    // Set state with the updated capacity parameters
-    this.setState({ capacityParams: capacityParams })
-  }
 
   // changing the boolean value for the display attribute for the recurring date input
   onToggleRecurring = (value) => {
@@ -148,10 +132,6 @@ class App extends Component {
       disableRecurring = false
     }
     this.setState({ disableRecurring: disableRecurring })
-  }
-
-  onSetFloorParam = value => {
-    this.setState({ floorParam: value })
   }
 
   // get today's bookings for all rooms
@@ -201,8 +181,6 @@ class App extends Component {
       calendarDate,
       selectedBooking,
       filterParams,
-      capacityParams,
-      floorParam,
       disableRecurring,
       loading
     } = this.state
@@ -218,13 +196,8 @@ class App extends Component {
     const date = this.state.currentDate
 
     if (!!roomData) {
-      // Send all room data and the selected floor, return filtered floors and store in filteredData
-      filteredData = onFilterByFloor(floorParam, roomData);
       // Send the previously filtered data along with the feature params
       filteredData = onFilterByFeature(featureParams, filteredData);
-      // Send the previously filtered data along with the capacity params
-      filteredData = onFilterByCapacity(capacityParams, filteredData);
-      // Send the previously filtered data along with the availability
     }
 
     const requireAuth = render => () =>
@@ -275,12 +248,8 @@ class App extends Component {
                           </div>
                           <div className="sidebar__box">
                             <FilterElement
-                              onSetFloorParam={this.onSetFloorParam}
                               onToggleFeature={this.onToggleFeature}
-                              onToggleCapacity={this.onToggleCapacity}
                               filterParams={filterParams}
-                              capacityParams={capacityParams}
-                              floorParam={floorParam}
                               onSetTimeFilterParams={this.onSetTimeFilterParams}
                               date={calendarDate}
                             />
@@ -403,8 +372,6 @@ class App extends Component {
       // load all of the rooms from the database
       listRooms()
         .then(rooms => {
-          console.log('rooms');
-          console.table(rooms);
           this.setState({ roomData: rooms })
           // load the current user's bookings
           this.loadMyBookings()
