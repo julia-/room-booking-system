@@ -19,6 +19,8 @@ import './css/style.css';
 import {
   filterParams,
   onFilterByFeature,
+
+  onFilterByFloor
 } from './helpers/filters';
 
 class App extends Component {
@@ -29,6 +31,8 @@ class App extends Component {
     calendarDate: new Date(),
     selectedBooking: null,
     filterParams: filterParams,
+
+    floorParam: 'all',
     filteredData: null,
     checked: null,
     currentRoom: null,
@@ -181,6 +185,8 @@ class App extends Component {
       calendarDate,
       selectedBooking,
       filterParams,
+
+      floorParam,
       disableRecurring,
       loading
     } = this.state
@@ -196,6 +202,8 @@ class App extends Component {
     const date = this.state.currentDate
 
     if (!!roomData) {
+
+      // filteredData = onFilterByFloor(floorParam, roomData);
       // Send the previously filtered data along with the feature params
       filteredData = onFilterByFeature(featureParams, filteredData);
     }
@@ -251,6 +259,7 @@ class App extends Component {
                               onToggleFeature={this.onToggleFeature}
                               filterParams={filterParams}
                               onSetTimeFilterParams={this.onSetTimeFilterParams}
+                              floorParam={floorParam}
                               date={calendarDate}
                             />
                           </div>

@@ -5,6 +5,8 @@ import { formatTime, startTimeSelectOptions, endTimeSelectOptions } from '../hel
 
 const FilterElement = ({
   onToggleFeature,
+
+  floorParam,
   filterParams,
   //  date
 }) =>

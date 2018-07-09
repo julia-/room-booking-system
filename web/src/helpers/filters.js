@@ -2,6 +2,7 @@ import moment from 'moment'
 import { formatTime, timeSelectOptions } from '../helpers/bookingForm'
 
 
+export const floorParams = [{ name: '8', value: false }, { name: '13', value: false }, { name: 'all', value: false }]
 // initial feature filter parameters
 export const filterParams = [
   { name: 'macLab', value: false },
@@ -11,6 +12,14 @@ export const filterParams = [
   { name: 'projector', value: false }]
 
 
+// Filter roomData by floor
+export const onFilterByFloor = (param, filteredData) => {
+  if (param === 'all') {
+    return filteredData
+  } else {
+    return filteredData.filter(room => room.floor === param)
+  }
+}
 // Filter data by feature
 export const onFilterByFeature = (params, filteredData) => {
   params.forEach(feature => {
