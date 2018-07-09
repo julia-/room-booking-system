@@ -26,10 +26,21 @@ import {
 } from './api/auth'
 import { listRooms } from './api/rooms'
 import { getDecodedToken } from './api/token'
-import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
+import { 
+  makeBooking, 
+  deleteBooking, 
+  updateStateRoom 
+} from './api/booking'
 import Calendar from './components/Calendar'
 import BookingModal from './components/BookingModal'
-import { floorParams, filterParams, capacityParams, onFilterByFloor, onFilterByFeature, onFilterByCapacity, onFilterByAvailablity } from './helpers/filters'
+import { 
+  floorParams, 
+  filterParams, 
+  capacityParams, 
+  onFilterByFloor, 
+  onFilterByFeature, 
+  onFilterByCapacity 
+} from './helpers/filters'
 import { initialRoom } from './helpers/rooms'
 
 class App extends Component {
@@ -42,13 +53,12 @@ class App extends Component {
     filterParams: filterParams,
     capacityParams: capacityParams,
     floorParam: 'all',
-    availabilityParam: null,
     filteredData: null,
     checked: null,
     currentRoom: null,
     error: null,
     disableRecurring: true
-  }
+  };
 
   // Pass supplied first name, lastname, email & password to the signUp function, returns the user's token
   onSignUp = ({ firstName, lastName, email, password }) => {
@@ -70,13 +80,11 @@ class App extends Component {
     this.setState({ decodedToken: null })
   }
 
-  setCalendarDate = date => {
-    this.setState({ calendarDate: date })
+  setCalendarDate = calendarDate => {
+    this.setState({ calendarDate })
   }
 
-  onShowBooking = booking => {
-    const selectedBooking = booking
-    console.log('selectedBooking', selectedBooking)
+  onShowBooking = selectedBooking => {
     this.setState(() => ({ selectedBooking }))
   }
 
@@ -105,7 +113,6 @@ class App extends Component {
       alert(
         'Your booking could not be saved. Please ensure it does not clash with an existing booking and that it is a valid time in the future.'
       )
-      console.log(err)
     }
   }
 
@@ -120,7 +127,6 @@ class App extends Component {
           this.loadMyBookings,
         )
       })
-      .catch(error => console.error(error.message))
   }
 
   setRoom = id => {
@@ -164,11 +170,7 @@ class App extends Component {
   }
 
   onSetFloorParam = value => {
-		this.setState({ floorParam: value })
-  }
-
-  onSetAvailabilityParam = availability => {
-    this.setState({ availabilityParam: availability })
+    this.setState({ floorParam: value })
   }
 
   // get today's bookings for all rooms
@@ -193,7 +195,7 @@ class App extends Component {
   }
 
   loadMyBookings = () => {
-    let myBookings = []
+    let userBookings = []
     const userId = this.state.decodedToken.sub
     // Loop through all the rooms
     this.state.roomData.forEach(room => {
@@ -202,12 +204,12 @@ class App extends Component {
         if (booking.user === userId) {
           // Push all bookings where the current userId is equal to the booking's userId into myBookings
           booking.roomId = room._id
-          myBookings.push(booking)
+          userBookings.push(booking)
         }
       })
     })
-    this.setState({ userBookings: myBookings })
-  }
+    this.setState({ userBookings });
+  };
 
   render() {
     const {
@@ -220,7 +222,6 @@ class App extends Component {
       filterParams,
       capacityParams,
       floorParam,
-      availabilityParam,
       disableRecurring,
       loading
     } = this.state
@@ -237,13 +238,12 @@ class App extends Component {
 
     if (!!roomData) {
       // Send all room data and the selected floor, return filtered floors and store in filteredData
-      filteredData = onFilterByFloor(floorParam, roomData)
+      filteredData = onFilterByFloor(floorParam, roomData);
       // Send the previously filtered data along with the feature params
-      filteredData = onFilterByFeature(featureParams, filteredData)
+      filteredData = onFilterByFeature(featureParams, filteredData);
       // Send the previously filtered data along with the capacity params
-      filteredData = onFilterByCapacity(capacityParams, filteredData)
+      filteredData = onFilterByCapacity(capacityParams, filteredData);
       // Send the previously filtered data along with the availability
-      filteredData = onFilterByAvailablity(availabilityParam, filteredData)
     }
 
     const requireAuth = render => () =>
@@ -297,13 +297,9 @@ class App extends Component {
                                 onSetFloorParam={this.onSetFloorParam}
                                 onToggleFeature={this.onToggleFeature}
                                 onToggleCapacity={this.onToggleCapacity}
-                                onSetAvailabilityParam={
-                                  this.onSetAvailabilityParam
-                                }
                                 filterParams={filterParams}
                                 capacityParams={capacityParams}
                                 floorParam={floorParam}
-                                availabilityParam={availabilityParam}
                                 onSetTimeFilterParams={this.onSetTimeFilterParams}
                                 date={calendarDate}
                               />
@@ -389,7 +385,9 @@ class App extends Component {
                             </div>
                             <div className="wrapper__content--bookings">
                               <div className="header__page">
-                                <h2 className="header__heading header__heading--sub">My Bookings</h2>
+                                <h2 className="header__heading header__heading--sub"> 
+                                  My Bookings 
+                                </h2>
                               </div>
                               <MyBookings
                                 roomData={roomData}
@@ -442,18 +440,18 @@ class App extends Component {
 
   // When the App first renders
   componentDidMount() {
-    this.load()
-  }
+    this.load();
+  };
 
   // When state changes
   componentDidUpdate(prevProps, prevState) {
     // If just signed in, signed up, or signed out,
     // then the token will have changed
     if (this.state.decodedToken !== prevState.decodedToken) {
-      this.load()
+      this.load();
     }
-  }
+  };
 
 }
 
-export default App
+export default App;

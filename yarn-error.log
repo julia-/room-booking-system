@@ -1,0 +1,32 @@
+Arguments: 
+  /usr/bin/node /mnt/c/Program Files (x86)/Yarn/bin/yarn.js dev
+
+PATH: 
+  /home/oscar/bin:/home/oscar/.local/bin:/home/oscar/bin:/home/oscar/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/ProgramData/Oracle/Java/javapath_target_2534343:/mnt/c/Program Files/Microsoft MPI/Bin:/mnt/c/Program Files (x86)/Intel/iCLS Client:/mnt/c/Program Files/Intel/iCLS Client:/mnt/c/Windows/System32:/mnt/c/Windows:/mnt/c/Windows/System32/wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Program Files/Intel/WiFi/bin:/mnt/c/Program Files/Common Files/Intel/WirelessCommon:/mnt/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Program Files/Intel/Intel(R) Management Engine Components/DAL:/mnt/c/Program Files (x86)/Intel/Intel(R) Management Engine Components/IPT:/mnt/c/Program Files/Intel/Intel(R) Management Engine Components/IPT:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/nodejs:/mnt/c/HashiCorp/Vagrant/bin:/mnt/c/xampp/php:/mnt/c/ProgramData/ComposerSetup/bin:/mnt/c/Program Files (x86)/Yarn/bin:/mnt/c/Program Files/Amazon/AWSCLI:/mnt/c/Users/austi/AppData/Local/Programs/Python/Python36/Scripts:/mnt/c/Users/austi/AppData/Local/Programs/Python/Python36:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Users/austi/Documents/maven/apache-maven-3.5.3/bin:/mnt/c/Program Files/Java/jdk1.8.0_162/bin:/mnt/c/Program Files/dotnet:/mnt/c/Program Files/Microsoft SQL Server/130/Tools/Binn:/mnt/c/Users/austi/Downloads/libwebp-1.0.0-windows-x64/libwebp-1.0.0-windows-x64/bin:/mnt/c/Users/austi/AppData/Local/Programs/Python/Python36/Scripts:/mnt/c/Users/austi/AppData/Local/Programs/Python/Python36:/mnt/c/Users/austi/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/austi/AppData/Roaming/npm:/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/xampp/mysql/bin:/mnt/c/Users/austi/AppData/Local/Yarn/bin:/mnt/c/Users/austi/AppData/Roaming/Python/Python36/Scripts:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/usr/lib/jvm/java-8-oracle/bin:/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin:/usr/lib/jvm/java-8-oracle/bin:/bin
+
+Yarn version: 
+  1.5.1
+
+Node version: 
+  8.11.3
+
+Platform: 
+  linux x64
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: Couldn't find a package.json file in "/home/oscar/aa/room-booking-system"
+      at new MessageError (/mnt/c/Program Files (x86)/Yarn/lib/cli.js:186:110)
+      at /mnt/c/Program Files (x86)/Yarn/lib/cli.js:40048:15
+      at Generator.next (<anonymous>)
+      at step (/mnt/c/Program Files (x86)/Yarn/lib/cli.js:98:30)
+      at /mnt/c/Program Files (x86)/Yarn/lib/cli.js:109:13
+      at <anonymous>

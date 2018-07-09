@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { Fragment, Component } from 'react'
 import {Link} from 'react-router-dom'
 import { formatAssetName, dailyBookings, bookingArray } from '../helpers/rooms'
 
 // Accept the 24 hour dayHours array as the day's booking data for a room
-const rowMapper = (dayHours, props) => {
+const rowMapper = (
+  dayHours, 
+  onSetRoom,
+  room,
+  onShowBooking,
+) => {
   let tableRow = []
 
   // Loop through each hour from 8AM to 9PM (starting at 8AM = 0)
@@ -14,9 +19,10 @@ const rowMapper = (dayHours, props) => {
     // If the data for that hour is a number (not a booking object), there is no booking
     // Add a <td> element that indicates the time slot is available
     if (typeof bookingData == 'number') {
+      console.log('one');
       tableRow.push(<td key={`rowMapper${i}`} className="table__cell--available">
           <Link to="/createbooking" onClick={() => {
-              props.onSetRoom(props.room._id)
+              onSetRoom(room._id)
         }} className="table__link--available">
             &nbsp;
           </Link>
@@ -38,10 +44,10 @@ const rowMapper = (dayHours, props) => {
             <tr>
               <td className={`table__cell`}>
                 <span
-                  onClick={() => props.onShowBooking(firstBookingData)}
+                  onClick={() => onShowBooking(firstBookingData)}
                   className={`table__cell--booked table__cell--${firstBookingData.businessUnit // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
                     .replace(/ /g, '-')
-                    .toLowerCase()}
+                    .toLowerCase()} first
                   `}
                 >
                   &nbsp;
@@ -49,10 +55,10 @@ const rowMapper = (dayHours, props) => {
               </td>
               <td className={`table__cell`}>
                 <span
-                  onClick={() => props.onShowBooking(secondBookingData)}
+                  onClick={() => onShowBooking(secondBookingData)}
                   className={`table__cell--booked table__cell--${secondBookingData.businessUnit // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
                     .replace(/ /g, '-')
-                    .toLowerCase()}
+                    .toLowerCase()} second
                   `}
                 >
                   &nbsp;
@@ -66,16 +72,12 @@ const rowMapper = (dayHours, props) => {
     // If there is a booking object, add a <td> element with custom class name to enable stlying
     } else {
       tableRow.push(
-        <td className={`table__cell`}>
+        <td key={`tableRowTD${i}`} className={`table__cell`}>
           <span
-            onClick={() => props.onShowBooking(bookingData)}
-            className={`table__cell--booked table__cell--${bookingData.businessUnit // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
-              .replace(/ /g, '-')
-              .toLowerCase()}
-            ${bookingData.firstHalfHour ? 'table__cell--first-half-hour' : ''}
-            ${
-              bookingData.secondHalfHour ? 'table__cell--second-half-hour' : ''
-            }`}
+            onClick={() => onShowBooking(bookingData)}
+           // Class name will show the business unit that made the booking, 
+           // and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
+             className={`table__cell--booked table__cell--${bookingData.businessUnit.replace(/ /g, '-').toLowerCase()} ${!bookingData.bookingStart.includes(':30:') && bookingData.duration === 0.5 ? 'table__cell--first-half-hour' : ''} ${bookingData.bookingStart.includes(':30:')  && bookingData.duration === 0.5 ? 'table__cell--second-half-hour' : ''}`}
           >
             &nbsp;
           </span>
@@ -83,27 +85,39 @@ const rowMapper = (dayHours, props) => {
       )
     }
   }
-  return tableRow
-}
+  return tableRow;
+};
 
-const RoomRow = props => (
+const RoomRow = ({
+  onSetRoom,
+  room,
+  onShowBooking,
+  date,
+  bookings,
+}) =>
   <tr className="table__row">
     <th scope="row" className="table__cell--align-left">
-      <Link to="/createbooking" onClick={() => props.onSetRoom(props.room._id)} className="table__link">{props.room.name}</Link>
-      <ul >
-      {Object.keys(props.room.assets).map(
-        asset =>
-          props.room.assets[asset] && (
-            <li key={asset} onClick={props.onShowBooking} className="table__data--asset">{formatAssetName(asset)}</li>
+      <Link to="/createbooking" onClick={() => onSetRoom(room._id)} className="table__link">{room.name}</Link>
+      <ul>
+        {Object.keys(room.assets).map(
+          asset =>
+            room.assets[asset] && (
+              <li key={asset} className="table__data--asset">{formatAssetName(asset)}</li>
             )
-          )}
+        )}
       </ul>
     </th>
     {rowMapper(
-      bookingArray(dailyBookings(props.date, props.bookings)),
-      props
+      bookingArray(dailyBookings(date, bookings)),
+      onSetRoom,
+      room,
+      onShowBooking,
     )}
-  </tr>
-)
+  </tr>;
 
-export default RoomRow
+export default RoomRow;
+
+
+/*  {room.assets.length && room.assets.map(asset =>
+          <li key={asset.name} onClick={onShowBooking} className="table__data--asset">{asset.name}</li>
+        )}*/

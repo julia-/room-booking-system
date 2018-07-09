@@ -63,18 +63,4 @@ export const onFilterByCapacity = (params, filteredData) => {
   } else {
     return filteredData
   }
-}
-
-// Filter data by availability
-export const onFilterByAvailablity = (params, filteredData) => {
-  if (params === 'fullyAvail') {
-    filteredData = filteredData.filter(room => room.bookings.length === 0)
-  } else if (params === 'partAvail') {
-    filteredData = filteredData.filter(room => room.bookings.length > 0)
-  } else if (params === 'fullBooked') {
-    filteredData =
-      !filteredData.filter(room => room.bookings.length > 0) &&
-      !filteredData.filter(room => room.bookings.length === 0)
-  }
-  return filteredData
-}
+};

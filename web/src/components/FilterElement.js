@@ -3,19 +3,15 @@ import Button from './Button'
 import moment from 'moment'
 import { formatTime, startTimeSelectOptions, endTimeSelectOptions } from '../helpers/bookingForm'
 
-function FilterElement({
+const FilterElement = ({
   onSetFloorParam,
   onToggleFeature,
   onToggleCapacity,
-  onSetAvailabilityParam,
   floorParam,
   filterParams,
   capacityParams,
-  availabilityParam,
   date
-}) {
-
-  return (
+}) => 
     <div className="sidebar__box--filter filter">
       <h3 className="header__heading header__heading--sidebar">Filter</h3>
       <form className="form form--filter">
@@ -73,32 +69,75 @@ function FilterElement({
             <label htmlFor="20seats" className="form__label form__label--inline">20 Seats</label>
           </div>
           <div className="form_group">
-            <input type="checkbox" id="24seats" name="24seats" className="form__input--checkbox" defaultChecked={capacityParams[3].value} />
-            <label htmlFor="24seats" className="form__label form__label--inline">24 Seats</label>
+            <input 
+              type="checkbox" 
+              id="24seats" 
+              name="24seats" 
+              className="form__input--checkbox" 
+              defaultChecked={capacityParams[3].value} 
+            />
+            <label htmlFor="24seats" className="form__label form__label--inline">
+              24 Seats
+            </label>
           </div>
           <div className="form_group">
-            <input type="checkbox" id="40seats" name="40seats" className="form__input--checkbox" defaultChecked={capacityParams[4].value} />
-            <label htmlFor="40seats" className="form__label form__label--inline">40 Seats</label>
+            <input 
+              type="checkbox" 
+              id="40seats" 
+              name="40seats" 
+              className="form__input--checkbox" 
+              defaultChecked={capacityParams[4].value} 
+            />
+            <label htmlFor="40seats" className="form__label form__label--inline">
+              40 Seats
+            </label>
           </div>
         </div>
         <h4 className="form__heading form__heading--filter">Availability</h4>
-          <div onChange={(event) => onSetAvailabilityParam(event.target.value)} >
+        <div 
+          //  onChange={event => onSetAvailabilityParam(event.target.value)}
+        >
             <div className="form_group">
-              <input type="radio" id="fullyAvailable" value="fullyAvail" name="availability" className="form__input--radio" defaultChecked={availabilityParam === 'fullyAvail' ? true : false} />
-              <label htmlFor="fullyAvailable" className="form__label form__label--inline">Fully Available</label>
+              <input 
+                type="radio" 
+                id="fullyAvailable" 
+                value="fullyAvail" 
+                name="availability" 
+                className="form__input--radio" 
+                defaultChecked={false} 
+             />
+             <label htmlFor="fullyAvailable" className="form__label form__label--inline">
+               Fully Available
+             </label>
             </div>
             <div className="form_group">
-              <input type="radio" id="partialAvailable" value="partAvail" name="availability" className="form__input--radio" defaultChecked={availabilityParam === 'partAvail' ? true : false} />
-              <label htmlFor="partialAvailable" className="form__label form__label--inline">Partially Available</label>
+              <input 
+                type="radio" 
+                id="partialAvailable" 
+                value="partAvail" 
+                name="availability" 
+                className="form__input--radio" 
+                defaultChecked={false} 
+              />
+              <label htmlFor="partialAvailable" className="form__label form__label--inline">
+                Partially Available
+              </label>
             </div>
             <div className="form_group">
-              <input type="radio" id="fullyBooked" value="fullBooked" name="availability" className="form__input--radio" defaultChecked={availabilityParam === 'fullBooked' ? true : false} />
-              <label htmlFor="fullyBooked" className="form__label form__label--inline">Fully Booked</label>
+              <input 
+                type="radio" 
+                id="fullyBooked" 
+                value="fullBooked" 
+                name="availability" 
+                className="form__input--radio" 
+                defaultChecked={false} 
+              />
+              <label htmlFor="fullyBooked" className="form__label form__label--inline">
+                Fully Booked
+              </label>
             </div>
           </div>
       </form>
-    </div>
-  )
-}
+    </div>;
 
-export default FilterElement
+export default FilterElement;

@@ -1,32 +1,29 @@
-import React from 'react'
-import moment from 'moment'
+import moment from 'moment';
 
 const formatAssetName = asset => {
   if (asset === 'opWalls') {
-    return 'Operable Walls'
+    return 'Operable Walls';
   } else if (asset === 'pcLab') {
-    return 'PC Lab'
+    return 'PC Lab';
   } else if (asset === 'macLab') {
     return 'Mac Lab'
   } else if (asset === 'tv') {
-    return 'TV'
+    return 'TV';
   } else if (asset === 'whiteBoard') {
     return 'Whiteboard'
   } else if (asset === 'projector') {
-    return 'Projector'
+    return 'Projector';
   }
-}
+};
 
 // Accepts the search date in 'YYYY/MM/DD' format and all of a room's bookings and filters the array for bookings that match the search date
-const dailyBookings = (currentDate, roomBookings) => {
-  const filteredBookings = roomBookings.filter(booking => 
+const dailyBookings = (currentDate, roomBookings) => 
+  roomBookings.filter(booking => 
     moment(booking.bookingStart).format('YYYY-MM-DD') === moment(currentDate).format('YYYY-MM-DD')
   )
-  return filteredBookings
-}
 
 // A function to take the bookings for a particular room on a given date and insert them into an array which maps each hour of that day
-const bookingArray = (filteredBookings) => {
+const bookingArray = filteredBookings => {
   // An array from 1 to 24 representing each hour of the day
   let dayHours = [...Array(24).keys()]
 
@@ -35,14 +32,14 @@ const bookingArray = (filteredBookings) => {
      const dateTime = new Date(startTime);
      startTime = dateTime.getHours();
 
-    let duration = booking.duration
-    let finalHour = startTime + duration
+    let duration = booking.duration;
+    let finalHour = startTime + duration;
 
     // Push each booking into the relevant hour in the 24 hour array
     // Loop from the beginning of the start hour to the end of the final hour (rounding half hours)
     for (let i = Math.floor(startTime); i < Math.ceil(finalHour); i++) {
       // Create a copy of the booking to customise for each hour
-      let bookingData = Object.assign({}, booking)
+      let bookingData = Object.assign({}, booking);
 
       // Check if the total booking is half-hour long and begins on the half hour
       if (duration === 0.5 && startTime % 1 !== 0) {
@@ -68,10 +65,10 @@ const bookingArray = (filteredBookings) => {
                       bookingData :
                       [dayHours[i], bookingData]
     }
-  })
+  });
 
   // Return the 24 hour array with all booking objects added to each hour they apply to
   return dayHours
-}
+};
 
-export { formatAssetName, dailyBookings, bookingArray }
+export { formatAssetName, dailyBookings, bookingArray };
