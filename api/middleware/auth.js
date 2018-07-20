@@ -77,4 +77,4 @@ module.exports = {
   signIn: passport.authenticate('local', { session: false }),
   requireJWT: passport.authenticate('jwt', { session: false }),
   signJWTForUser
-}
+};

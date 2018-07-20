@@ -158,8 +158,6 @@ class App extends Component {
         }
       })
     })
-    console.log('todays bookings:', todaysBookings)
-    // return todaysBookings
   }
 
   loadMyBookings = () => {

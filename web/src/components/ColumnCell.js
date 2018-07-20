@@ -9,7 +9,6 @@ const ColumnCell = props => {
   // Add the day's bookings to a 24 hour array
   let dayHours = bookingArray(bookings)
 
-  console.log(dayHours)
 
   // Extract the corresponding data for a single hour from the 24 hour array
   let bookingData = dayHours[props.hour]

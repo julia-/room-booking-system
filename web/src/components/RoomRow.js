@@ -19,7 +19,6 @@ const rowMapper = (
     // If the data for that hour is a number (not a booking object), there is no booking
     // Add a <td> element that indicates the time slot is available
     if (typeof bookingData == 'number') {
-      console.log('one');
       tableRow.push(<td key={`rowMapper${i}`} className="table__cell--available">
           <Link to="/createbooking" onClick={() => {
               onSetRoom(room._id)

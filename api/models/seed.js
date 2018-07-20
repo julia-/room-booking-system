@@ -1,3 +1,4 @@
+require('dotenv').load();
 const Room = require('./Room')
 
 Room.create([
