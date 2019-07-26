@@ -3,10 +3,11 @@ const moment = require('moment')
 const momentTimezone = require('moment-timezone')
 const Room = require('../models/Room')
 const { requireJWT } = require('../middleware/auth')
+const { roomsLogger  } = require('../middleware/rooms')
 
 const router = new express.Router()
 
-router.get('/rooms', requireJWT, (req, res) => {
+router.get('/rooms', (req, res) => {
   Room.find()
     .then(rooms => {
       res.json(rooms)
@@ -14,9 +15,9 @@ router.get('/rooms', requireJWT, (req, res) => {
     .catch(error => {
       res.json({ error })
     })
-})
+});
 
-router.post('/rooms', requireJWT, (req, res) => {
+router.post('/rooms', roomsLogger, (req, res) => {
   Room.create(req.body)
     .then(room => {
       res.status(201).json(room)
@@ -24,12 +25,12 @@ router.post('/rooms', requireJWT, (req, res) => {
     .catch(error => {
       res.status(400).json({ error })
     })
-})
+});
 
 // Function to convert UTC JS Date object to a Moment.js object in AEST
 const dateAEST = date => {
   return momentTimezone(date).tz('Australia/Sydney')
-}
+};
 
 // Function to calculate the duration of the hours between the start and end of the booking
 const durationHours = (bookingStart, bookingEnd) => {
@@ -40,12 +41,11 @@ const durationHours = (bookingStart, bookingEnd) => {
   let difference = moment.duration(endDateLocal.diff(startDateLocal))
   // return the difference in decimal format
   return difference.hours() + difference.minutes() / 60
-}
+};
 
 // Make a booking
-router.put('/rooms/:id', requireJWT, (req, res) => {
+router.put('/rooms/:id', roomsLogger, requireJWT, (req, res) => {
   const { id } = req.params
-
   // If the recurring array is empty, the booking is not recurring
   if (req.body.recurring.length === 0) {
     Room.findByIdAndUpdate(
@@ -74,7 +74,7 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
 
   // If the booking is a recurring booking
   } else {
-    
+
     // The first booking in the recurring booking range
     let firstBooking = req.body
     firstBooking.user = req.user    
@@ -104,7 +104,6 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
     
     // Each loop will represent a potential booking in this range 
     for (let i = 0; i < bookingsInRange; i++) {
-      
       // Add one unit to the booking tracker to get the date of the potential booking
       let proposedBookingDateStart = bookingDateTracker.add(1, units)
     
@@ -126,7 +125,6 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
         recurringBookings.push(newBooking)
       }
     }
-    
 
     // Find the relevant room and save the bookings
     Room.findByIdAndUpdate(
@@ -148,7 +146,7 @@ router.put('/rooms/:id', requireJWT, (req, res) => {
         res.status(400).json({ error })
       })
   }
-})
+});
 
 // Delete a booking
 router.delete('/rooms/:id/:bookingId', requireJWT, (req, res) => {
@@ -165,6 +163,6 @@ router.delete('/rooms/:id/:bookingId', requireJWT, (req, res) => {
     .catch(error => {
       res.status(400).json({ error })
     })
-})
+});
 
 module.exports = router

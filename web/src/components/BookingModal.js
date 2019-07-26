@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactModal from 'react-modal'
 import momentTimezone from 'moment-timezone'
+import moment from 'moment';
 import Button from './Button'
 import { findRoomInfo } from '../helpers/bookingForm.js'
 
@@ -26,15 +27,17 @@ const BookingModal = props => {
       <h3 className="modal__title">Booking Details</h3>
       {!!props.selectedBooking && (
         <div className="modal__boday">
-          <p className="modal__paragraph">{findRoomInfo(props.selectedBooking.roomId, props.roomData).name}{', Level '}
-          {findRoomInfo(props.selectedBooking.roomId, props.roomData).floor}</p>
-          <p className="modal__paragraph">{`${momentTimezone
-              .tz(props.selectedBooking['bookingStart'], 'Australia/Sydney')
-            .format('h.mma')} to ${momentTimezone
-              .tz(props.selectedBooking['bookingEnd'], 'Australia/Sydney')
-              .format('h.mma')}`}
-            <p className="modal__paragraph">{`${momentTimezone.tz(props.selectedBooking['bookingStart'], 'Australia/Sydney').format('MMMM Do, YYYY')} to ${momentTimezone.tz(props.selectedBooking['bookingEnd'], 'Australia/Sydney').format('MMMM Do, YYYY')}`}
+          <p className="modal__paragraph">
+            {findRoomInfo(props.selectedBooking.roomId, props.roomData).name}{', Level '}
+            {findRoomInfo(props.selectedBooking.roomId, props.roomData).floor}
           </p>
+          <p className="modal__paragraph">
+            {`${moment(props.selectedBooking['bookingStart']).format('h.mma')} to ${moment(props.selectedBooking['bookingEnd']).format('h.mma')}`}
+            <br />
+            <br />
+            <span className="modal__paragraph">
+              {`${moment(props.selectedBooking['bookingStart']).format('MMMM Do, YYYY')} to ${moment(props.selectedBooking['bookingEnd']).format('MMMM Do, YYYY')}`}
+            </span>
           </p>
           <p className="modal__paragraph"><strong>Business Unit </strong>{props.selectedBooking['businessUnit']}</p>
           <p className="modal__paragraph"><strong>Purpose </strong>{props.selectedBooking['purpose']}</p>

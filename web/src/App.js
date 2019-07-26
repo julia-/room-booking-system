@@ -1,36 +1,27 @@
-import React, { Component, Fragment } from 'react'
+import moment from 'moment';
+import React, { Component, Fragment } from 'react';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { signIn, signOut, signUp } from './api/auth';
+import { deleteBooking, makeBooking, updateStateRoom } from './api/booking';
+import { listRooms } from './api/rooms';
+import { getDecodedToken } from './api/token';
+import BookingForm from './components/BookingForm';
+import BookingModal from './components/BookingModal';
+import Calendar from './components/Calendar';
+import FilterElement from './components/FilterElement';
+import Key from './components/Key';
+import MyBookings from './components/MyBookings';
+import NavBar from './components/NavBar';
+import RoomsList from './components/RoomsList';
+import SignInForm from './components/SignInForm';
+import SignUpForm from './components/SignUpForm';
+import './css/style.css';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom'
-import './css/style.css'
-import moment from 'moment'
+  filterParams,
+  onFilterByFeature,
 
-import BookingForm from './components/BookingForm'
-import Button from './components/Button'
-import FilterElement from './components/FilterElement'
-import Footer from './components/Footer'
-import Key from './components/Key'
-import MyBookings from './components/MyBookings'
-import NavBar from './components/NavBar'
-import RoomsList from './components/RoomsList'
-import SignInForm from './components/SignInForm'
-import SignUpForm from './components/SignUpForm'
-
-import {
-  signIn,
-  signOut,
-  signUp
-} from './api/auth'
-import { listRooms } from './api/rooms'
-import { getDecodedToken } from './api/token'
-import { makeBooking, deleteBooking, updateStateRoom } from './api/booking'
-import Calendar from './components/Calendar'
-import BookingModal from './components/BookingModal'
-import { floorParams, filterParams, capacityParams, onFilterByFloor, onFilterByFeature, onFilterByCapacity, onFilterByAvailablity } from './helpers/filters'
-import { initialRoom } from './helpers/rooms'
+  onFilterByFloor
+} from './helpers/filters';
 
 class App extends Component {
   state = {
@@ -40,15 +31,14 @@ class App extends Component {
     calendarDate: new Date(),
     selectedBooking: null,
     filterParams: filterParams,
-    capacityParams: capacityParams,
+
     floorParam: 'all',
-    availabilityParam: null,
     filteredData: null,
     checked: null,
     currentRoom: null,
     error: null,
     disableRecurring: true
-  }
+  };
 
   // Pass supplied first name, lastname, email & password to the signUp function, returns the user's token
   onSignUp = ({ firstName, lastName, email, password }) => {
@@ -70,13 +60,11 @@ class App extends Component {
     this.setState({ decodedToken: null })
   }
 
-  setCalendarDate = date => {
-    this.setState({ calendarDate: date })
+  setCalendarDate = calendarDate => {
+    this.setState({ calendarDate })
   }
 
-  onShowBooking = booking => {
-    const selectedBooking = booking
-    console.log('selectedBooking', selectedBooking)
+  onShowBooking = selectedBooking => {
     this.setState(() => ({ selectedBooking }))
   }
 
@@ -105,7 +93,6 @@ class App extends Component {
       alert(
         'Your booking could not be saved. Please ensure it does not clash with an existing booking and that it is a valid time in the future.'
       )
-      console.log(err)
     }
   }
 
@@ -120,7 +107,6 @@ class App extends Component {
           this.loadMyBookings,
         )
       })
-      .catch(error => console.error(error.message))
   }
 
   setRoom = id => {
@@ -140,17 +126,6 @@ class App extends Component {
     this.setState({ filterParams: filterParams })
   }
 
-  // setting the capacity filter parameters
-  onToggleCapacity = capacity => {
-    // Get the capacity parameters
-    let capacityParams = this.state.capacityParams
-    // Find the capacity parameter that matches the the passed parameter
-    let capacityParam = capacityParams.find(param => param.id === capacity)
-    // Toggle the value of the parameter, eg if false, set to true
-    capacityParam.value = !capacityParam.value
-    // Set state with the updated capacity parameters
-    this.setState({ capacityParams: capacityParams })
-  }
 
   // changing the boolean value for the display attribute for the recurring date input
   onToggleRecurring = (value) => {
@@ -160,17 +135,12 @@ class App extends Component {
     } else {
       disableRecurring = false
     }
-    this.setState({disableRecurring: disableRecurring})
+    this.setState({ disableRecurring: disableRecurring })
   }
 
   onSetFloorParam = value => {
-		this.setState({ floorParam: value })
+    this.setState({ floorParam: value })
   }
-
-  onSetAvailabilityParam = availability => {
-    this.setState({ availabilityParam: availability })
-  }
-
   // get today's bookings for all rooms
   oneSetCurrentDateBookings = () => {
     const currentDate = moment().format('DD-MM-YYYY')
@@ -188,12 +158,10 @@ class App extends Component {
         }
       })
     })
-    console.log('todays bookings:', todaysBookings)
-    // return todaysBookings
   }
 
   loadMyBookings = () => {
-    let myBookings = []
+    let userBookings = []
     const userId = this.state.decodedToken.sub
     // Loop through all the rooms
     this.state.roomData.forEach(room => {
@@ -202,12 +170,12 @@ class App extends Component {
         if (booking.user === userId) {
           // Push all bookings where the current userId is equal to the booking's userId into myBookings
           booking.roomId = room._id
-          myBookings.push(booking)
+          userBookings.push(booking)
         }
       })
     })
-    this.setState({ userBookings: myBookings })
-  }
+    this.setState({ userBookings });
+  };
 
   render() {
     const {
@@ -218,9 +186,8 @@ class App extends Component {
       calendarDate,
       selectedBooking,
       filterParams,
-      capacityParams,
+
       floorParam,
-      availabilityParam,
       disableRecurring,
       loading
     } = this.state
@@ -236,45 +203,137 @@ class App extends Component {
     const date = this.state.currentDate
 
     if (!!roomData) {
-      // Send all room data and the selected floor, return filtered floors and store in filteredData
-      filteredData = onFilterByFloor(floorParam, roomData)
+
+      filteredData = onFilterByFloor(floorParam, roomData);
       // Send the previously filtered data along with the feature params
-      filteredData = onFilterByFeature(featureParams, filteredData)
-      // Send the previously filtered data along with the capacity params
-      filteredData = onFilterByCapacity(capacityParams, filteredData)
-      // Send the previously filtered data along with the availability
-      filteredData = onFilterByAvailablity(availabilityParam, filteredData)
+      filteredData = onFilterByFeature(featureParams, filteredData);
     }
 
     const requireAuth = render => () =>
       signedIn ? render() : <Redirect to="/" />
 
     return (
-      <Router>
+      <BrowserRouter>
         <div id="app" className="App">
           <Fragment>
-              <Switch>
-                <Route path="/" exact render={() => (!!decodedToken && signedIn ?
-                  (<Redirect to="/bookings" />) :
-                  (<div className="wrapper__form">
-                      <div className="header__page">
-                        <h2 className="header__heading header__heading--sub--alt">Sign in with email</h2>
-                      </div>
-                      <SignInForm onSignIn={this.onSignIn} />
-                      <h3 className="header__heading header__heading--sub--alt">Don't have an account?</h3>
-                      <SignUpForm onSignUp={this.onSignUp} />
-                    </div>
-                  )
-                )} />
+            <Switch>
+              <Route path="/" exact render={() => (!!decodedToken && signedIn ?
+                (<Redirect to="/bookings" />) :
+                (<div className="wrapper__form">
+                  <div className="header__page">
+                    <h2 className="header__heading header__heading--sub--alt">Sign in with email</h2>
+                  </div>
+                  <SignInForm onSignIn={this.onSignIn} />
+                  <h3 className="header__heading header__heading--sub--alt">Don't have an account?</h3>
+                  <SignUpForm onSignUp={this.onSignUp} />
+                </div>
+                )
+              )} />
 
-                <Route path="/bookings" exact render={requireAuth(() => (
-                  <Fragment>
-                    { !!decodedToken && !roomData && loading && (
-                      <div className="loading_animation">
-                        <Loading />
+              <Route path="/bookings" exact render={requireAuth(() => (
+                <Fragment>
+                  {!!decodedToken && !roomData && loading && (
+                    <div className="loading_animation">
+                      <Loading />
+                    </div>
+                  )}
+                  {!!decodedToken && !!roomData && !loading && (
+                    <div className="wrapper">
+                      <div className="header header__nav header--flex">
+                        <h1 className="header__heading header__heading--main">Company Name Here</h1>
+                        <NavBar
+                          signOut={signOut}
+                          loadMyBookings={loadMyBookings}
+                          user={signedIn ? decodedToken.sub : null}
+                        />
                       </div>
-                    ) }
-                    {!!decodedToken && !!roomData && !loading && (
+                      <div className="wrapper__content">
+                        <div className="header__page">
+                          <h2 className="header__heading header__heading--sub">Book a room | {moment(calendarDate).format('MMMM Do YYYY')}</h2>
+                        </div>
+                        <div className="sidebar">
+                          <div className="sidebar__box">
+                            <Calendar setCalendarDate={setCalendarDate} />
+                          </div>
+                          <div className="sidebar__box">
+                            <FilterElement
+                              onToggleFeature={this.onToggleFeature}
+                              filterParams={filterParams}
+                              onSetTimeFilterParams={this.onSetTimeFilterParams}
+                              floorParam={floorParam}
+                              date={calendarDate}
+                            />
+                          </div>
+                          <div className="sidebar__box">
+                            <Key />
+                          </div>
+                        </div>
+                        <div className="content">
+                          <RoomsList
+                            rooms={filteredData}
+                            onRoomSelect={this.onRoomSelect}
+                            onShowBooking={this.onShowBooking}
+                            date={calendarDate}
+                            onSetRoom={this.setRoom}
+                          />
+                        </div>
+                      </div>
+                      <BookingModal
+                        selectedBooking={selectedBooking}
+                        onCloseBooking={this.onCloseBooking}
+                        onDeleteBooking={onDeleteBooking}
+                        roomData={roomData}
+                        user={decodedToken.email}
+                      />
+                    </div>
+                  )}
+                </Fragment>
+              ))} />
+
+              <Route path="/createbooking" exact render={requireAuth(
+                () => (
+                  <Fragment>
+                    {!!decodedToken &&
+                      !!roomData &&
+                      !!currentRoom && (
+                        <div className="wrapper">
+                          <header className="header header__nav header--flex">
+                            <h1 className="header__heading header__heading--main">Company Name Here</h1>
+                            <NavBar
+                              signOut={signOut}
+                              loadMyBookings={loadMyBookings}
+                              user={signedIn ? decodedToken.sub : null}
+                            />
+                          </header>
+                          <div className="wrapper__content">
+                            <BookingForm
+                              user={decodedToken.email}
+                              roomData={currentRoom}
+                              onMakeBooking={this.onMakeBooking}
+                              date={calendarDate}
+                              disableRecurring={disableRecurring}
+                              updateCalendar={setCalendarDate}
+                              onShowBooking={this.onShowBooking}
+                              onToggleRecurring={this.onToggleRecurring}
+                            />
+                          </div>
+                          <BookingModal
+                            selectedBooking={selectedBooking}
+                            onCloseBooking={this.onCloseBooking}
+                            onDeleteBooking={onDeleteBooking}
+                            roomData={roomData}
+                            user={decodedToken.email}
+                          />
+                        </div>
+                      )}
+                  </Fragment>
+                )
+              )} />
+
+              <Route path="/mybookings" exact render={requireAuth(() => (
+                <Fragment>
+                  {!!decodedToken &&
+                    !!roomData && (
                       <div className="wrapper">
                         <div className="header header__nav header--flex">
                           <h1 className="header__heading header__heading--main">Company Name Here</h1>
@@ -284,139 +343,38 @@ class App extends Component {
                             user={signedIn ? decodedToken.sub : null}
                           />
                         </div>
-                        <div className="wrapper__content">
+                        <div className="wrapper__content--bookings">
                           <div className="header__page">
-                            <h2 className="header__heading header__heading--sub">Book a room | {moment(calendarDate).format('MMMM Do YYYY')}</h2>
+                            <h2 className="header__heading header__heading--sub">
+                              My Bookings
+                                </h2>
                           </div>
-                          <div className="sidebar">
-                            <div className="sidebar__box">
-                              <Calendar setCalendarDate={setCalendarDate} />
-                            </div>
-                            <div className="sidebar__box">
-                              <FilterElement
-                                onSetFloorParam={this.onSetFloorParam}
-                                onToggleFeature={this.onToggleFeature}
-                                onToggleCapacity={this.onToggleCapacity}
-                                onSetAvailabilityParam={
-                                  this.onSetAvailabilityParam
-                                }
-                                filterParams={filterParams}
-                                capacityParams={capacityParams}
-                                floorParam={floorParam}
-                                availabilityParam={availabilityParam}
-                                onSetTimeFilterParams={this.onSetTimeFilterParams}
-                                date={calendarDate}
-                              />
-                            </div>
-                            <div className="sidebar__box">
-                              <Key />
-                            </div>
-                          </div>
-                          <div className="content">
-                            <RoomsList
-                              rooms={filteredData}
-                              onRoomSelect={this.onRoomSelect}
-                              onShowBooking={this.onShowBooking}
-                              date={calendarDate}
-                              onSetRoom={this.setRoom}
-                            />
-                          </div>
-                         </div>
-                        <BookingModal
-                          selectedBooking={selectedBooking}
-                          onCloseBooking={this.onCloseBooking}
-                          onDeleteBooking={onDeleteBooking}
-                          roomData={roomData}
-                          user={decodedToken.email}
-                        />
+                          <MyBookings
+                            roomData={roomData}
+                            user={decodedToken.email}
+                            userBookings={userBookings}
+                            onDeleteBooking={onDeleteBooking}
+                          />
+                        </div>
                       </div>
                     )}
-                  </Fragment>
-                ))} />
+                </Fragment>
+              ))} />
 
-                <Route path="/createbooking" exact render={requireAuth(
-                  () => (
-                    <Fragment>
-                      {!!decodedToken &&
-                        !!roomData &&
-                        !!currentRoom && (
-                          <div className="wrapper">
-                            <header className="header header__nav header--flex">
-                              <h1 className="header__heading header__heading--main">Company Name Here</h1>
-                              <NavBar
-                                signOut={signOut}
-                                loadMyBookings={loadMyBookings}
-                                user={signedIn ? decodedToken.sub : null}
-                              />
-                            </header>
-                            <div className="wrapper__content">
-                              <BookingForm
-                                user={decodedToken.email}
-                                roomData={currentRoom}
-                                onMakeBooking={this.onMakeBooking}
-                                date={calendarDate}
-                                disableRecurring={disableRecurring}
-                                updateCalendar={setCalendarDate}
-                                onShowBooking={this.onShowBooking}
-                                onToggleRecurring={this.onToggleRecurring}
-                              />
-                            </div>
-                              <BookingModal
-                                selectedBooking={selectedBooking}
-                                onCloseBooking={this.onCloseBooking}
-                                onDeleteBooking={onDeleteBooking}
-                                roomData={roomData}
-                                user={decodedToken.email}
-                              />
-                        </div>
-                      )}
-                    </Fragment>
-                  )
-                )} />
-
-                <Route path="/mybookings" exact render={requireAuth(() => (
-                    <Fragment>
-                      {!!decodedToken &&
-                        !!roomData && (
-                          <div className="wrapper">
-                            <div className="header header__nav header--flex">
-                              <h1 className="header__heading header__heading--main">Company Name Here</h1>
-                              <NavBar
-                                signOut={signOut}
-                                loadMyBookings={loadMyBookings}
-                                user={signedIn ? decodedToken.sub : null}
-                              />
-                            </div>
-                            <div className="wrapper__content--bookings">
-                              <div className="header__page">
-                                <h2 className="header__heading header__heading--sub">My Bookings</h2>
-                              </div>
-                              <MyBookings
-                                roomData={roomData}
-                                user={decodedToken.email}
-                                userBookings={userBookings}
-                                onDeleteBooking={onDeleteBooking}
-                              />
-                            </div>
-                          </div>
-                        )}
-                    </Fragment>
-                  ))} />
-
-                <Route render={({ location }) => <h2>
-                      {' '}
-                      Page Not Found: {location.pathname}{' '}
-                    </h2>} />
+              <Route render={({ location }) => <h2>
+                {' '}
+                Page Not Found: {location.pathname}{' '}
+              </h2>} />
             </Switch>
           </Fragment>
         </div>
-      </Router>
+      </BrowserRouter>
     )
   }
 
   load() {
-    const { decodedToken } = this.state
-    const signedIn = !!decodedToken
+    const { decodedToken } = this.state;
+    const signedIn = !!decodedToken;
 
     if (signedIn) {
       // display loading page
@@ -442,18 +400,18 @@ class App extends Component {
 
   // When the App first renders
   componentDidMount() {
-    this.load()
-  }
+    this.load();
+  };
 
   // When state changes
   componentDidUpdate(prevProps, prevState) {
     // If just signed in, signed up, or signed out,
     // then the token will have changed
     if (this.state.decodedToken !== prevState.decodedToken) {
-      this.load()
+      this.load();
     }
-  }
+  };
 
 }
 
-export default App
+export default App;

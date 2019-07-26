@@ -35,10 +35,6 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
   // Array used for handleData function
   let dateArray = []
 
-  // Update the current date in the application state
-  const handleDate = event => {
-    updateCalendar(moment(event)._i)
-  }
 
   return (
     <Fragment>
@@ -78,7 +74,7 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             input={false}
             utc={true}
             isValidDate={valid}
-            onChange={event => handleDate(event._d)}
+            onChange={updateCalendar}
         />
         </div>
         <div className="content__table">
@@ -90,9 +86,14 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             <label className="form__label form__label--booking">
               {'Start time'}
               <select name="startTime" className="form__input form__input--select">
-                {startTimeSelectOptions.map(option => {
-                  return option
-                })}
+                {startTimeSelectOptions.map((options,key) => 
+                    <option 
+                      key={`startTime${key}`}
+                      value={options.time}
+                    >
+                      {options.display}
+                    </option>
+                )}
               </select>
             </label>
           </div>
@@ -100,9 +101,14 @@ function BookingForm({ onMakeBooking, user, roomData, date, updateCalendar, onSh
             <label className="form__label form__label--booking">
               {'End time'}
               <select name="endTime" className="form__input form__input--select">
-                {endTimeSelectOptions.map(option => {
-                  return option
-                })}
+                {endTimeSelectOptions.map((options,key) => 
+                    <option 
+                      key={`endTime${key}`}
+                      value={options.time}
+                    >
+                      {options.display}
+                    </option>
+                )}
               </select>
             </label>
           </div>

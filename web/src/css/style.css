@@ -36,11 +36,13 @@
   border-bottom-width: 0;
   border-left-width: 0;
 }
-.table--booking--split .table__cell span:first-child {
+.table--booking--split .table__cell span.first {
   border-right: 0.1rem solid #cecece;
+  background: hotpink;
 }
-.table--booking--split .table__cell span:last-child {
+.table--booking--split .table__cell span.second {
   border-left: 0.1rem solid #cecece;
+  background: mediumseagreen;
 }
 .table__row--full {
   height: 6rem;
@@ -504,7 +506,7 @@ td.rdtYear:hover {
   width: 50%;
 }
 .table__cell--business-unit-1.table__cell--second-half-hour {
-  background: #70d6ff;
+  background: #7026ff;
   cursor: pointer;
   display: block;
   float: right;

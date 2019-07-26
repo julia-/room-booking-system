@@ -1,5 +1,3 @@
-import React from 'react'
-import moment from 'moment'
 import api from './init'
 
 export function listRooms() {
