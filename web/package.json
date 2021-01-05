@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.20.1",
     "moment-timezone": "^0.5.14",
