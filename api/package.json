@@ -11,7 +11,7 @@
     "jsonwebtoken": "^8.1.0",
     "moment": "^2.20.1",
     "moment-timezone": "^0.5.14",
-    "mongoose": "^4.13.9",
+    "mongoose": "^5.7.5",
     "mongoose-timestamp": "^0.6.0",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
