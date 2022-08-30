@@ -6,7 +6,7 @@
     "axios": "^0.17.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.20.1",
-    "moment-timezone": "^0.5.14",
+    "moment-timezone": "^0.5.35",
     "normalize.css": "^7.0.0",
     "query-string": "^5.0.1",
     "react": "^16.2.0",
